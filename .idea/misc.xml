@@ -9,8 +9,24 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="917" />
+          <option name="caretOffset" value="387" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/build.gradle" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="86" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/App.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="18" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_amazon.proto" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="18" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_ups.proto" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="110" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/protocol/WorldAmazon.java" />
         </OpenedFileInfo>
       </list>
     </option>

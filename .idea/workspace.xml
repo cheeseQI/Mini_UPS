@@ -4,11 +4,152 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
+    <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MyBatisUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/TruckMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/messaging/BuilderUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/messaging/Communicator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/messaging/SocketClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/PackageMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/TruckMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/messaging/SocketClientTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4.1/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/world_amazon.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/world_amazon.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/world_ups.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/world_ups.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ACommands$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ACommands$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ACommands.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ACommandsOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnect$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnect$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnectOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnected$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnected$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnected.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AConnectedOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AErr$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AErr$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AErr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AErrOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AInitWarehouse$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AInitWarehouse$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AInitWarehouse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AInitWarehouseOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ALoaded$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ALoaded$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ALoaded.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$ALoadedOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APack$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APack$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackage$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackage$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackageOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APacked$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APacked$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APacked.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APackedOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AProduct$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AProduct$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AProduct.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AProductOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APurchaseMore$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APurchaseMore$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APurchaseMore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APurchaseMoreOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APutOnTruck$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APutOnTruck$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APutOnTruck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$APutOnTruckOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AQuery$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AQuery$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AQuery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AQueryOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AResponses$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AResponses$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AResponses.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon$AResponsesOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldAmazon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UCommands$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UCommands$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UCommands.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UCommandsOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnect$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnect$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnectOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnected$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnected$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnected.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UConnectedOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryLocation$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryLocation$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryLocation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryLocationOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryMade$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryMade$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryMade.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UDeliveryMadeOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UErr$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UErr$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UErr.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UErrOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UFinished$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UFinished$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UFinished.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UFinishedOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoDeliver$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoDeliver$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoDeliver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoDeliverOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoPickup$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoPickup$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoPickup.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UGoPickupOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UInitTruck$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UInitTruck$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UInitTruck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UInitTruckOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UQuery$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UQuery$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UQuery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UQueryOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UResponses$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UResponses$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UResponses.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UResponsesOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UTruck$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UTruck$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UTruck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps$UTruckOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/WorldUps.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/AppTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/default-package.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-AppTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/world_simulator_exec" beforeDir="false" afterPath="$PROJECT_DIR$/world_simulator_exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/world_simulator_exec/docker_deploy/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/world_simulator_exec/docker_deploy/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +164,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
+        <option value="JUnit3 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -44,6 +187,79 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3" value="junit.framework.TestCase" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="messaging" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="hw5_proj.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SocketClientTest.testConnect" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;messaging.SocketClientTest.testConnect&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="SocketClientTest.testSendMessage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;messaging.SocketClientTest.testSendMessage&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.SocketClientTest.testSendMessage" />
+        <item itemvalue="Gradle.SocketClientTest.testConnect" />
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -54,7 +270,8 @@
       <option name="presentableId" value="Default" />
       <updated>1681679399773</updated>
       <workItem from="1681679403030" duration="1767000" />
-      <workItem from="1681682265754" duration="1416000" />
+      <workItem from="1681682265754" duration="1985000" />
+      <workItem from="1681760598638" duration="5718000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681687892775</created>
@@ -63,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681687892776</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first commit">
+      <created>1681689409077</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681689409077</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

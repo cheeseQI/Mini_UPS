@@ -9,24 +9,28 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="387" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/build.gradle" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="86" />
+          <option name="caretOffset" value="1264" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/App.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="18" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_amazon.proto" />
+          <option name="caretOffset" value="82" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/Communicator.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="18" />
+          <option name="caretOffset" value="716" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_ups.proto" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="110" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/protocol/WorldAmazon.java" />
+          <option name="caretOffset" value="492" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/messaging/SocketClientTest.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1856" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1657" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/BuilderUtil.java" />
         </OpenedFileInfo>
       </list>
     </option>

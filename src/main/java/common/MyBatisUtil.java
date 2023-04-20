@@ -1,3 +1,5 @@
+package common;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,5 +23,9 @@ public class MyBatisUtil {
 
     public static SqlSession getSqlSession() {
         return sqlSessionFactory.openSession();
+    }
+
+    public static SqlSessionFactory getSqlSessionFactory() {
+        return sqlSessionFactory;
     }
 }

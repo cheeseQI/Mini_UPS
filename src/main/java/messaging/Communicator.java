@@ -9,5 +9,4 @@ public interface Communicator {
     void connect();
     void disconnect();
     void sendMessage(Message message) throws IOException;
-    WorldUps.UResponses receiveMessage();
 }

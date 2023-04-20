@@ -1,4 +1,4 @@
-package messaging;
+package common;
 
 import com.google.protobuf.Message;
 import protocol.WorldUps;
@@ -57,11 +57,6 @@ public class BuilderUtil {
     public static WorldUps.UQuery buildUQuery(int truckId, long seqNum) {
         WorldUps.UQuery.Builder builder = WorldUps.UQuery.newBuilder();
         builder.setTruckid(truckId).setSeqnum(seqNum);
-        return builder.build();
-    }
-
-    public static WorldUps.UCommands buildUCommand() {
-        WorldUps.UCommands.Builder builder = WorldUps.UCommands.newBuilder();
         return builder.build();
     }
 

@@ -37,6 +37,11 @@ public class UserTest extends TestCase {
         System.out.println(userMapper.findByUserId(747));
     }
 
+    public void testClean() {
+        userMapper.deleteAll();
+        sqlSession.commit();
+    }
+
 //    @Override
 //    protected void tearDown() throws Exception {
 //        userMapper.deleteAll();

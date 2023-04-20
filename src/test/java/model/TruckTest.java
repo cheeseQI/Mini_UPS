@@ -32,4 +32,9 @@ public class TruckTest extends TestCase {
         sqlSession.commit();
         testGetTruckId();
     }
+
+    public void testClean() {
+        truckMapper.deleteAll();
+        sqlSession.commit();
+    }
 }

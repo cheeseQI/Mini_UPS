@@ -3,19 +3,19 @@ package messaging;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
-import protocol.WorldUps;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class SocketClient implements Communicator {
-
-    private String host;
-    private int port;
-    private Socket socket;
-    private CodedInputStream codedInputStream;
-    private CodedOutputStream codedOutputStream;
+public abstract class SocketClient implements Communicator{
+    protected String host;
+    protected int port;
+    protected Socket socket;
+    protected CodedInputStream codedInputStream;
+    protected CodedOutputStream codedOutputStream;
 
     public SocketClient(String host, int port) {
         this.host = host;
@@ -40,27 +40,6 @@ public class SocketClient implements Communicator {
     }
 
     @Override
-    public void disconnect() {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            System.err.println("Error disconnecting from " + host + ":" + port);
-            e.printStackTrace();
-        }
-    }
-
-    public WorldUps.UConnected receiveUConnected() {
-        try {
-            return WorldUps.UConnected.parseFrom(codedInputStream.readByteArray());
-        } catch (IOException e) {
-            System.err.println("Error receiving message from " + host + ":" + port);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    //todo: resend function for <seq, ugopickup>, <seq, ugodeliver> ...
-    @Override
     public void sendMessage(Message message) {
         try {
             codedOutputStream.writeUInt32NoTag(message.toByteArray().length);
@@ -73,14 +52,12 @@ public class SocketClient implements Communicator {
     }
 
     @Override
-    public WorldUps.UResponses receiveMessage() {
+    public void disconnect() {
         try {
-            return WorldUps.UResponses.parseFrom(codedInputStream.readByteArray());
+            socket.close();
         } catch (IOException e) {
-            System.err.println("Error receiving message from " + host + ":" + port);
+            System.err.println("Error disconnecting from " + host + ":" + port);
             e.printStackTrace();
-            return null;
         }
     }
 }
-

@@ -1,6 +1,7 @@
 package common;
 
 import com.google.protobuf.Message;
+import protocol.AmazonUps;
 import protocol.WorldUps;
 
 import java.util.List;
@@ -23,6 +24,13 @@ public class BuilderUtil {
         return builder.build();
     }
 
+    public static AmazonUps.UAConnect buildUAConnect(long id) {
+        AmazonUps.UAConnect.Builder builder = AmazonUps.UAConnect.newBuilder();
+        builder.setWorldid(id);
+        return builder.build();
+    }
+
+
     public static WorldUps.UConnect buildUConnect(List<WorldUps.UInitTruck> uInitTruckList) {
         WorldUps.UConnect.Builder builder = WorldUps.UConnect.newBuilder();
         builder.setIsAmazon(false);
@@ -38,7 +46,7 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static WorldUps.UDeliveryLocation buildUDeliveryLocation(int packageId, int x, int y) {
+    public static WorldUps.UDeliveryLocation buildUDeliveryLocation(long packageId, int x, int y) {
         WorldUps.UDeliveryLocation.Builder builder = WorldUps.UDeliveryLocation.newBuilder();
         builder.setPackageid(packageId);
         builder.setX(x);

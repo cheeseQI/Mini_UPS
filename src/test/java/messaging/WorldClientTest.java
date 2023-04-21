@@ -13,7 +13,6 @@ public class WorldClientTest extends TestCase {
 
     public void testConnect() {
         WorldClient worldClient = new WorldClient(host, port);
-        worldClient.connect();
         System.out.println("successful connect");
         worldClient.disconnect();
     }
@@ -21,7 +20,6 @@ public class WorldClientTest extends TestCase {
     public void testSendMessage() {
         TruckService truckService = new TruckService();
         WorldClient worldClient = new WorldClient(host, port);
-        worldClient.connect();
         //WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(1, 1, 3);
         List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
         //uInitTruckList.add(uInitTruck);

@@ -17,13 +17,17 @@ public abstract class SocketClient implements Communicator{
     protected CodedInputStream codedInputStream;
     protected CodedOutputStream codedOutputStream;
 
+    public SocketClient(Socket socket) throws IOException {
+        this.socket = socket;
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
+        codedInputStream = CodedInputStream.newInstance(inputStream);
+        codedOutputStream = CodedOutputStream.newInstance(outputStream);
+    }
+
     public SocketClient(String host, int port) {
         this.host = host;
         this.port = port;
-    }
-
-    @Override
-    public void connect() {
         try {
             socket = new Socket(host, port);
             InputStream inputStream = socket.getInputStream();

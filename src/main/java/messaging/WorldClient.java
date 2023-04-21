@@ -47,10 +47,12 @@ public class WorldClient extends SocketClient {
         sendMessage(uCommandsBuilder.build());
     }
 
-    public void sendUGoDeliver(int truckId, int x, int y, int packageId) {
+    public void sendUGoDeliver(int truckId, int x, int y, long packageId) {
         WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(truckId, BuilderUtil.buildUDeliveryLocation(packageId, x, y), SeqGenerator.incrementAndGet());
         WorldUps.UCommands.Builder uCommandsBuilder = WorldUps.UCommands.newBuilder();
         uCommandsBuilder.addDeliveries(uGoDeliver);
-        sendMessage(uCommandsBuilder.build());}
+        sendMessage(uCommandsBuilder.build());
+    }
+
 }
 

@@ -6,7 +6,6 @@ import protocol.WorldUps;
 import java.io.IOException;
 
 public interface Communicator {
-    void connect();
     void disconnect();
     void sendMessage(Message message) throws IOException;
 }

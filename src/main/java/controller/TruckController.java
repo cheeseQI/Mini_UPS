@@ -7,6 +7,8 @@ import model.Truck;
 import protocol.WorldUps;
 import service.TruckService;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,25 +19,10 @@ public class TruckController {
 
     public TruckController(String host, int port) {
         worldClient = new WorldClient(host, port);
-        worldClient.connect();
         System.out.println("connect to world server successfully!");
         truckService = new TruckService();
     }
-    //todo: may need align passing a world id
-    public void connectAndInit() {
-        //List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
-        List<WorldUps.UInitTruck> uInitTruckList = new ArrayList<>();
-        //uInitTruckList.add(BuilderUtil.buildUInitTruck(1,1,1));
-        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(uInitTruckList);
-        worldClient.sendMessage(uConnect);
-        WorldUps.UConnected uConnected = worldClient.receiveUConnected();
-        System.out.println(uConnected.toString());
-        if (!uConnected.getResult().equals(ConstantUtil.CONNECT_SUCCESS)) {
-            System.out.println(uConnected.getResult());
-            return;
-        }
-        truckService.storeTrucks(uInitTruckList);
-    }
+
 
     public void pickUp(int whid) {
         Truck truck = truckService.findTruckToPickUp();
@@ -52,10 +39,14 @@ public class TruckController {
         //todo: change database
     }
 
-    public void goDeliver(int truckId, int x, int y, int packageId) {
+    public void goDeliver(int truckId, int x, int y, long packageId) {
         worldClient.sendUGoDeliver(truckId,  x, y, packageId);
         System.out.println(worldClient.receiveUResponse());
         //todo: change database
+    }
+
+    public void query() {
+
     }
 
     public void close() {

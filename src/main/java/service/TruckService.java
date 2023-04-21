@@ -21,6 +21,7 @@ public class TruckService {
         return uInitTruckList;
     }
 
+    //todo: atomic
     public void storeTrucks(List<WorldUps.UInitTruck> uInitTruckList) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
@@ -37,7 +38,7 @@ public class TruckService {
     public Truck findTruckToPickUp() {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
-            List<Truck> truckList = truckMapper.findAll();
+            List<Truck> truckList = truckMapper.findAllIdle();
             return truckList.get(0);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,9 @@
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
+import com.google.protobuf.Message;
 import common.ConstantUtil;
 import common.SeqGenerator;
+import controller.TruckController;
 import model.Truck;
 import service.TruckService;
 import common.BuilderUtil;
@@ -8,6 +12,10 @@ import org.apache.ibatis.session.SqlSession;
 import common.MyBatisUtil;
 import protocol.WorldUps;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +24,7 @@ import java.util.List;
  */
 public class App {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         String host = "127.0.0.1";
         int port = 12345;
         int maxRetries = 60;
@@ -41,30 +49,12 @@ public class App {
             return;
         }
         // todo: also need an amazon client
-        WorldClient worldClient = new WorldClient(host, port);
-        worldClient.connect();
-        System.out.println("connect to world server successfully!");
-
-        TruckService truckService = new TruckService();
-        List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
-        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(1, new ArrayList<>());
-        worldClient.sendMessage(uConnect);
-        WorldUps.UConnected uConnected = worldClient.receiveUConnected();
-        System.out.println(uConnected.toString());
-        if (!uConnected.getResult().equals(ConstantUtil.CONNECT_SUCCESS)) {
-            System.out.println(uConnected.getResult());
-            return;
-        }
-
-        System.out.println("ups connect to world simulation successfully!");
-        //truckService.storeTrucks(uInitTruckList);
-        // todo: start thread to do recv and send...
-        Truck truck = truckService.findTruckToPickUp(); //should be got in amazon client and call world client
-        long seqNum = SeqGenerator.incrementAndGet();
-        System.out.println("seq: " + seqNum);
-        worldClient.SendUGoPickup(truck.getTruckId(), 1, seqNum);
-        System.out.println(worldClient.receiveUResponse());
-        worldClient.disconnect();
-
+        // todo: firstly put in amazonclient, after receive then call those parts
+        TruckController truckController = new TruckController(host, port);
+        truckController.connectAndInit();
+        truckController.pickUp(1);
+        truckController.goDeliver(1, 11, 11, 1);
+        //utruck query ...
+        truckController.close();
     }
 }

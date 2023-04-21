@@ -3,6 +3,7 @@ package messaging;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import common.BuilderUtil;
+import common.SeqGenerator;
 import protocol.WorldUps;
 
 import java.io.*;
@@ -39,13 +40,17 @@ public class WorldClient extends SocketClient {
         }
     }
 
-    public void SendUGoPickup(int truckid, int whid, long seqNum) {
-        WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truckid, whid, seqNum);
+    public void sendUGoPickup(int truckId, int whid) {
+        WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truckId, whid, SeqGenerator.incrementAndGet());
         WorldUps.UCommands.Builder uCommandsBuilder = WorldUps.UCommands.newBuilder();
         uCommandsBuilder.addPickups(uGoPickup);
         sendMessage(uCommandsBuilder.build());
     }
 
-    public void UGoDeliver(){}
+    public void sendUGoDeliver(int truckId, int x, int y, int packageId) {
+        WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(truckId, BuilderUtil.buildUDeliveryLocation(packageId, x, y), SeqGenerator.incrementAndGet());
+        WorldUps.UCommands.Builder uCommandsBuilder = WorldUps.UCommands.newBuilder();
+        uCommandsBuilder.addDeliveries(uGoDeliver);
+        sendMessage(uCommandsBuilder.build());}
 }
 

@@ -11,6 +11,9 @@ public interface TruckMapper {
     @Select("SELECT * FROM truck")
     List<Truck> findAll();
 
+    @Select("SELECT * FROM truck where status = 'IDLE'")
+    List<Truck> findAllIdle();
+
     @Select("SELECT * FROM truck WHERE truckId = #{truckId}")
     Truck findByTruckId(@Param("truckId") Integer truckId);
 

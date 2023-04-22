@@ -1,4 +1,4 @@
-import messaging.ServerUA;
+import messaging.Server;
 import org.apache.ibatis.session.SqlSession;
 import common.MyBatisUtil;
 
@@ -9,9 +9,7 @@ import java.io.IOException;
  */
 public class App {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
-        String host = "127.0.0.1";
-        int port = 12345;
+    public static void main(String[] args) throws InterruptedException {
         int maxRetries = 60;
         int retryInterval = 5000; // 等待间隔为 5 秒
         boolean databaseStarted = false;
@@ -33,9 +31,7 @@ public class App {
             System.out.println("Failed to connect to PostgreSQL database after several attempts.");
             return;
         }
-
-        ServerUA serverUA = new ServerUA(); //todo: need a server UU
-        serverUA.run();
-        // todo: manage a socket pool here, select the update from codeinputstream of sockets
+        Server server = new Server();
+        server.start();
     }
 }

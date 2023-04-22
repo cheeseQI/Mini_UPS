@@ -1,5 +1,5 @@
-syntax = "proto2";
 /*UPS connect with Amazon in the same World*/
+syntax = "proto2";
 message UAConnect{
   // An optional field for the world ID that UPS must connect to in Amazon's world.
   optional int64 worldid = 1;
@@ -43,6 +43,10 @@ message AUCallTruck{
   required int32 whid = 3;
   // A unique sequence number for the request.
   required int64 seqnum = 4;
+  // add x
+  required int32 x = 5;
+  // add y
+  required int32 y = 6;
 }
 
 message AUDeliveryLocation{
@@ -80,13 +84,12 @@ message AUTruckGoDeliver{
   required int64 seqnum = 3;
 }
 
-
+/*loaded finished, delive made*/
 message UATruckDeliverMade{
   required int32 truckid = 1;
   required int64 packageid = 2;
   required int64 seqnum = 3;
 }
-
 
 message AURequestPackageStatus{
   // The unique identifier of the shipment for which UPS must request the package status.
@@ -139,6 +142,7 @@ message UACommands{
   repeated UATruckArrived truckArrived = 1;
   // A repeated field of notifications indicating the status of packages has been updated, which must be provided.
   repeated UAUpdatePackageStatus updatePackageStatus = 2;
+  //
   repeated UATruckDeliverMade delivered = 3;
   // An optional field indicating that all deliveries have been completed, which may be provided.
   optional bool finished = 4;

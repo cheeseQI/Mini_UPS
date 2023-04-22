@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
-public class AmazonClient extends SocketClient implements Runnable {
+public class AmazonClient extends SocketClient {
 
     public AmazonClient(Socket socket) throws IOException {
         super(socket);
@@ -37,29 +37,6 @@ public class AmazonClient extends SocketClient implements Runnable {
             System.err.println("Error receiving message from " + host + ":" + port);
             e.printStackTrace();
             return null;
-        }
-    }
-
-    @Override
-    public void run() {
-        // recv AUcommand
-        AmazonUps.AUCommands auCommands = receiveARequest();
-        if (auCommands.getCallTruckCount() > 0) {
-            for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
-                WorldClient worldClient = new WorldClient(host, port);
-                worldClient.sendUGoPickup(auCallTruck.getWhid());
-            }
-        }
-        if (auCommands.getTruckGoDeliverCount() > 0) {
-            for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {
-                for (AmazonUps.AUDeliveryLocation auDeliveryLocation: auTruckGoDeliver.getPackagesList()) {
-                    WorldClient worldClient = new WorldClient(host, port);
-                    worldClient.sendUGoDeliver(auTruckGoDeliver.getTruckid(), auDeliveryLocation.getX(), auDeliveryLocation.getY(), auDeliveryLocation.getShipid());
-                }
-            }
-        }
-        if (auCommands.getRequestPackageStatusCount() > 0) {
-            // todo: according to database provide uacommand back
         }
     }
 }

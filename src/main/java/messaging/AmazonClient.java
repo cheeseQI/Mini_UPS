@@ -2,7 +2,6 @@ package messaging;
 
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
-import controller.TruckController;
 import protocol.AmazonUps;
 import protocol.WorldUps;
 
@@ -44,26 +43,23 @@ public class AmazonClient extends SocketClient implements Runnable {
     @Override
     public void run() {
         // recv AUcommand
-        TruckController truckController = new TruckController(host, port);
         AmazonUps.AUCommands auCommands = receiveARequest();
         if (auCommands.getCallTruckCount() > 0) {
             for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
-                truckController.pickUp(auCallTruck.getWhid());
+                WorldClient worldClient = new WorldClient(host, port);
+                worldClient.sendUGoPickup(auCallTruck.getWhid());
             }
         }
         if (auCommands.getTruckGoDeliverCount() > 0) {
             for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {
                 for (AmazonUps.AUDeliveryLocation auDeliveryLocation: auTruckGoDeliver.getPackagesList()) {
-                    truckController.goDeliver(auTruckGoDeliver.getTruckid(), auDeliveryLocation.getX(), auDeliveryLocation.getY(), auDeliveryLocation.getShipid());
+                    WorldClient worldClient = new WorldClient(host, port);
+                    worldClient.sendUGoDeliver(auTruckGoDeliver.getTruckid(), auDeliveryLocation.getX(), auDeliveryLocation.getY(), auDeliveryLocation.getShipid());
                 }
             }
         }
         if (auCommands.getRequestPackageStatusCount() > 0) {
-            //todo: according to database provide uacommand back
+            // todo: according to database provide uacommand back
         }
-        truckController.close();
     }
-
-    //public WorldAUps.AUxx receiveAURequest();
-    //public WorldAUps.AUxx receiveAUResponse();
 }

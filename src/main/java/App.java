@@ -36,5 +36,6 @@ public class App {
 
         ServerUA serverUA = new ServerUA(); //todo: need a server UU
         serverUA.run();
+        // todo: manage a socket pool here, select the update from codeinputstream of sockets
     }
 }

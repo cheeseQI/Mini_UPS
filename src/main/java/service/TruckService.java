@@ -45,5 +45,4 @@ public class TruckService {
         }
         return null;
     }
-
 }

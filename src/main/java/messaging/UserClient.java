@@ -5,6 +5,7 @@ import com.google.protobuf.CodedOutputStream;
 import common.BuilderUtil;
 import common.SeqGenerator;
 import protocol.WorldUps;
+import protocol.UpsUser;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,6 +13,9 @@ public class UserClient extends SocketClient {
 
     public UserClient(String host, int port) {
         super(host, port);
+    }
+    public UserClient(Socket socket) throws IOException {
+        super(socket);
     }
     
     public UpsUser.UUserRequest receiveUUserRequest() {

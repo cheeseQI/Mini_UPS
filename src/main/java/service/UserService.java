@@ -7,6 +7,9 @@ import model.Truck;
 import org.apache.ibatis.session.SqlSession;
 import protocol.WorldUps;
 import protocol.UpsUser;
+import mapper.*;
+import model.Package;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +47,14 @@ public class UserService {
             e.printStackTrace();
         }
     }
-    public Package queryPackageById(Integer packageId){
+    public Package queryPackageById(long packageId){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
             return packageMapper.findByPackageId(packageId);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
     public List<Package> queryPackageByUserId(Integer userId){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
@@ -59,24 +63,26 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
     //todo: need atomic, update fail logic
-    public String redirectPackage(Integer packageId, int destX, int destY){
+    public String redirectPackage(long packageId, int destX, int destY){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            Package package = packageMapper.findByPackageId(packageId);
-            if(package.getStatus()!= "IDLE"){
+            Package pkg = packageMapper.findByPackageId(packageId);
+            if(pkg.getStatus().equals("IDLE")){
                 return "package is not idle";
             }
             else{
-                package.setDestX(destX);
-                package.setDestY(destY);
-                int sqlAck = packageMapper.updatePackage(package);
+                pkg.setDestX(destX);
+                pkg.setDestY(destY);
+                int sqlAck = packageMapper.updatePackage(pkg);
                 return sqlAck == 1 ? "" : "update failed" ;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 }

@@ -3,7 +3,7 @@ package common;
 import com.google.protobuf.Message;
 import protocol.AmazonUps;
 import protocol.WorldUps;
-
+import protocol.UpsUser;
 import java.util.List;
 
 public class BuilderUtil {
@@ -80,19 +80,19 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static UpsUser.UPackage buildUPackage(long id, string status,string description, int itemCount,int x,int y) {
+    public static UpsUser.UPackage buildUPackage(long id, String status,String description, int itemCount,int x,int y) {
         UpsUser.UPackage.Builder builder = UpsUser.UPackage.newBuilder();
-        builder.setId(id).setStatus(status).setDescription(description).setItemCount(itemCount).setX(x).seY(y);
+        builder.setId(id).setStatus(status).setDescription(description).setItemCount(itemCount).setX(x).setY(y);
         return builder.build();
     }
 
     public static UpsUser.UQuery buildUQuery(long packageId, int userId) {
         UpsUser.UQuery.Builder builder = UpsUser.UQuery.newBuilder();
-        builder.setPackageid(packageId).setUserId(userId);
+        builder.setPackageId(packageId).setUserId(userId);
         return builder.build();
     }
 
-    public static UpsUser.UQueryResult buildUQueryResult(List<UPackage> packageList, int ack) {
+    public static UpsUser.UQueryResult buildUQueryResult(List<UpsUser.UPackage> packageList, int ack) {
         UpsUser.UQueryResult.Builder builder = UpsUser.UQueryResult.newBuilder();
         builder.addAllPackage(packageList).setAck(ack);
         return builder.build();
@@ -109,23 +109,23 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static UpsUser.UUserRequest buildUUserRequest(UQuery queryCommand,URedirect redirectCommand) {
+    public static UpsUser.UUserRequest buildUUserRequest(UpsUser.UQuery queryCommand,UpsUser.URedirect redirectCommand) {
         UpsUser.UUserRequest.Builder builder = UpsUser.UUserRequest.newBuilder();
         builder.setQueryCommand(queryCommand).setRedirectCommand(redirectCommand);
         return builder.build();
     }
-    public static UpsUser.UUserResponse buildUUserResponse(UQueryResult queryResult,URedirectResult redirectResult) {
+    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.UQueryResult queryResult,UpsUser.URedirectResult redirectResult) {
         UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
         builder.setQueryResult(queryResult).setRedirectResult(redirectResult);
         return builder.build();
     }
-    public static UpsUser.UUserResponse buildUUserResponse(UQueryResult queryResult) {
+    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.UQueryResult queryResult) {
         UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
         builder.setQueryResult(queryResult);
         return builder.build();
     }
 
-    public static UpsUser.UUserResponse buildUUserResponse(URedirectResult redirectResult) {
+    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.URedirectResult redirectResult) {
         UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
         builder.setRedirectResult(redirectResult);
         return builder.build();

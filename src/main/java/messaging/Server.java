@@ -45,5 +45,11 @@ public class Server {
         ResendHandler resendHandler = new ResendHandler();
         Thread resendThread = new Thread(resendHandler);
         resendThread.start();
+
+        //user handler-> query & redirect package
+
+        UserHandler userHandler = new UserHandler();
+        Thread userThread = new Thread(userHandler);
+        userThread.start();
     }
 }

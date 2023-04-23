@@ -15,7 +15,6 @@ public class BuilderUtil {
         return uInitTruckBuilder.build();
     }
 
-
     public static WorldUps.UConnect buildUConnect(long id, List<WorldUps.UInitTruck> uInitTruckList) {
         WorldUps.UConnect.Builder builder = WorldUps.UConnect.newBuilder();
         builder.setWorldid(id);
@@ -78,6 +77,57 @@ public class BuilderUtil {
     public static AmazonUps.UATruckDeliverMade buildUATruckDeliverMade(int truckId, long packageId, long seqNum) {
         AmazonUps.UATruckDeliverMade.Builder builder = AmazonUps.UATruckDeliverMade.newBuilder();
         builder.setTruckid(truckId).setPackageid(packageId).setSeqnum(seqNum);
+        return builder.build();
+    }
+
+    public static UpsUser.UPackage buildUPackage(long id, string status,string description, int itemCount,int x,int y) {
+        UpsUser.UPackage.Builder builder = UpsUser.UPackage.newBuilder();
+        builder.setId(id).setStatus(status).setDescription(description).setItemCount(itemCount).setX(x).seY(y);
+        return builder.build();
+    }
+
+    public static UpsUser.UQuery buildUQuery(long packageId, int userId) {
+        UpsUser.UQuery.Builder builder = UpsUser.UQuery.newBuilder();
+        builder.setPackageid(packageId).setUserId(userId);
+        return builder.build();
+    }
+
+    public static UpsUser.UQueryResult buildUQueryResult(List<UPackage> packageList, int ack) {
+        UpsUser.UQueryResult.Builder builder = UpsUser.UQueryResult.newBuilder();
+        builder.addAllPackage(packageList).setAck(ack);
+        return builder.build();
+    }
+    public static UpsUser.URedirect buildURedirect(long packageId,int x,int y) {
+        UpsUser.URedirect.Builder builder = UpsUser.URedirect.newBuilder();
+        builder.setPackageId(packageId).setX(x).setY(y);
+        return builder.build();
+    }
+
+    public static UpsUser.URedirectResult buildURedirectResult(String message) {
+        UpsUser.URedirectResult.Builder builder = UpsUser.URedirectResult.newBuilder();
+        builder.setMessage(message);
+        return builder.build();
+    }
+
+    public static UpsUser.UUserRequest buildUUserRequest(UQuery queryCommand,URedirect redirectCommand) {
+        UpsUser.UUserRequest.Builder builder = UpsUser.UUserRequest.newBuilder();
+        builder.setQueryCommand(queryCommand).setRedirectCommand(redirectCommand);
+        return builder.build();
+    }
+    public static UpsUser.UUserResponse buildUUserResponse(UQueryResult queryResult,URedirectResult redirectResult) {
+        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
+        builder.setQueryResult(queryResult).setRedirectResult(redirectResult);
+        return builder.build();
+    }
+    public static UpsUser.UUserResponse buildUUserResponse(UQueryResult queryResult) {
+        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
+        builder.setQueryResult(queryResult);
+        return builder.build();
+    }
+
+    public static UpsUser.UUserResponse buildUUserResponse(URedirectResult redirectResult) {
+        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();
+        builder.setRedirectResult(redirectResult);
         return builder.build();
     }
 }

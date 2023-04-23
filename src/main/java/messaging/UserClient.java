@@ -14,7 +14,16 @@ public class UserClient extends SocketClient {
         super(host, port);
     }
     
-    public void sendQueryByUserId(Integer userId){}
-    public void sendQueryByPackageId(Integer packageId){}
-    public void sendRedirect(Integer packageId,Integer destX,Integer destY){}
+    public UpsUser.UUserRequest receiveUUserRequest() {
+        try {
+            return UpsUser.UUserRequest.parseFrom(codedInputStream.readByteArray());
+        } catch (IOException e) {
+            System.err.println("Error receiving message from " + host + ":" + port);
+            e.printStackTrace();
+            return null;
+        }
+    }
+    // public void sendQueryByUserId(Integer userId){}
+    // public void sendQueryByPackageId(Integer packageId){}
+    // public void sendRedirect(Integer packageId,Integer destX,Integer destY){}
 }

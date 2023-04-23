@@ -6,6 +6,7 @@ import common.BuilderUtil;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
 import protocol.WorldUps;
+import protocol.UpsUser;
 
 import java.util.ArrayList;
 import java.util.List;

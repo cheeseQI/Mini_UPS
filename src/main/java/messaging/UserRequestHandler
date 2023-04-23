@@ -1,0 +1,64 @@
+package messaging;
+
+import protocol.AmazonUps;
+import protocol.WorldUps;
+import protocol.UpsUser;
+import service.UserService;
+public class UserRequestHandler implements Runnable {
+    UserClient userClient;
+    public UserRequestHandler(UserClient userClient){
+        this.userClient = userClient;
+    }
+    @Override
+    public void run() {
+        UUserRequest userRequest = userClient.receiveUUserRequest();
+        if(userRequest.hasQueryCommand()){
+            UQuery query = userRequest.getQueryCommand();
+            if(UQuery.hasPackageId()){
+                Package package = queryPackageById(UQuery.getPackageId());
+                UPackage uPackage = common.BuilderUtil.buildUPackage(
+                    package.getPackageId(),
+                    package.getStatus(),
+                    package.getDescription(),
+                    package.getItemNum(),
+                    package.getDestX(),
+                    package.getDestY()
+                );
+                List<UPackage> packageList = new ArrayList<>();
+                packageList.add(uPackage);
+                UQueryResult queryResult = common.BuilderUtil.buildUQueryResult(packageList,1);
+                UUserResponse userResponse = common.BuilderUtil.buildUUserResponse(queryResult);
+                userClient.sendMessage(UUserResponse);
+            } else if(UQuery.hasUserId()){
+                List<Package> packageList= queryPackageByUserId(UQuery.getPackageId());
+                List<UPackage> uPackageList = new ArrayList<>();
+                for(Package package: packageList){
+                    UPackage uPackage = common.BuilderUtil.buildUPackage(
+                        package.getPackageId(),
+                        package.getStatus(),
+                        package.getDescription(),
+                        package.getItemNum(),
+                        package.getDestX(),
+                        package.getDestY()
+                    );
+                    uPackageList.add(uPackage);
+                }
+                UQueryResult queryResult = common.BuilderUtil.buildUQueryResult(uPackageList,1);
+                UUserResponse userResponse = common.BuilderUtil.buildUUserResponse(queryResult);
+                userClient.sendMessage(UUserResponse);
+            }
+        }
+
+        if(userRequest.hasRedirectCommand()){
+            URedirect redirectCommand = userRequest.getRedirectCommand();
+            String msg = common.BuilderUtil.redirectPackage(
+                redirectCommand.getPackageId(),
+                redirectCommand.getX(),
+                redirectCommand.getY()
+            );
+            URedirectResult redirectResult = buildURedirectResult(msg);
+            UUserResponse userResponse = common.BuilderUtil.buildUUserResponse(redirectResult);
+            userClient.sendMessage(UUserResponse);
+        }
+    }
+}

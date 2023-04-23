@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\hw5_proj.jar;%APP_HOME%\lib\guava-23.0.jar;%APP_HOME%\lib\protobuf-java-3.18.1.jar;%APP_HOME%\lib\mybatis-3.5.7.jar;%APP_HOME%\lib\postgresql-42.2.23.jar;%APP_HOME%\lib\jsr305-1.3.9.jar;%APP_HOME%\lib\error_prone_annotations-2.0.18.jar;%APP_HOME%\lib\j2objc-annotations-1.1.jar;%APP_HOME%\lib\animal-sniffer-annotations-1.14.jar;%APP_HOME%\lib\checker-qual-3.5.0.jar
+set CLASSPATH=%APP_HOME%\lib\hw5_proj.jar;%APP_HOME%\lib\guava-23.0.jar;%APP_HOME%\lib\junit-3.8.2.jar;%APP_HOME%\lib\protobuf-java-3.18.1.jar;%APP_HOME%\lib\mybatis-3.5.7.jar;%APP_HOME%\lib\postgresql-42.2.23.jar;%APP_HOME%\lib\jsr305-1.3.9.jar;%APP_HOME%\lib\error_prone_annotations-2.0.18.jar;%APP_HOME%\lib\j2objc-annotations-1.1.jar;%APP_HOME%\lib\animal-sniffer-annotations-1.14.jar;%APP_HOME%\lib\checker-qual-3.5.0.jar
 
 @rem Execute hw5_proj
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HW5_PROJ_OPTS%  -classpath "%CLASSPATH%" App %CMD_LINE_ARGS%

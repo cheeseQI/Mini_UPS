@@ -54,10 +54,10 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static WorldUps.UGoDeliver buildUGoDeliver(int truckId, WorldUps.UDeliveryLocation uDeliveryLocation, long seqNum) {
+    public static WorldUps.UGoDeliver buildUGoDeliver(int truckId, List<WorldUps.UDeliveryLocation> uDeliveryLocationList, long seqNum) {
         WorldUps.UGoDeliver.Builder builder = WorldUps.UGoDeliver.newBuilder();
         builder.setTruckid(truckId);
-        builder.addPackages(uDeliveryLocation);
+        builder.addAllPackages(uDeliveryLocationList);
         builder.setSeqnum(seqNum);
         return builder.build();
     }
@@ -71,7 +71,7 @@ public class BuilderUtil {
     //todo: need to be modified
     public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {
         AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();
-        builder.setTruckid(truckId);
+        builder.setTruckid(truckId).setX(x).setY(y).setSeqnum(seqNum);
         return builder.build();
     }
 

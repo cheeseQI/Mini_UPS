@@ -6238,22 +6238,7 @@ public final class AmazonUps {
     /**
      * <pre>
      * The unique identifier of the package that has been delivered.
-     * </pre>
-     *
-     * <code>required int64 packageid = 2;</code>
-     */
-    boolean hasPackageid();
-    /**
-     * <pre>
-     * The unique identifier of the package that has been delivered.
-     * </pre>
-     *
-     * <code>required int64 packageid = 2;</code>
-     */
-    long getPackageid();
-
-    /**
-     * <pre>
+     *required int64 packageid = 2;
      * A unique sequence number for the delivery.
      * </pre>
      *
@@ -6262,12 +6247,32 @@ public final class AmazonUps {
     boolean hasSeqnum();
     /**
      * <pre>
+     * The unique identifier of the package that has been delivered.
+     *required int64 packageid = 2;
      * A unique sequence number for the delivery.
      * </pre>
      *
      * <code>required int64 seqnum = 3;</code>
      */
     long getSeqnum();
+
+    /**
+     * <code>required int32 x = 4;</code>
+     */
+    boolean hasX();
+    /**
+     * <code>required int32 x = 4;</code>
+     */
+    int getX();
+
+    /**
+     * <code>required int32 y = 5;</code>
+     */
+    boolean hasY();
+    /**
+     * <code>required int32 y = 5;</code>
+     */
+    int getY();
   }
   /**
    * Protobuf type {@code UATruckArrived}
@@ -6283,8 +6288,9 @@ public final class AmazonUps {
     }
     private UATruckArrived() {
       truckid_ = 0;
-      packageid_ = 0L;
       seqnum_ = 0L;
+      x_ = 0;
+      y_ = 0;
     }
 
     @java.lang.Override
@@ -6316,14 +6322,19 @@ public final class AmazonUps {
               truckid_ = input.readInt32();
               break;
             }
-            case 16: {
+            case 24: {
               bitField0_ |= 0x00000002;
-              packageid_ = input.readInt64();
+              seqnum_ = input.readInt64();
               break;
             }
-            case 24: {
+            case 32: {
               bitField0_ |= 0x00000004;
-              seqnum_ = input.readInt64();
+              x_ = input.readInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000008;
+              y_ = input.readInt32();
               break;
             }
             default: {
@@ -6382,43 +6393,24 @@ public final class AmazonUps {
       return truckid_;
     }
 
-    public static final int PACKAGEID_FIELD_NUMBER = 2;
-    private long packageid_;
-    /**
-     * <pre>
-     * The unique identifier of the package that has been delivered.
-     * </pre>
-     *
-     * <code>required int64 packageid = 2;</code>
-     */
-    public boolean hasPackageid() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <pre>
-     * The unique identifier of the package that has been delivered.
-     * </pre>
-     *
-     * <code>required int64 packageid = 2;</code>
-     */
-    public long getPackageid() {
-      return packageid_;
-    }
-
     public static final int SEQNUM_FIELD_NUMBER = 3;
     private long seqnum_;
     /**
      * <pre>
+     * The unique identifier of the package that has been delivered.
+     *required int64 packageid = 2;
      * A unique sequence number for the delivery.
      * </pre>
      *
      * <code>required int64 seqnum = 3;</code>
      */
     public boolean hasSeqnum() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
      * <pre>
+     * The unique identifier of the package that has been delivered.
+     *required int64 packageid = 2;
      * A unique sequence number for the delivery.
      * </pre>
      *
@@ -6426,6 +6418,36 @@ public final class AmazonUps {
      */
     public long getSeqnum() {
       return seqnum_;
+    }
+
+    public static final int X_FIELD_NUMBER = 4;
+    private int x_;
+    /**
+     * <code>required int32 x = 4;</code>
+     */
+    public boolean hasX() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 x = 4;</code>
+     */
+    public int getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 5;
+    private int y_;
+    /**
+     * <code>required int32 y = 5;</code>
+     */
+    public boolean hasY() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 y = 5;</code>
+     */
+    public int getY() {
+      return y_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -6439,11 +6461,15 @@ public final class AmazonUps {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasPackageid()) {
+      if (!hasSeqnum()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasSeqnum()) {
+      if (!hasX()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasY()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6458,10 +6484,13 @@ public final class AmazonUps {
         output.writeInt32(1, truckid_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt64(2, packageid_);
+        output.writeInt64(3, seqnum_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt64(3, seqnum_);
+        output.writeInt32(4, x_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(5, y_);
       }
       unknownFields.writeTo(output);
     }
@@ -6478,11 +6507,15 @@ public final class AmazonUps {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, packageid_);
+          .computeInt64Size(3, seqnum_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, seqnum_);
+          .computeInt32Size(4, x_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, y_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6505,15 +6538,20 @@ public final class AmazonUps {
         result = result && (getTruckid()
             == other.getTruckid());
       }
-      result = result && (hasPackageid() == other.hasPackageid());
-      if (hasPackageid()) {
-        result = result && (getPackageid()
-            == other.getPackageid());
-      }
       result = result && (hasSeqnum() == other.hasSeqnum());
       if (hasSeqnum()) {
         result = result && (getSeqnum()
             == other.getSeqnum());
+      }
+      result = result && (hasX() == other.hasX());
+      if (hasX()) {
+        result = result && (getX()
+            == other.getX());
+      }
+      result = result && (hasY() == other.hasY());
+      if (hasY()) {
+        result = result && (getY()
+            == other.getY());
       }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -6530,15 +6568,18 @@ public final class AmazonUps {
         hash = (37 * hash) + TRUCKID_FIELD_NUMBER;
         hash = (53 * hash) + getTruckid();
       }
-      if (hasPackageid()) {
-        hash = (37 * hash) + PACKAGEID_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getPackageid());
-      }
       if (hasSeqnum()) {
         hash = (37 * hash) + SEQNUM_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
             getSeqnum());
+      }
+      if (hasX()) {
+        hash = (37 * hash) + X_FIELD_NUMBER;
+        hash = (53 * hash) + getX();
+      }
+      if (hasY()) {
+        hash = (37 * hash) + Y_FIELD_NUMBER;
+        hash = (53 * hash) + getY();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6675,10 +6716,12 @@ public final class AmazonUps {
         super.clear();
         truckid_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        packageid_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000002);
         seqnum_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        x_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        y_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -6714,11 +6757,15 @@ public final class AmazonUps {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.packageid_ = packageid_;
+        result.seqnum_ = seqnum_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.seqnum_ = seqnum_;
+        result.x_ = x_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.y_ = y_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6771,11 +6818,14 @@ public final class AmazonUps {
         if (other.hasTruckid()) {
           setTruckid(other.getTruckid());
         }
-        if (other.hasPackageid()) {
-          setPackageid(other.getPackageid());
-        }
         if (other.hasSeqnum()) {
           setSeqnum(other.getSeqnum());
+        }
+        if (other.hasX()) {
+          setX(other.getX());
+        }
+        if (other.hasY()) {
+          setY(other.getY());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -6787,10 +6837,13 @@ public final class AmazonUps {
         if (!hasTruckid()) {
           return false;
         }
-        if (!hasPackageid()) {
+        if (!hasSeqnum()) {
           return false;
         }
-        if (!hasSeqnum()) {
+        if (!hasX()) {
+          return false;
+        }
+        if (!hasY()) {
           return false;
         }
         return true;
@@ -6864,67 +6917,23 @@ public final class AmazonUps {
         return this;
       }
 
-      private long packageid_ ;
-      /**
-       * <pre>
-       * The unique identifier of the package that has been delivered.
-       * </pre>
-       *
-       * <code>required int64 packageid = 2;</code>
-       */
-      public boolean hasPackageid() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <pre>
-       * The unique identifier of the package that has been delivered.
-       * </pre>
-       *
-       * <code>required int64 packageid = 2;</code>
-       */
-      public long getPackageid() {
-        return packageid_;
-      }
-      /**
-       * <pre>
-       * The unique identifier of the package that has been delivered.
-       * </pre>
-       *
-       * <code>required int64 packageid = 2;</code>
-       */
-      public Builder setPackageid(long value) {
-        bitField0_ |= 0x00000002;
-        packageid_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * The unique identifier of the package that has been delivered.
-       * </pre>
-       *
-       * <code>required int64 packageid = 2;</code>
-       */
-      public Builder clearPackageid() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        packageid_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private long seqnum_ ;
       /**
        * <pre>
+       * The unique identifier of the package that has been delivered.
+       *required int64 packageid = 2;
        * A unique sequence number for the delivery.
        * </pre>
        *
        * <code>required int64 seqnum = 3;</code>
        */
       public boolean hasSeqnum() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <pre>
+       * The unique identifier of the package that has been delivered.
+       *required int64 packageid = 2;
        * A unique sequence number for the delivery.
        * </pre>
        *
@@ -6935,27 +6944,95 @@ public final class AmazonUps {
       }
       /**
        * <pre>
+       * The unique identifier of the package that has been delivered.
+       *required int64 packageid = 2;
        * A unique sequence number for the delivery.
        * </pre>
        *
        * <code>required int64 seqnum = 3;</code>
        */
       public Builder setSeqnum(long value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         seqnum_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
+       * The unique identifier of the package that has been delivered.
+       *required int64 packageid = 2;
        * A unique sequence number for the delivery.
        * </pre>
        *
        * <code>required int64 seqnum = 3;</code>
        */
       public Builder clearSeqnum() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         seqnum_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int x_ ;
+      /**
+       * <code>required int32 x = 4;</code>
+       */
+      public boolean hasX() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 x = 4;</code>
+       */
+      public int getX() {
+        return x_;
+      }
+      /**
+       * <code>required int32 x = 4;</code>
+       */
+      public Builder setX(int value) {
+        bitField0_ |= 0x00000004;
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 x = 4;</code>
+       */
+      public Builder clearX() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        x_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int y_ ;
+      /**
+       * <code>required int32 y = 5;</code>
+       */
+      public boolean hasY() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 y = 5;</code>
+       */
+      public int getY() {
+        return y_;
+      }
+      /**
+       * <code>required int32 y = 5;</code>
+       */
+      public Builder setY(int value) {
+        bitField0_ |= 0x00000008;
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 y = 5;</code>
+       */
+      public Builder clearY() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        y_ = 0;
         onChanged();
         return this;
       }
@@ -17811,29 +17888,29 @@ public final class AmazonUps {
       "pid\030\002 \002(\003\022\014\n\004whid\030\003 \002(\005\022\016\n\006seqnum\030\004 \002(\003\022" +
       "\t\n\001x\030\005 \002(\005\022\t\n\001y\030\006 \002(\005\":\n\022AUDeliveryLocat" +
       "ion\022\016\n\006shipid\030\001 \002(\003\022\t\n\001x\030\002 \002(\005\022\t\n\001y\030\003 \002(" +
-      "\005\"D\n\016UATruckArrived\022\017\n\007truckid\030\001 \002(\005\022\021\n\t" +
-      "packageid\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"@\n\rAUTru" +
-      "ckGoLoad\022\016\n\006shipid\030\001 \002(\003\022\017\n\007truckid\030\002 \002(" +
-      "\005\022\016\n\006seqnum\030\003 \002(\003\"Z\n\020AUTruckGoDeliver\022\017\n" +
-      "\007truckid\030\001 \002(\005\022%\n\010packages\030\002 \003(\0132\023.AUDel" +
-      "iveryLocation\022\016\n\006seqnum\030\003 \002(\003\"H\n\022UATruck" +
-      "DeliverMade\022\017\n\007truckid\030\001 \002(\005\022\021\n\tpackagei" +
-      "d\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"8\n\026AURequestPack" +
-      "ageStatus\022\016\n\006shipid\030\001 \002(\003\022\016\n\006seqnum\030\002 \002(" +
-      "\003\"`\n\025UAUpdatePackageStatus\022\021\n\tpackageid\030" +
-      "\001 \002(\003\022\016\n\006status\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 " +
-      "\002(\005\022\016\n\006seqnum\030\005 \002(\003\"8\n\003Err\022\013\n\003err\030\001 \002(\t\022" +
-      "\024\n\014originseqnum\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"\304\001" +
-      "\n\nAUCommands\022\037\n\tcallTruck\030\001 \003(\0132\014.AUCall" +
-      "Truck\022)\n\016truckGoDeliver\030\002 \003(\0132\021.AUTruckG" +
-      "oDeliver\0225\n\024requestPackageStatus\030\003 \003(\0132\027" +
-      ".AURequestPackageStatus\022\022\n\ndisconnect\030\004 " +
-      "\001(\010\022\021\n\003err\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003\"\305\001\n" +
-      "\nUACommands\022%\n\014truckArrived\030\001 \003(\0132\017.UATr" +
-      "uckArrived\0223\n\023updatePackageStatus\030\002 \003(\0132" +
-      "\026.UAUpdatePackageStatus\022&\n\tdelivered\030\003 \003" +
-      "(\0132\023.UATruckDeliverMade\022\020\n\010finished\030\004 \001(" +
-      "\010\022\023\n\005error\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003"
+      "\005\"G\n\016UATruckArrived\022\017\n\007truckid\030\001 \002(\005\022\016\n\006" +
+      "seqnum\030\003 \002(\003\022\t\n\001x\030\004 \002(\005\022\t\n\001y\030\005 \002(\005\"@\n\rAU" +
+      "TruckGoLoad\022\016\n\006shipid\030\001 \002(\003\022\017\n\007truckid\030\002" +
+      " \002(\005\022\016\n\006seqnum\030\003 \002(\003\"Z\n\020AUTruckGoDeliver" +
+      "\022\017\n\007truckid\030\001 \002(\005\022%\n\010packages\030\002 \003(\0132\023.AU" +
+      "DeliveryLocation\022\016\n\006seqnum\030\003 \002(\003\"H\n\022UATr" +
+      "uckDeliverMade\022\017\n\007truckid\030\001 \002(\005\022\021\n\tpacka" +
+      "geid\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"8\n\026AURequestP" +
+      "ackageStatus\022\016\n\006shipid\030\001 \002(\003\022\016\n\006seqnum\030\002" +
+      " \002(\003\"`\n\025UAUpdatePackageStatus\022\021\n\tpackage" +
+      "id\030\001 \002(\003\022\016\n\006status\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y" +
+      "\030\004 \002(\005\022\016\n\006seqnum\030\005 \002(\003\"8\n\003Err\022\013\n\003err\030\001 \002" +
+      "(\t\022\024\n\014originseqnum\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003" +
+      "\"\304\001\n\nAUCommands\022\037\n\tcallTruck\030\001 \003(\0132\014.AUC" +
+      "allTruck\022)\n\016truckGoDeliver\030\002 \003(\0132\021.AUTru" +
+      "ckGoDeliver\0225\n\024requestPackageStatus\030\003 \003(" +
+      "\0132\027.AURequestPackageStatus\022\022\n\ndisconnect" +
+      "\030\004 \001(\010\022\021\n\003err\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003\"" +
+      "\305\001\n\nUACommands\022%\n\014truckArrived\030\001 \003(\0132\017.U" +
+      "ATruckArrived\0223\n\023updatePackageStatus\030\002 \003" +
+      "(\0132\026.UAUpdatePackageStatus\022&\n\tdelivered\030" +
+      "\003 \003(\0132\023.UATruckDeliverMade\022\020\n\010finished\030\004" +
+      " \001(\010\022\023\n\005error\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17894,7 +17971,7 @@ public final class AmazonUps {
     internal_static_UATruckArrived_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_UATruckArrived_descriptor,
-        new java.lang.String[] { "Truckid", "Packageid", "Seqnum", });
+        new java.lang.String[] { "Truckid", "Seqnum", "X", "Y", });
     internal_static_AUTruckGoLoad_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_AUTruckGoLoad_fieldAccessorTable = new

@@ -5,7 +5,7 @@ import protocol.WorldUps;
 
 import java.io.IOException;
 import java.net.Socket;
-
+// test class, only used for mock amazon class
 public class UpsClient extends SocketClient{
     public UpsClient(Socket socket) throws IOException {
         super(socket);

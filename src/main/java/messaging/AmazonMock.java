@@ -21,13 +21,21 @@ public class AmazonMock {
         AmazonUps.AUCommands.Builder auCommand0 = AmazonUps.AUCommands.newBuilder();
         auCommand0.addCallTruck(auCallTruckBuilder.build());
         upsClient.sendMessage(auCommand0.build());
-
+        System.out.println("wait for response");
+        //...startload, update pack
+        //...finishload. update pack
+        //deliever:
         AmazonUps.UACommands uaCommands = upsClient.receiveUACommands();
-        System.out.println(uaCommands);
+        System.out.println("receive call truck back uaCommand ack: " + uaCommands);
+        AmazonUps.UACommands uaCommands1 = upsClient.receiveUACommands();
+        System.out.println("receive truck arrived: " + uaCommands1);
+        AmazonUps.AUCommands.Builder auCommandsBuilder = AmazonUps.AUCommands.newBuilder();
+        auCommandsBuilder.addAcks(uaCommands1.getTruckArrived(0).getSeqnum());
+        System.out.println("send to ups: " + auCommandsBuilder);
+        upsClient.sendMessage(auCommandsBuilder.build());
 
         while (true) {
 
-            // send back ack here?
         }
     }
 }

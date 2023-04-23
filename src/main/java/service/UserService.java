@@ -1,9 +1,12 @@
 package service;
 
 import common.MyBatisUtil;
+import mapper.PackageMapper;
 import mapper.TruckMapper;
 import common.BuilderUtil;
-import model.Truck;
+import mapper.UserMapper;
+import model.*;
+import model.Package;
 import org.apache.ibatis.session.SqlSession;
 import protocol.WorldUps;
 
@@ -50,7 +53,9 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
+
     public List<Package> queryPackageByUserId(Integer userId){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
@@ -58,24 +63,24 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
     //todo: need atomic, update fail logic
     public String redirectPackage(Integer packageId, int destX, int destY){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            Package package = packageMapper.findByPackageId(packageId);
-            if(package.getStatus()!= "IDLE"){
+            Package pkg = packageMapper.findByPackageId(packageId);
+            if(pkg.getStatus()!= "IDLE"){
                 return "package is not idle";
-            }
-            else{
-                package.setDestX(destX);
-                package.setDestY(destY);
-                int sqlAck = packageMapper.updatePackage(package);
+            } else {
+                pkg.setDestX(destX);
+                pkg.setDestY(destY);
+                int sqlAck = packageMapper.updatePackage(pkg);
                 return sqlAck == 1 ? "" : "update failed" ;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
-
 }

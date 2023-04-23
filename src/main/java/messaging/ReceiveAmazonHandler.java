@@ -13,6 +13,8 @@ import service.TruckService;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ReceiveAmazonHandler implements Runnable {
@@ -28,8 +30,10 @@ public class ReceiveAmazonHandler implements Runnable {
         Server.amazonClient.sendMessage(uaConnect);
         System.out.println(Server.amazonClient.receiveAUConnected()); //todo: may failed
         while (true) {
+            boolean hasCommandContent = false;
+            List<Long> ackList = new ArrayList<>();
             AmazonUps.AUCommands auCommands = Server.amazonClient.receiveARequest();
-            // deal with ack past uaCommands
+            // deal with ack of aucommand, which is used to delete resend uaCommands
             for (long ack: auCommands.getAcksList()) {
                 if (Server.uaTruckArrivedMap.containsKey(ack)) {
                     AmazonUps.UATruckArrived uaTruckArrived = Server.uaTruckArrivedMap.get(ack);
@@ -45,6 +49,8 @@ public class ReceiveAmazonHandler implements Runnable {
             }
             // deal with uCommand
             for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
+                hasCommandContent = true;
+                ackList.add(auCallTruck.getSeqnum());
                 Truck truck = truckService.findTruckToPickUp();
                 System.out.println("find truck for pickup: " + truck);
                 WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truck.getTruckId(), auCallTruck.getWhid(), SeqGenerator.incrementAndGet());
@@ -52,17 +58,21 @@ public class ReceiveAmazonHandler implements Runnable {
                 System.out.println("store uGoPickup");
             }
             for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {
-                for (AmazonUps.AUDeliveryLocation auDeliveryLocation: auTruckGoDeliver.getPackagesList()) {
-                    WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(auTruckGoDeliver.getTruckid(),
-                            BuilderUtil.buildUDeliveryLocation(auDeliveryLocation.getShipid(), auDeliveryLocation.getX(), auDeliveryLocation.getY()),
-                            SeqGenerator.incrementAndGet());
-                    Server.uGoDeliverMap.put(uGoDeliver.getSeqnum(), uGoDeliver);
-                    System.out.println("store uGoDeliver");
-                }
+                hasCommandContent = true;
+                ackList.add(auTruckGoDeliver.getSeqnum());
+                List<WorldUps.UDeliveryLocation> uDeliveryLocationList = new ArrayList<>();
+                WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(auTruckGoDeliver.getTruckid(), uDeliveryLocationList, SeqGenerator.incrementAndGet());
+                Server.uGoDeliverMap.put(uGoDeliver.getSeqnum(), uGoDeliver);
+                System.out.println("store uGoDeliver");
             }
             //todo: other message like AURequestPackageStatus
             AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
-            uaCommandsBuilder.addAllAcks(auCommands.getAcksList());
+            // tell amazon the aucommand that has been received
+            uaCommandsBuilder.addAllAcks(ackList);
+            if (!hasCommandContent) {
+                continue;
+            }
+            System.out.println("send to amazon: " + uaCommandsBuilder);
             Server.amazonClient.sendMessage(uaCommandsBuilder.build());
         }
     }

@@ -37,21 +37,14 @@ public class WorldClient extends SocketClient {
         }
     }
 
-    public void sendUCommands(WorldUps.UCommands uCommands) {
-        sendMessage(uCommands);
-        WorldUps.UResponses uResponses = receiveUResponse();
-        if (uResponses != null) {
-            updateData(uResponses);
-        }
-    }
-
-    public void updateData(WorldUps.UResponses uResponses) {
-        if (uResponses.getCompletionsCount() > 0) {
-            //todo: change database status
-        }
-        if (uResponses.getDeliveredCount() > 0) {
-            //todo: change database status
-        }
-    }
+//
+//    public void updateData(WorldUps.UResponses uResponses) {
+//        if (uResponses.getCompletionsCount() > 0) {
+//            //todo: change database status
+//        }
+//        if (uResponses.getDeliveredCount() > 0) {
+//            //todo: change database status
+//        }
+//    }
 }
 

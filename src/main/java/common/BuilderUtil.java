@@ -68,4 +68,16 @@ public class BuilderUtil {
         return builder.build();
     }
 
+    //todo: need to be modified
+    public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {
+        AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();
+        builder.setTruckid(truckId);
+        return builder.build();
+    }
+
+    public static AmazonUps.UATruckDeliverMade buildUATruckDeliverMade(int truckId, long packageId, long seqNum) {
+        AmazonUps.UATruckDeliverMade.Builder builder = AmazonUps.UATruckDeliverMade.newBuilder();
+        builder.setTruckid(truckId).setPackageid(packageId).setSeqnum(seqNum);
+        return builder.build();
+    }
 }

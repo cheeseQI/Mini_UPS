@@ -29,13 +29,27 @@ public class ReceiveAmazonHandler implements Runnable {
         System.out.println(Server.amazonClient.receiveAUConnected()); //todo: may failed
         while (true) {
             AmazonUps.AUCommands auCommands = Server.amazonClient.receiveARequest();
-            // todo: deal with ack
-            // deal with ucommand
+            // deal with ack past uaCommands
+            for (long ack: auCommands.getAcksList()) {
+                if (Server.uaTruckArrivedMap.containsKey(ack)) {
+                    AmazonUps.UATruckArrived uaTruckArrived = Server.uaTruckArrivedMap.get(ack);
+                    Server.uaTruckArrivedMap.remove(ack);
+                    System.out.println("do database ops related to uaTruckArrived: " + uaTruckArrived);
+                    // todo: database here
+                } else if (Server.uaTruckDeliverMadeMap.containsKey(ack)) {
+                    AmazonUps.UATruckDeliverMade uaTruckDeliverMade = Server.uaTruckDeliverMadeMap.get(ack);
+                    Server.uaTruckDeliverMadeMap.remove(ack);
+                    System.out.println("do database ops related to uaTruckDeliverMade: " + uaTruckDeliverMade);
+                    //todo: database here
+                }
+            }
+            // deal with uCommand
             for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
                 Truck truck = truckService.findTruckToPickUp();
-                System.out.println(truck);
+                System.out.println("find truck for pickup: " + truck);
                 WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truck.getTruckId(), auCallTruck.getWhid(), SeqGenerator.incrementAndGet());
                 Server.uGoPickupMap.put(uGoPickup.getSeqnum(), uGoPickup);
+                System.out.println("store uGoPickup");
             }
             for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {
                 for (AmazonUps.AUDeliveryLocation auDeliveryLocation: auTruckGoDeliver.getPackagesList()) {
@@ -43,12 +57,13 @@ public class ReceiveAmazonHandler implements Runnable {
                             BuilderUtil.buildUDeliveryLocation(auDeliveryLocation.getShipid(), auDeliveryLocation.getX(), auDeliveryLocation.getY()),
                             SeqGenerator.incrementAndGet());
                     Server.uGoDeliverMap.put(uGoDeliver.getSeqnum(), uGoDeliver);
+                    System.out.println("store uGoDeliver");
                 }
             }
             //todo: other message like AURequestPackageStatus
-            AmazonUps.UACommands.Builder uaCommands = AmazonUps.UACommands.newBuilder();
-            uaCommands.addAllAcks(auCommands.getAcksList());
-            Server.amazonClient.sendMessage(uaCommands.build());
+            AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
+            uaCommandsBuilder.addAllAcks(auCommands.getAcksList());
+            Server.amazonClient.sendMessage(uaCommandsBuilder.build());
         }
     }
 }

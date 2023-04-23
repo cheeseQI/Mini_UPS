@@ -22,9 +22,15 @@ public class Server {
         uGoDeliverMap = new ConcurrentHashMap<>();
         uaTruckArrivedMap = new ConcurrentHashMap<>();
         uaTruckDeliverMadeMap = new ConcurrentHashMap<>();
+    }
 
+    public void start() {
         System.out.println("UPS Server is socket with WorldSim");
         worldClient = new WorldClient("127.0.0.1", 12345);
+        ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
+        Thread worldThread = new Thread(receiveWorldHandler);
+        worldThread.start();
+
         try (ServerSocket serverSocket = new ServerSocket(7474)) {
             Socket initSocket = serverSocket.accept();
             amazonClient = new AmazonClient(initSocket);
@@ -32,12 +38,6 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void start() {
-        ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
-        Thread worldThread = new Thread(receiveWorldHandler);
-        worldThread.start();
         ReceiveAmazonHandler receiveAmazonHandler = new ReceiveAmazonHandler();
         Thread amazonThread = new Thread(receiveAmazonHandler);
         amazonThread.start();

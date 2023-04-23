@@ -16,9 +16,9 @@ public class AmazonClient extends SocketClient {
         super(socket);
     }
 
-    public AmazonClient(String host, int port) {
-        super(host, port);
-    }
+//    public AmazonClient(String host, int port) {
+//        super(host, port);
+//    }
 
     public AmazonUps.AUConnected receiveAUConnected() {
         try {

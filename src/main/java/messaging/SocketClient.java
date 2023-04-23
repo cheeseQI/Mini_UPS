@@ -17,6 +17,7 @@ public abstract class SocketClient implements Communicator{
     protected CodedInputStream codedInputStream;
     protected CodedOutputStream codedOutputStream;
 
+    //pass in socket, act as server socket
     public SocketClient(Socket socket) throws IOException {
         this.socket = socket;
         InputStream inputStream = socket.getInputStream();
@@ -25,6 +26,7 @@ public abstract class SocketClient implements Communicator{
         codedOutputStream = CodedOutputStream.newInstance(outputStream);
     }
 
+    //pass in target host and port, act as client socket
     public SocketClient(String host, int port) {
         this.host = host;
         this.port = port;

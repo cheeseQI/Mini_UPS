@@ -62,6 +62,7 @@ public class BuilderUtil {
         return builder.build();
     }
 
+
     public static WorldUps.UQuery buildUQuery(int truckId, long seqNum) {
         WorldUps.UQuery.Builder builder = WorldUps.UQuery.newBuilder();
         builder.setTruckid(truckId).setSeqnum(seqNum);
@@ -78,6 +79,12 @@ public class BuilderUtil {
     public static AmazonUps.UATruckDeliverMade buildUATruckDeliverMade(int truckId, long packageId, long seqNum) {
         AmazonUps.UATruckDeliverMade.Builder builder = AmazonUps.UATruckDeliverMade.newBuilder();
         builder.setTruckid(truckId).setPackageid(packageId).setSeqnum(seqNum);
+        return builder.build();
+    }
+
+    public static AmazonUps.UAUpdatePackageStatus buildUAUpdatePackageStatus(long packageId, int x, int y, String status, long seqNum) {
+        AmazonUps.UAUpdatePackageStatus.Builder builder = AmazonUps.UAUpdatePackageStatus.newBuilder();
+        builder.setPackageid(packageId).setX(x).setY(y).setStatus(status).setSeqnum(seqNum);
         return builder.build();
     }
 }

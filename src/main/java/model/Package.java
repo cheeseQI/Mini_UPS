@@ -10,9 +10,11 @@ public class Package {
     private int destX;
     private int destY;
     private int whid;
+    private int startX;
+    private int startY;
 
     public Package(){}
-    public Package(Integer packageId, String status, String description, Integer itemCount, Integer truckId, Integer userId, int destX, int destY, int whid) {
+    public Package(Integer packageId, String status, String description, Integer itemCount, Integer truckId, Integer userId, int destX, int destY, int whid, int startX, int startY) {
         this.packageId = packageId;
         this.status = status;
         this.description = description;
@@ -22,6 +24,8 @@ public class Package {
         this.destX = destX;
         this.destY = destY;
         this.whid = whid;
+        this.startX = startX;
+        this.startY = startY;
     }
 
     public Integer getPackageId() {
@@ -96,6 +100,22 @@ public class Package {
         this.whid = whid;
     }
 
+    public int getStartX() {
+        return startX;
+    }
+
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
     @Override
     public String toString() {
         return "Package {" +
@@ -108,6 +128,8 @@ public class Package {
                 ", destX=" + destX +
                 ", destY=" + destY +
                 ", whid=" + whid +
+                ", startX=" + startX +
+                ", startY=" + startY +
                 '}';
     }
 }

@@ -46,7 +46,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-    public Package queryPackageById(Integer packageId){
+    public Package queryPackageById(Long packageId){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
             return packageMapper.findByPackageId(packageId);
@@ -66,7 +66,7 @@ public class UserService {
         return null;
     }
     //todo: need atomic, update fail logic
-    public String redirectPackage(Integer packageId, int destX, int destY){
+    public String redirectPackage(Long packageId, int destX, int destY){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
             Package pkg = packageMapper.findByPackageId(packageId);

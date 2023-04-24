@@ -3,8 +3,11 @@ package messaging;
 import com.google.protobuf.Message;
 import common.BuilderUtil;
 import common.ConstantUtil;
+import common.MyBatisUtil;
 import common.SeqGenerator;
+import mapper.TruckMapper;
 import model.Truck;
+import org.apache.ibatis.session.SqlSession;
 import protocol.AmazonUps;
 import protocol.WorldUps;
 import service.TruckService;
@@ -16,6 +19,8 @@ public class ReceiveWorldHandler implements Runnable{
 
     @Override
     public void run() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
         TruckService truckService = new TruckService();
         List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
         WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(uInitTruckList);
@@ -26,7 +31,7 @@ public class ReceiveWorldHandler implements Runnable{
             throw new IllegalArgumentException(uConnected.getResult());
         }
         ConstantUtil.WORLD_ID = uConnected.getWorldid();
-        //todo: truckService.storeTrucks(uInitTruckList);
+        truckService.storeTrucks(uInitTruckList);
         while (true) {
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();
@@ -38,12 +43,10 @@ public class ReceiveWorldHandler implements Runnable{
                     WorldUps.UGoPickup uGoPickup = Server.uGoPickupMap.get(ack);
                     Server.uGoPickupMap.remove(ack);
                     System.out.println("remove uGoPickUp with ack/seq: " + ack);
-                    // todo: database here
                 } else if (Server.uGoDeliverMap.containsKey(ack)) {
                     WorldUps.UGoDeliver uGoDeliver = Server.uGoDeliverMap.get(ack);
                     Server.uGoDeliverMap.remove(ack);
                     System.out.println("remove uGoDeliver with ack/seq: " + ack);
-                    //todo: database here
                 }
             }
             for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {
@@ -52,14 +55,14 @@ public class ReceiveWorldHandler implements Runnable{
                 ackList.add(uFinished.getSeqnum());
                 AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());
                 Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);
-                System.out.println("store uaTruckArrived");
+                truckService.setTruckStatus(uFinished.getTruckid(), ConstantUtil.TRUCK_ARRIVE);
             }
             for (WorldUps.UDeliveryMade uDeliveryMade: uResponses.getDeliveredList()) {
                 hasCommandContent = true;
                 ackList.add(uDeliveryMade.getSeqnum());
                 AmazonUps.UATruckDeliverMade uaTruckDeliverMade = BuilderUtil.buildUATruckDeliverMade(uDeliveryMade.getTruckid(), uDeliveryMade.getPackageid(), SeqGenerator.incrementAndGet());
                 Server.uaTruckDeliverMadeMap.put(uaTruckDeliverMade.getSeqnum(), uaTruckDeliverMade);
-                System.out.println("store uaTruckDeliverMade");
+                truckService.setTruckStatus(uDeliveryMade.getTruckid(), ConstantUtil.TRUCK_IDLE);
             }
             WorldUps.UCommands.Builder  uCommandsBuilder = WorldUps.UCommands.newBuilder();
             // tell world the uresponse that has been received

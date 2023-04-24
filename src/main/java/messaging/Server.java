@@ -16,12 +16,14 @@ public class Server {
     public static Map<Long, WorldUps.UGoDeliver> uGoDeliverMap;
     public static Map<Long, AmazonUps.UATruckArrived> uaTruckArrivedMap;
     public static Map<Long, AmazonUps.UATruckDeliverMade> uaTruckDeliverMadeMap;
+    public static Map<Long, AmazonUps.UAUpdatePackageStatus> uaUpdatePackageStatusMap;
 
     public Server() {
         uGoPickupMap = new ConcurrentHashMap<>();
         uGoDeliverMap = new ConcurrentHashMap<>();
         uaTruckArrivedMap = new ConcurrentHashMap<>();
         uaTruckDeliverMadeMap = new ConcurrentHashMap<>();
+        uaUpdatePackageStatusMap = new ConcurrentHashMap<>();
     }
 
     public void start() {

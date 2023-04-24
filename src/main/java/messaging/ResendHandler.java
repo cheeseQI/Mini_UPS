@@ -19,7 +19,7 @@ public class ResendHandler implements Runnable {
 
     private void resendToAmazon() {
         AmazonUps.UACommands.Builder uaCommandBuilder = AmazonUps.UACommands.newBuilder();
-        if (Server.uaTruckArrivedMap.isEmpty() && Server.uaTruckDeliverMadeMap.isEmpty()) {// todo: other
+        if (Server.uaTruckArrivedMap.isEmpty() && Server.uaTruckDeliverMadeMap.isEmpty() && Server.uaUpdatePackageStatusMap.isEmpty()) {// todo: other
             return;
         }
         for (AmazonUps.UATruckArrived uaTruckArrived: Server.uaTruckArrivedMap.values()) {
@@ -27,6 +27,9 @@ public class ResendHandler implements Runnable {
         }
         for (AmazonUps.UATruckDeliverMade uaTruckDeliverMade: Server.uaTruckDeliverMadeMap.values()) {
             uaCommandBuilder.addDelivered(uaTruckDeliverMade);
+        }
+        for (AmazonUps.UAUpdatePackageStatus uaUpdatePackageStatus: Server.uaUpdatePackageStatusMap.values()) {
+            uaCommandBuilder.addUpdatePackageStatus(uaUpdatePackageStatus);
         }
         System.out.println("send uacommand to amazon: " + uaCommandBuilder);
         Server.amazonClient.sendMessage(uaCommandBuilder.build());
@@ -45,7 +48,6 @@ public class ResendHandler implements Runnable {
         }
         System.out.println("send ucommand to world: " + uCommandsBuilder);
         Server.worldClient.sendMessage(uCommandsBuilder.build());
-        //todo: add other message
-        // todo: need to do database operation after recv acks
+        // todo: add other message
     }
 }

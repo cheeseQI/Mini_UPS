@@ -45,4 +45,26 @@ public class TruckService {
         }
         return null;
     }
+
+    public void setTruckStatus(int truckId, String status) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+            Truck truck = truckMapper.findByTruckId(truckId);
+            truck.setStatus(status);
+            truckMapper.updateTruck(truck);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Truck findTruckById(int truckId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+            return truckMapper.findByTruckId(truckId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

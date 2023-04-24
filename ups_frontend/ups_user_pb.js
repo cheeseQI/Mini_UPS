@@ -108,7 +108,7 @@ proto.UPackage.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setId(value);
       break;
     case 2:
@@ -162,7 +162,7 @@ proto.UPackage.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = /** @type {number} */ (jspb.Message.getField(message, 1));
   if (f != null) {
-    writer.writeInt32(
+    writer.writeInt64(
       1,
       f
     );
@@ -206,7 +206,7 @@ proto.UPackage.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * required int32 id = 1;
+ * required int64 id = 1;
  * @return {number}
  */
 proto.UPackage.prototype.getId = function() {
@@ -426,8 +426,8 @@ proto.UQuery.prototype.toObject = function(opt_includeInstance) {
  */
 proto.UQuery.toObject = function(includeInstance, msg) {
   var f, obj = {
-    packageId: jspb.Message.getField(msg, 1),
-    userId: jspb.Message.getField(msg, 2)
+    packageid: jspb.Message.getField(msg, 1),
+    userid: jspb.Message.getField(msg, 2)
   };
 
   if (includeInstance) {
@@ -465,12 +465,12 @@ proto.UQuery.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setPackageId(value);
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setPackageid(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setUserId(value);
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setUserid(value);
       break;
     default:
       reader.skipField();
@@ -501,16 +501,16 @@ proto.UQuery.prototype.serializeBinary = function() {
  */
 proto.UQuery.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = /** @type {string} */ (jspb.Message.getField(message, 1));
+  f = /** @type {number} */ (jspb.Message.getField(message, 1));
   if (f != null) {
-    writer.writeString(
+    writer.writeInt64(
       1,
       f
     );
   }
-  f = /** @type {string} */ (jspb.Message.getField(message, 2));
+  f = /** @type {number} */ (jspb.Message.getField(message, 2));
   if (f != null) {
-    writer.writeString(
+    writer.writeInt32(
       2,
       f
     );
@@ -519,21 +519,21 @@ proto.UQuery.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string package_id = 1;
- * @return {string}
+ * optional int64 packageId = 1;
+ * @return {number}
  */
-proto.UQuery.prototype.getPackageId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.UQuery.prototype.getPackageid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {string} value */
-proto.UQuery.prototype.setPackageId = function(value) {
+/** @param {number} value */
+proto.UQuery.prototype.setPackageid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
-proto.UQuery.prototype.clearPackageId = function() {
+proto.UQuery.prototype.clearPackageid = function() {
   jspb.Message.setField(this, 1, undefined);
 };
 
@@ -542,27 +542,27 @@ proto.UQuery.prototype.clearPackageId = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.UQuery.prototype.hasPackageId = function() {
+proto.UQuery.prototype.hasPackageid = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional string user_id = 2;
- * @return {string}
+ * optional int32 userId = 2;
+ * @return {number}
  */
-proto.UQuery.prototype.getUserId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+proto.UQuery.prototype.getUserid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {string} value */
-proto.UQuery.prototype.setUserId = function(value) {
+/** @param {number} value */
+proto.UQuery.prototype.setUserid = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
-proto.UQuery.prototype.clearUserId = function() {
+proto.UQuery.prototype.clearUserid = function() {
   jspb.Message.setField(this, 2, undefined);
 };
 
@@ -571,7 +571,7 @@ proto.UQuery.prototype.clearUserId = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.UQuery.prototype.hasUserId = function() {
+proto.UQuery.prototype.hasUserid = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -630,7 +630,7 @@ proto.UQueryResult.prototype.toObject = function(opt_includeInstance) {
  */
 proto.UQueryResult.toObject = function(includeInstance, msg) {
   var f, obj = {
-    packagelistList: jspb.Message.toObjectList(msg.getPackagelistList(),
+    packageList: jspb.Message.toObjectList(msg.getPackageList(),
     proto.UPackage.toObject, includeInstance),
     ack: jspb.Message.getField(msg, 2)
   };
@@ -672,7 +672,7 @@ proto.UQueryResult.deserializeBinaryFromReader = function(msg, reader) {
     case 1:
       var value = new proto.UPackage;
       reader.readMessage(value,proto.UPackage.deserializeBinaryFromReader);
-      msg.addPackagelist(value);
+      msg.addPackage(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readInt32());
@@ -707,7 +707,7 @@ proto.UQueryResult.prototype.serializeBinary = function() {
  */
 proto.UQueryResult.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getPackagelistList();
+  f = message.getPackageList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -726,17 +726,17 @@ proto.UQueryResult.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * repeated UPackage packageList = 1;
+ * repeated UPackage package = 1;
  * @return {!Array<!proto.UPackage>}
  */
-proto.UQueryResult.prototype.getPackagelistList = function() {
+proto.UQueryResult.prototype.getPackageList = function() {
   return /** @type{!Array<!proto.UPackage>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.UPackage, 1));
 };
 
 
 /** @param {!Array<!proto.UPackage>} value */
-proto.UQueryResult.prototype.setPackagelistList = function(value) {
+proto.UQueryResult.prototype.setPackageList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
@@ -746,13 +746,13 @@ proto.UQueryResult.prototype.setPackagelistList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.UPackage}
  */
-proto.UQueryResult.prototype.addPackagelist = function(opt_value, opt_index) {
+proto.UQueryResult.prototype.addPackage = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.UPackage, opt_index);
 };
 
 
-proto.UQueryResult.prototype.clearPackagelistList = function() {
-  this.setPackagelistList([]);
+proto.UQueryResult.prototype.clearPackageList = function() {
+  this.setPackageList([]);
 };
 
 
@@ -832,7 +832,7 @@ proto.URedirect.prototype.toObject = function(opt_includeInstance) {
  */
 proto.URedirect.toObject = function(includeInstance, msg) {
   var f, obj = {
-    packageId: jspb.Message.getField(msg, 1),
+    packageid: jspb.Message.getField(msg, 1),
     x: jspb.Message.getField(msg, 2),
     y: jspb.Message.getField(msg, 3)
   };
@@ -872,8 +872,8 @@ proto.URedirect.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setPackageId(value);
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setPackageid(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readInt32());
@@ -912,9 +912,9 @@ proto.URedirect.prototype.serializeBinary = function() {
  */
 proto.URedirect.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = /** @type {string} */ (jspb.Message.getField(message, 1));
+  f = /** @type {number} */ (jspb.Message.getField(message, 1));
   if (f != null) {
-    writer.writeString(
+    writer.writeInt64(
       1,
       f
     );
@@ -937,21 +937,21 @@ proto.URedirect.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * required string package_id = 1;
- * @return {string}
+ * required int64 packageId = 1;
+ * @return {number}
  */
-proto.URedirect.prototype.getPackageId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.URedirect.prototype.getPackageid = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {string} value */
-proto.URedirect.prototype.setPackageId = function(value) {
+/** @param {number} value */
+proto.URedirect.prototype.setPackageid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
-proto.URedirect.prototype.clearPackageId = function() {
+proto.URedirect.prototype.clearPackageid = function() {
   jspb.Message.setField(this, 1, undefined);
 };
 
@@ -960,7 +960,7 @@ proto.URedirect.prototype.clearPackageId = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.URedirect.prototype.hasPackageId = function() {
+proto.URedirect.prototype.hasPackageid = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 

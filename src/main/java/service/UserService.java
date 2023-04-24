@@ -4,11 +4,13 @@ import common.MyBatisUtil;
 import mapper.PackageMapper;
 import mapper.TruckMapper;
 import common.BuilderUtil;
-import mapper.UserMapper;
-import model.*;
-import model.Package;
+import model.Truck;
 import org.apache.ibatis.session.SqlSession;
 import protocol.WorldUps;
+import protocol.UpsUser;
+import mapper.*;
+import model.Package;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +72,10 @@ public class UserService {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
             Package pkg = packageMapper.findByPackageId(packageId);
-            if(pkg.getStatus()!= "IDLE"){
+            if(pkg.getStatus().equals("IDLE")){
                 return "package is not idle";
-            } else {
+            }
+            else{
                 pkg.setDestX(destX);
                 pkg.setDestY(destY);
                 int sqlAck = packageMapper.updatePackage(pkg);
@@ -83,4 +86,5 @@ public class UserService {
         }
         return null;
     }
+
 }

@@ -13,7 +13,6 @@ public interface PackageMapper {
     @Select("SELECT * FROM package WHERE packageId = #{packageId}")
     Package findByPackageId(@Param("packageId") Long packageId);
     @Select("SELECT * FROM package WHERE userId = #{userId}")
-
     List<Package> findByUserId(@Param("userId") Integer userId);
 
     @Insert("INSERT INTO package (packageId, status, description, itemNum, truckId, userId, destX, destY, whid) VALUES (#{packageId}, #{status}, #{description}, #{itemNum}, #{truckId}, #{userId}, #{destX}, #{destY}, #{whid})")

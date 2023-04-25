@@ -19,14 +19,19 @@ message AUProduct{
   required string description = 2;
   // The quantity of the product.
   required int32 count = 3;
+  // dest x, y
+  required int32 destX = 4;
+  required int32 destY = 5;
+  required int32 userid= 6;
 }
 
 //Optional, it's fine if the users are not willing to bind the upsId with Amazon
-message AURequestConnectUpsUserId{
+message AURequestConnectUpsUserId{ //todo: to AURequestConnectUserId
   // The user ID of the UPS user that must request to connect to Amazon.
   required int64 UpsUserid = 1;
+  //todo: add password
 }
-
+//todo: add UARequestConnectUserId
 message UAResponseConnectUpsUserId{
   // A repeated field of errors that may occur during the request.
   repeated Err error = 1;
@@ -131,12 +136,13 @@ message AUCommands{
   repeated AUTruckGoDeliver truckGoDeliver = 2;
   // A repeated field of requests to check the status of packages, which must be provided.
   repeated AURequestPackageStatus requestPackageStatus = 3;
+  repeated AUTruckGoLoad loading = 5;
   // An optional field indicating that UPS may want to disconnect from Amazon's world.
-  optional bool disconnect = 4;
+  optional bool disconnect = 6;
   // A repeated field of errors that may occur during the requests.
-  repeated Err err = 5;
+  repeated Err err = 7;
   // A repeated field of unique sequence numbers for the request acknowledgements.
-  repeated int64 acks = 6;
+  repeated int64 acks = 8;
 }
 
 message UACommands{

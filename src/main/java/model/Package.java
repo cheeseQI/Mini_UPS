@@ -1,8 +1,7 @@
 package model;
 
 public class Package {
-    private Integer packageId;
-    private String status;
+    private Long packageId;
     private String description;
     private Integer itemNum;
     private Integer truckId;
@@ -14,9 +13,8 @@ public class Package {
     private int startY;
 
     public Package(){}
-    public Package(Integer packageId, String status, String description, Integer itemCount, Integer truckId, Integer userId, int destX, int destY, int whid, int startX, int startY) {
+    public Package(Long packageId, String description, Integer itemCount, Integer truckId, Integer userId, int destX, int destY, int whid, int startX, int startY) {
         this.packageId = packageId;
-        this.status = status;
         this.description = description;
         this.itemNum = itemCount;
         this.truckId = truckId;
@@ -28,20 +26,12 @@ public class Package {
         this.startY = startY;
     }
 
-    public Integer getPackageId() {
+    public Long getPackageId() {
         return packageId;
     }
 
-    public void setPackageId(Integer packageId) {
+    public void setPackageId(Long packageId) {
         this.packageId = packageId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getDescription() {
@@ -120,7 +110,6 @@ public class Package {
     public String toString() {
         return "Package {" +
                 "packageId=" + packageId +
-                ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", itemCount=" + itemNum +
                 ", truckId=" + truckId +

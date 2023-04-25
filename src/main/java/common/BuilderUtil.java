@@ -81,9 +81,9 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static UpsUser.UPackage buildUPackage(long id, String status,String description, int itemCount,int x,int y) {
+    public static UpsUser.UPackage buildUPackage(long id, String description, int itemCount,int x,int y) {
         UpsUser.UPackage.Builder builder = UpsUser.UPackage.newBuilder();
-        builder.setId(id).setStatus(status).setDescription(description).setItemCount(itemCount).setX(x).setY(y);
+        builder.setId(id).setDescription(description).setItemCount(itemCount).setX(x).setY(y);
         return builder.build();
     }
 
@@ -131,8 +131,8 @@ public class BuilderUtil {
         builder.setRedirectResult(redirectResult);
         return builder.build();
     }
-
-    public static AmazonUps.UAUpdatePackageStatus buildUAUpdatePackageStatus(long packageId, int x, int y, String status, long seqNum) {
+    // note status here means the status of the truck used to carry the packages
+    public static AmazonUps.UAUpdatePackageStatus buildUAUpdatePackageStatus(long packageId, String status, int x, int y, long seqNum) {
         AmazonUps.UAUpdatePackageStatus.Builder builder = AmazonUps.UAUpdatePackageStatus.newBuilder();
         builder.setPackageid(packageId).setX(x).setY(y).setStatus(status).setSeqnum(seqNum);
         return builder.build();

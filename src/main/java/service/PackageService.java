@@ -19,4 +19,28 @@ public class PackageService {
         }
         return null;
     }
+
+    public void insertPackage(long packageId, String description, int itemNum, int truckId, int userId, int destX, int destY, int whid, int startX, int startY) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+            Package pkg = new Package(packageId, description, itemNum, truckId, userId, destX, destY, whid, startX, startY);
+            packageMapper.insertPackage(pkg);
+            sqlSession.commit();
+            System.out.println("insert package" + pkg + " to table!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void completePackage(long packageId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+            Package pkg = packageMapper.findByPackageId(packageId);
+            pkg.setTruckId(0);
+            packageMapper.updatePackage(pkg);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

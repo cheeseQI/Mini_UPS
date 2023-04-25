@@ -5,11 +5,13 @@ import common.BuilderUtil;
 import common.ConstantUtil;
 import common.MyBatisUtil;
 import common.SeqGenerator;
+import mapper.PackageMapper;
 import mapper.TruckMapper;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
 import protocol.AmazonUps;
 import protocol.WorldUps;
+import service.PackageService;
 import service.TruckService;
 
 import java.util.ArrayList;
@@ -21,7 +23,9 @@ public class ReceiveWorldHandler implements Runnable{
     public void run() {
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+        PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
         TruckService truckService = new TruckService();
+        PackageService packageService = new PackageService();
         List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
         WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(uInitTruckList);
         Server.worldClient.sendMessage(uConnect);
@@ -32,6 +36,7 @@ public class ReceiveWorldHandler implements Runnable{
         }
         ConstantUtil.WORLD_ID = uConnected.getWorldid();
         truckService.storeTrucks(uInitTruckList);
+        truckService.updateDummyTrucks();
         while (true) {
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();
@@ -51,18 +56,26 @@ public class ReceiveWorldHandler implements Runnable{
             }
             for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {
                 hasCommandContent = true;
-                //todo: change builder
                 ackList.add(uFinished.getSeqnum());
                 AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());
                 Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);
-                truckService.setTruckStatus(uFinished.getTruckid(), ConstantUtil.TRUCK_ARRIVE);
+                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());
+                truck.setStatus(ConstantUtil.TRUCK_ARRIVE);
+                truck.setPackageNum(truck.getPackageNum() + 1);
+                truckMapper.updateTruck(truck);
+                sqlSession.commit();
             }
             for (WorldUps.UDeliveryMade uDeliveryMade: uResponses.getDeliveredList()) {
                 hasCommandContent = true;
                 ackList.add(uDeliveryMade.getSeqnum());
                 AmazonUps.UATruckDeliverMade uaTruckDeliverMade = BuilderUtil.buildUATruckDeliverMade(uDeliveryMade.getTruckid(), uDeliveryMade.getPackageid(), SeqGenerator.incrementAndGet());
                 Server.uaTruckDeliverMadeMap.put(uaTruckDeliverMade.getSeqnum(), uaTruckDeliverMade);
-                truckService.setTruckStatus(uDeliveryMade.getTruckid(), ConstantUtil.TRUCK_IDLE);
+                Truck truck = truckMapper.findByTruckId(uDeliveryMade.getTruckid());
+                truck.setStatus(ConstantUtil.TRUCK_IDLE);
+                truck.setPackageNum(truck.getPackageNum() - 1);
+                truckMapper.updateTruck(truck);
+                sqlSession.commit();
+                packageService.completePackage(uDeliveryMade.getPackageid());
             }
             WorldUps.UCommands.Builder  uCommandsBuilder = WorldUps.UCommands.newBuilder();
             // tell world the uresponse that has been received

@@ -71,9 +71,10 @@ public class UserService {
     public String redirectPackage(Long packageId, int destX, int destY){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
             Package pkg = packageMapper.findByPackageId(packageId);
-            if(pkg.getStatus().equals("IDLE")){
-                return "package is not idle";
+            if(truckMapper.findByTruckId(pkg.getTruckId()).getStatus().equals("DELIVERING") || pkg.getTruckId() == 0){
+                return "package is already on the way of delivering";
             }
             else{
                 pkg.setDestX(destX);

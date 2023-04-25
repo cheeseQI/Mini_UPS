@@ -32,7 +32,7 @@ public class ReceiveAmazonHandler implements Runnable {
     public void run() {
         AmazonUps.UAConnect uaConnect = BuilderUtil.buildUAConnect(ConstantUtil.WORLD_ID);
         Server.amazonClient.sendMessage(uaConnect);
-        System.out.println(Server.amazonClient.receiveAUConnected()); //todo: may failed
+        System.out.println(Server.amazonClient.receiveAUConnected());
         while (true) {
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();
@@ -59,6 +59,10 @@ public class ReceiveAmazonHandler implements Runnable {
                 WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truck.getTruckId(), auCallTruck.getWhid(), SeqGenerator.incrementAndGet());
                 Server.uGoPickupMap.put(uGoPickup.getSeqnum(), uGoPickup);
                 truckService.setTruckStatus(uGoPickup.getTruckid(), ConstantUtil.TRUCK_TRAVEL);
+                for (AmazonUps.AUProduct auProduct: auCallTruck.getThingsList()) {
+                    packageService.insertPackage(auProduct.getId(), auProduct.getDescription(), auProduct.getCount(), truck.getTruckId(),
+                            auProduct.getUserid(), auProduct.getDestX(), auProduct.getDestY(), auCallTruck.getWhid(), auProduct.getDestX(), auProduct.getDestY());
+                }
             }
             for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {
                 hasCommandContent = true;
@@ -67,18 +71,21 @@ public class ReceiveAmazonHandler implements Runnable {
                 WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(auTruckGoDeliver.getTruckid(), uDeliveryLocationList, SeqGenerator.incrementAndGet());
                 Server.uGoDeliverMap.put(uGoDeliver.getSeqnum(), uGoDeliver);
                 truckService.setTruckStatus(uGoDeliver.getTruckid(), ConstantUtil.TRUCK_DELIVER);
-                //todo: also insert pkg into package table
             }
             for (AmazonUps.AURequestPackageStatus auRequestPackageStatus: auCommands.getRequestPackageStatusList()) {
                 hasCommandContent = true;
                 ackList.add(auRequestPackageStatus.getSeqnum());
                 Package pkg = packageService.findPackage(auRequestPackageStatus.getShipid());
-//                int[] currLoc = truckService.findTruckById(pkg.getTruckId());
-                //todo: update info: builder not desx but currx, need to know package idle or on truck...; design package status
-                AmazonUps.UAUpdatePackageStatus uaUpdatePackageStatus = BuilderUtil.buildUAUpdatePackageStatus(pkg.getPackageId(), pkg.getDestX(), pkg.getDestY(), pkg.getStatus(), SeqGenerator.incrementAndGet());
+                Truck truck = truckService.findTruckById(pkg.getTruckId());
+                AmazonUps.UAUpdatePackageStatus uaUpdatePackageStatus = BuilderUtil.buildUAUpdatePackageStatus(pkg.getPackageId(), truck.getStatus(), truck.getCurrX(), truck.getCurrY(), SeqGenerator.incrementAndGet());
                 Server.uaUpdatePackageStatusMap.put(uaUpdatePackageStatus.getSeqnum(), uaUpdatePackageStatus);
             }
-            //todo: other message like AURequestPackageStatus
+            for (AmazonUps.AUTruckGoLoad auTruckGoLoad: auCommands.getLoadingList()) {
+                hasCommandContent = true;
+                ackList.add(auTruckGoLoad.getSeqnum());
+                truckService.setTruckStatus(auTruckGoLoad.getTruckid(), ConstantUtil.TRUCK_LOAD);
+            }
+            //todo: other message like AURequestSendUserInfo
             AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
             // tell amazon the aucommand that has been received
             uaCommandsBuilder.addAllAcks(ackList);

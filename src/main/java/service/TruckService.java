@@ -11,10 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TruckService {
+    //this is only used to show a non-exist relation for package table
+    public void updateDummyTrucks() {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+            Truck truck = truckMapper.findByTruckId(0);
+            if (truck != null) {
+                truck.setStatus("DUMMY");
+                truckMapper.updateTruck(truck);
+                sqlSession.commit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public List<WorldUps.UInitTruck> make100Trucks() {
         List<WorldUps.UInitTruck> uInitTruckList = new ArrayList<>();
-        for (int i = 0; i < 100; i ++) {
+        for (int i = 0; i <= 100; i ++) {
             WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(i, i, i);
             uInitTruckList.add(uInitTruck);
         }
@@ -27,8 +41,8 @@ public class TruckService {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
             for (WorldUps.UInitTruck uInitTruck: uInitTruckList) {
                 truckMapper.insertTruck(new Truck(uInitTruck.getId(), "IDLE", uInitTruck.getX(), uInitTruck.getY(), 0));
-                sqlSession.commit();
             }
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

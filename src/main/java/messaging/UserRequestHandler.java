@@ -23,7 +23,6 @@ public class UserRequestHandler implements Runnable {
                 Package pkg = userService.queryPackageById(query.getPackageId());
                 UpsUser.UPackage uPackage = common.BuilderUtil.buildUPackage(
                         pkg.getPackageId(),
-                        pkg.getStatus(),
                         pkg.getDescription(),
                         pkg.getItemNum(),
                         pkg.getDestX(),
@@ -40,7 +39,6 @@ public class UserRequestHandler implements Runnable {
                 for(Package pkg: packageList){
                     UpsUser.UPackage uPackage = common.BuilderUtil.buildUPackage(
                             pkg.getPackageId(),
-                            pkg.getStatus(),
                             pkg.getDescription(),
                             pkg.getItemNum(),
                             pkg.getDestX(),

@@ -25,13 +25,18 @@ message AUProduct{
   required int32 userid= 6;
 }
 
-//Optional, it's fine if the users are not willing to bind the upsId with Amazon
-message AURequestConnectUpsUserId{ //todo: to AURequestConnectUserId
-  // The user ID of the UPS user that must request to connect to Amazon.
-  required int64 UpsUserid = 1;
-  //todo: add password
+message AURequestSendUserInfo{
+  required int32 userid = 1;
+  required string password = 2;
+  required int64 seqnum = 3;
 }
-//todo: add UARequestConnectUserId
+
+message UARequestSendUserInfo{
+  required int32 userid = 1;
+  required string password = 2;
+  required int64 seqnum = 3;
+}
+
 message UAResponseConnectUpsUserId{
   // A repeated field of errors that may occur during the request.
   repeated Err error = 1;
@@ -136,6 +141,7 @@ message AUCommands{
   repeated AUTruckGoDeliver truckGoDeliver = 2;
   // A repeated field of requests to check the status of packages, which must be provided.
   repeated AURequestPackageStatus requestPackageStatus = 3;
+  repeated AURequestSendUserInfo userInfo = 4;
   repeated AUTruckGoLoad loading = 5;
   // An optional field indicating that UPS may want to disconnect from Amazon's world.
   optional bool disconnect = 6;
@@ -150,12 +156,12 @@ message UACommands{
   repeated UATruckArrived truckArrived = 1;
   // A repeated field of notifications indicating the status of packages has been updated, which must be provided.
   repeated UAUpdatePackageStatus updatePackageStatus = 2;
-  //
   repeated UATruckDeliverMade delivered = 3;
+  repeated UARequestSendUserInfo userInfo = 4;
   // An optional field indicating that all deliveries have been completed, which may be provided.
-  optional bool finished = 4;
+  optional bool finished = 5;
   // A repeated field of errors that may occur during the requests.
-  repeated Err error = 5;
+  repeated Err error = 6;
   // A repeated field of unique sequence numbers for the request acknowledgements.
-  repeated int64 acks = 6;
+  repeated int64 acks = 7;
 }

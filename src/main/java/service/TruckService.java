@@ -5,6 +5,7 @@ import mapper.TruckMapper;
 import common.BuilderUtil;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
+import org.checkerframework.checker.units.qual.A;
 import protocol.WorldUps;
 
 import java.util.ArrayList;
@@ -12,15 +13,12 @@ import java.util.List;
 
 public class TruckService {
     //this is only used to show a non-exist relation for package table
-    public void updateDummyTrucks() {
+    public void storeDummyTruck() {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
-            Truck truck = truckMapper.findByTruckId(0);
-            if (truck != null) {
-                truck.setStatus("DUMMY");
-                truckMapper.updateTruck(truck);
-                sqlSession.commit();
-            }
+            Truck truck = new Truck(0, "COMPLETE", -1, -1, -1);
+            truckMapper.insertTruck(truck);
+            sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,7 +26,7 @@ public class TruckService {
 
     public List<WorldUps.UInitTruck> make100Trucks() {
         List<WorldUps.UInitTruck> uInitTruckList = new ArrayList<>();
-        for (int i = 0; i <= 100; i ++) {
+        for (int i = 1; i <= 100; i ++) {
             WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(i, i, i);
             uInitTruckList.add(uInitTruck);
         }
@@ -80,5 +78,25 @@ public class TruckService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void updateTruck(Truck truck) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+            truckMapper.updateTruck(truck);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Truck> findAllValidTrucks() {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+            return truckMapper.findAllValid();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }

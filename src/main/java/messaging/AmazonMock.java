@@ -48,5 +48,8 @@ public class AmazonMock {
 //        auTruckGoDeliverBuilder.setSeqnum(2).setTruckid(uaCommands1.getTruckArrived(0).getTruckid()).setPackages();
 //        auCommandsBuilder2.addTruckGoDeliver(auTruckGoDeliverBuilder);
         upsClient.disconnect();
+//        while (true) {
+//
+//        }
     }
 }

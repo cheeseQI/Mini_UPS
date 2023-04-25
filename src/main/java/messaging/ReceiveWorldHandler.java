@@ -36,7 +36,7 @@ public class ReceiveWorldHandler implements Runnable{
         }
         ConstantUtil.WORLD_ID = uConnected.getWorldid();
         truckService.storeTrucks(uInitTruckList);
-        truckService.updateDummyTrucks();
+        truckService.storeDummyTruck();
         while (true) {
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();
@@ -73,9 +73,17 @@ public class ReceiveWorldHandler implements Runnable{
                 Truck truck = truckMapper.findByTruckId(uDeliveryMade.getTruckid());
                 truck.setStatus(ConstantUtil.TRUCK_IDLE);
                 truck.setPackageNum(truck.getPackageNum() - 1);
-                truckMapper.updateTruck(truck);
-                sqlSession.commit();
+                truckService.updateTruck(truck);
                 packageService.completePackage(uDeliveryMade.getPackageid());
+            }
+            for (WorldUps.UTruck uTruck: uResponses.getTruckstatusList()) {
+                hasCommandContent = true;
+                ackList.add(uTruck.getSeqnum());
+                Truck truck = truckMapper.findByTruckId(uTruck.getTruckid());
+                truck.setStatus(uTruck.getStatus());
+                truck.setCurrX(uTruck.getX());
+                truck.setCurrY(uTruck.getY());
+                truckService.updateTruck(truck);
             }
             WorldUps.UCommands.Builder  uCommandsBuilder = WorldUps.UCommands.newBuilder();
             // tell world the uresponse that has been received

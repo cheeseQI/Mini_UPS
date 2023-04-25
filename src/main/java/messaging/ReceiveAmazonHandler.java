@@ -11,6 +11,7 @@ import protocol.AmazonUps;
 import protocol.WorldUps;
 import service.PackageService;
 import service.TruckService;
+import service.UserService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,10 +23,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ReceiveAmazonHandler implements Runnable {
     TruckService truckService;
     PackageService packageService;
+    UserService userService;
 
     public ReceiveAmazonHandler() {
         truckService = new TruckService();
         packageService = new PackageService();
+        userService = new UserService();
     }
 
     @Override
@@ -38,7 +41,7 @@ public class ReceiveAmazonHandler implements Runnable {
             List<Long> ackList = new ArrayList<>();
             AmazonUps.AUCommands auCommands = Server.amazonClient.receiveARequest();
             System.out.println("receive from amazon: " + auCommands);
-            // deal with ack of aucommand, which is used to delete resend uaCommands
+            // deal with ack of aucommand to ack old uacommand
             for (long ack: auCommands.getAcksList()) {
                 if (Server.uaTruckArrivedMap.containsKey(ack)) {
                     AmazonUps.UATruckArrived uaTruckArrived = Server.uaTruckArrivedMap.get(ack);
@@ -48,9 +51,14 @@ public class ReceiveAmazonHandler implements Runnable {
                     AmazonUps.UATruckDeliverMade uaTruckDeliverMade = Server.uaTruckDeliverMadeMap.get(ack);
                     Server.uaTruckDeliverMadeMap.remove(ack);
                     System.out.println("remove uaTruckDeliverMade from resend");
+                } else if (Server.uaUpdatePackageStatusMap.containsKey(ack)) {
+                    Server.uaUpdatePackageStatusMap.remove(ack);
+                    System.out.println("remove uaUpdatePackageStatusMap from resend");
+                } else if (Server.uaRequestSendUserInfoMap.containsKey(ack)) {
+                    Server.uaRequestSendUserInfoMap.remove(ack);
                 }
             }
-
+            // deal with new aucommand
             for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
                 hasCommandContent = true;
                 ackList.add(auCallTruck.getSeqnum());
@@ -85,7 +93,11 @@ public class ReceiveAmazonHandler implements Runnable {
                 ackList.add(auTruckGoLoad.getSeqnum());
                 truckService.setTruckStatus(auTruckGoLoad.getTruckid(), ConstantUtil.TRUCK_LOAD);
             }
-            //todo: other message like AURequestSendUserInfo
+            for (AmazonUps.AURequestSendUserInfo auRequestSendUserInfo: auCommands.getUserInfoList()) {
+                hasCommandContent = true;
+                ackList.add(auRequestSendUserInfo.getSeqnum());
+                userService.storeUser(auRequestSendUserInfo.getUserid(), auRequestSendUserInfo.getPassword());
+            }
             AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
             // tell amazon the aucommand that has been received
             uaCommandsBuilder.addAllAcks(ackList);

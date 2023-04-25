@@ -36,15 +36,5 @@ public class WorldClient extends SocketClient {
             return null;
         }
     }
-
-//
-//    public void updateData(WorldUps.UResponses uResponses) {
-//        if (uResponses.getCompletionsCount() > 0) {
-//            //todo: change database status
-//        }
-//        if (uResponses.getDeliveredCount() > 0) {
-//            //todo: change database status
-//        }
-//    }
 }
 

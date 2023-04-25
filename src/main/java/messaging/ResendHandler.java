@@ -19,7 +19,6 @@ public class ResendHandler implements Runnable {
             }
             resendToWorld();
             resendToAmazon();
-            //queryTruckToWorld(); todo: add back when finishing all parts. this print too much
         }
     }
 
@@ -55,18 +54,5 @@ public class ResendHandler implements Runnable {
         System.out.println("send ucommand to world: " + uCommandsBuilder);
         Server.worldClient.sendMessage(uCommandsBuilder.build());
         // todo: add other message
-    }
-
-    public void queryTruckToWorld() {
-        WorldUps.UCommands.Builder uCommandsBuilder = WorldUps.UCommands.newBuilder();
-        TruckService truckService = new TruckService();
-        List<Truck> truckList = truckService.findAllValidTrucks();
-        for (Truck truck: truckList) {
-            WorldUps.UQuery.Builder uQuery = WorldUps.UQuery.newBuilder();
-            uQuery.setTruckid(truck.getTruckId()).setSeqnum(SeqGenerator.incrementAndGet());
-            uCommandsBuilder.addQueries(uQuery);
-        }
-        System.out.println("send uquery to world");
-        Server.worldClient.sendMessage(uCommandsBuilder.build());
     }
 }

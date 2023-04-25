@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class AmazonMock {
     public static void main(String[] args) throws IOException {
-        UpsClient upsClient = new UpsClient("127.0.0.1", 7474);
+        UpsClient upsClient = new UpsClient("vcm-32430.vm.duke.edu", 7474);
         System.out.println("socket with ups");
         AmazonUps.UAConnect uaConnect = upsClient.receiveUAConnect();
         System.out.println(uaConnect);
@@ -16,10 +16,12 @@ public class AmazonMock {
         builder.setWorldid(uaConnect.getWorldid()).setResult("success!");
         upsClient.sendMessage(builder.build());
         // 2 call truck
-        AmazonUps.AUProduct.Builder auproductBuilder = AmazonUps.AUProduct.newBuilder();
-        auproductBuilder.setDescription("cool apple").setId(1).setCount(2).setDestX(11).setDestY(12).setUserid(747);
+        AmazonUps.AUProduct.Builder auproductBuilder1 = AmazonUps.AUProduct.newBuilder();
+        AmazonUps.AUProduct.Builder auproductBuilder2 = AmazonUps.AUProduct.newBuilder();
+        auproductBuilder1.setDescription("cool apple").setId(1).setCount(2).setDestX(11).setDestY(12).setUserid(747);
+        auproductBuilder2.setDescription("bad apple").setId(2).setCount(3).setDestX(11).setDestY(12).setUserid(747);
         AmazonUps.AUCallTruck.Builder auCallTruckBuilder = AmazonUps.AUCallTruck.newBuilder();
-        auCallTruckBuilder.setSeqnum(1).setWhid(1).setX(1).setY(1).setShipid(1).addThings(auproductBuilder);
+        auCallTruckBuilder.setSeqnum(1).setWhid(1).setWhX(1).setWhY(1).addThings(auproductBuilder1).addThings(auproductBuilder2);
         AmazonUps.AUCommands.Builder auCommand0 = AmazonUps.AUCommands.newBuilder();
         auCommand0.addCallTruck(auCallTruckBuilder.build());
         upsClient.sendMessage(auCommand0.build());
@@ -34,7 +36,7 @@ public class AmazonMock {
         upsClient.sendMessage(auCommandsBuilder1.build());
         //4 goload
         AmazonUps.AUCommands.Builder auCommandsBuilder2 = AmazonUps.AUCommands.newBuilder();
-        auCommandsBuilder2.addLoading(AmazonUps.AUTruckGoLoad.newBuilder().setTruckid(4).setShipid(1).setSeqnum(2));
+        auCommandsBuilder2.addLoading(AmazonUps.AUTruckGoLoad.newBuilder().setTruckid(4).setSeqnum(2));
         System.out.println("send to ups: " + auCommandsBuilder2);
         upsClient.sendMessage(auCommandsBuilder2.build());
         AmazonUps.UACommands uaCommands2 = upsClient.receiveUACommands();

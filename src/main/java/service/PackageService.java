@@ -6,7 +6,11 @@ import mapper.TruckMapper;
 import model.Package;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
+import org.checkerframework.checker.units.qual.A;
 import protocol.WorldUps;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PackageService {
 
@@ -18,6 +22,16 @@ public class PackageService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Package> findPackageByTruck(int truckId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+            return packageMapper.findByTruckId(truckId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     public void insertPackage(long packageId, String description, int itemNum, int truckId, int userId, int destX, int destY, int whid, int startX, int startY) {

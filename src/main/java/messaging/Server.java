@@ -17,7 +17,6 @@ public class Server {
     public static Map<Long, AmazonUps.UATruckArrived> uaTruckArrivedMap;
     public static Map<Long, AmazonUps.UATruckDeliverMade> uaTruckDeliverMadeMap;
     public static Map<Long, AmazonUps.UAUpdatePackageStatus> uaUpdatePackageStatusMap;
-    public static Map<Long, AmazonUps.UARequestSendUserInfo> uaRequestSendUserInfoMap;
     public static Map<Long, AmazonUps.AURequestSendUserInfo> auRequestSendUserInfoMap;
 
 
@@ -27,7 +26,6 @@ public class Server {
         uaTruckArrivedMap = new ConcurrentHashMap<>();
         uaTruckDeliverMadeMap = new ConcurrentHashMap<>();
         uaUpdatePackageStatusMap = new ConcurrentHashMap<>();
-        uaRequestSendUserInfoMap = new ConcurrentHashMap<>();
         auRequestSendUserInfoMap = new ConcurrentHashMap<>();
     }
 
@@ -48,15 +46,19 @@ public class Server {
         ReceiveAmazonHandler receiveAmazonHandler = new ReceiveAmazonHandler();
         Thread amazonThread = new Thread(receiveAmazonHandler);
         amazonThread.start();
-        //todo: truckHandler
+
         ResendHandler resendHandler = new ResendHandler();
         Thread resendThread = new Thread(resendHandler);
         resendThread.start();
 
         //user handler-> query & redirect package
-
         UserHandler userHandler = new UserHandler();
         Thread userThread = new Thread(userHandler);
         userThread.start();
+
+        //update truck handler -> update truck table
+//        TruckUpdateHandler truckUpdateHandler = new TruckUpdateHandler();
+//        Thread truckThread = new Thread(truckUpdateHandler);
+//        truckThread.start();
     }
 }

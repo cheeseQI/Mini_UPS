@@ -54,8 +54,6 @@ public class ReceiveAmazonHandler implements Runnable {
                 } else if (Server.uaUpdatePackageStatusMap.containsKey(ack)) {
                     Server.uaUpdatePackageStatusMap.remove(ack);
                     System.out.println("remove uaUpdatePackageStatusMap from resend");
-                } else if (Server.uaRequestSendUserInfoMap.containsKey(ack)) {
-                    Server.uaRequestSendUserInfoMap.remove(ack);
                 }
             }
             // deal with new aucommand
@@ -76,6 +74,10 @@ public class ReceiveAmazonHandler implements Runnable {
                 hasCommandContent = true;
                 ackList.add(auTruckGoDeliver.getSeqnum());
                 List<WorldUps.UDeliveryLocation> uDeliveryLocationList = new ArrayList<>();
+                for (Package pkg: packageService.findPackageByTruck(auTruckGoDeliver.getTruckid())) {
+                    uDeliveryLocationList.add(WorldUps.UDeliveryLocation.newBuilder().setPackageid(pkg.getPackageId()).
+                            setX(pkg.getDestX()).setY(pkg.getDestY()).build());
+                }
                 WorldUps.UGoDeliver uGoDeliver = BuilderUtil.buildUGoDeliver(auTruckGoDeliver.getTruckid(), uDeliveryLocationList, SeqGenerator.incrementAndGet());
                 Server.uGoDeliverMap.put(uGoDeliver.getSeqnum(), uGoDeliver);
                 truckService.setTruckStatus(uGoDeliver.getTruckid(), ConstantUtil.TRUCK_DELIVER);

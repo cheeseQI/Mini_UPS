@@ -68,7 +68,6 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    //todo: need to be modified
     public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {
         AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();
         builder.setTruckid(truckId).setX(x).setY(y).setSeqnum(seqNum);

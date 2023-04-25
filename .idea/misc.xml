@@ -9,28 +9,32 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1264" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/App.java" />
+          <option name="caretOffset" value="2974" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="82" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/Communicator.java" />
+          <option name="caretOffset" value="2217" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ResendHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="716" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_ups.proto" />
+          <option name="caretOffset" value="1009" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="492" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/messaging/SocketClientTest.java" />
+          <option name="caretOffset" value="1115" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/PackageService.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1856" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java" />
+          <option name="caretOffset" value="560" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1657" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/BuilderUtil.java" />
+          <option name="caretOffset" value="1803" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/Server.java" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1694" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/TruckService.java" />
         </OpenedFileInfo>
       </list>
     </option>

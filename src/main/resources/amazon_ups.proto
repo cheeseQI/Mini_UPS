@@ -22,78 +22,50 @@ message AUProduct{
   // dest x, y
   required int32 destX = 4;
   required int32 destY = 5;
-  required int32 userid= 6;
+  required int32 userid = 6;
 }
 
 message AURequestSendUserInfo{
   required int32 userid = 1;
-  required string password = 2;
-  required int64 seqnum = 3;
-}
-
-message UARequestSendUserInfo{
-  required int32 userid = 1;
-  required string password = 2;
-  required int64 seqnum = 3;
-}
-
-message UAResponseConnectUpsUserId{
-  // A repeated field of errors that may occur during the request.
-  repeated Err error = 1;
-  // A repeated field of unique sequence numbers for the request acknowledgements.
-  repeated int64 acks = 2;
+  required string username = 2;
+  required string password = 3;
+  required int64 seqnum = 4;
 }
 
 message AUCallTruck{
   // A repeated field of products that must be delivered by UPS.
   repeated AUProduct things = 1;
-  // The unique identifier of the shipment, which is the same in Ups' packageId.
-  required int64 shipid = 2;
   // The ID of the warehouse where the products are located.
-  required int32 whid = 3;
+  required int32 whid = 2;
   // A unique sequence number for the request.
-  required int64 seqnum = 4;
+  required int64 seqnum = 3;
   // add x
-  required int32 x = 5;
+  required int32 wh_x = 4;
   // add y
-  required int32 y = 6;
-}
-
-message AUDeliveryLocation{
-  // The unique identifier of the shipment.
-  required int64 shipid = 1;
-  // The x-coordinate of the delivery location.
-  required int32 x = 2;
-  // The y-coordinate of the delivery location.
-  required int32 y = 3;
+  required int32 wh_y = 5;
 }
 
 message UATruckArrived{
   // The unique identifier of the truck that has arrived.
   required int32 truckid = 1;
-  // The unique identifier of the package that has been delivered.
-  //required int64 packageid = 2;
   // A unique sequence number for the delivery.
-  required int64 seqnum = 3;
-  required int32 x = 4;
-  required int32 y = 5;
+  required int64 seqnum = 2;
+  required int32 x = 3;
+  required int32 y = 4;
 }
 
 /*start loading*/
 message AUTruckGoLoad{
-  required int64 shipid = 1;
-  required int32 truckid = 2;
-  required int64 seqnum = 3;
+  required int32 truckid = 1;
+  required int64 seqnum = 2;
 }
 
 /*loaded finished, start to deliver*/
 message AUTruckGoDeliver{
   // The unique identifier of the truck that must deliver the packages.
   required int32 truckid = 1;
-  // A repeated field of delivery locations for the packages.
-  repeated AUDeliveryLocation packages = 2;
   // A unique sequence number for the request.
-  required int64 seqnum = 3;
+  required int64 seqnum = 2;
 }
 
 /*loaded finished, delive made*/
@@ -157,11 +129,10 @@ message UACommands{
   // A repeated field of notifications indicating the status of packages has been updated, which must be provided.
   repeated UAUpdatePackageStatus updatePackageStatus = 2;
   repeated UATruckDeliverMade delivered = 3;
-  repeated UARequestSendUserInfo userInfo = 4;
   // An optional field indicating that all deliveries have been completed, which may be provided.
-  optional bool finished = 5;
+  optional bool finished = 4;
   // A repeated field of errors that may occur during the requests.
-  repeated Err error = 6;
+  repeated Err error = 5;
   // A repeated field of unique sequence numbers for the request acknowledgements.
-  repeated int64 acks = 7;
+  repeated int64 acks = 6;
 }

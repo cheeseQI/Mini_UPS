@@ -1,7 +1,7 @@
 package model;
 
 import junit.framework.TestCase;
-import mapper.PackageMapper;
+//import mapper.PackageMapper;
 import mapper.TruckMapper;
 import mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;

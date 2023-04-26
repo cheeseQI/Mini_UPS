@@ -39,7 +39,7 @@ export default {
             try {
                 console.log("http get start");
                 const response = await axios.get(
-                    `https://localhost:1029/query/${this.packageId}`
+                    `http://localhost:8080/query/1/${this.packageId}`
                 );
                 console.log(response);
 

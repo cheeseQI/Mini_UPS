@@ -12,6 +12,9 @@ apply plugin: 'java'
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
 
+// Apply the war plugin to add support for building a war file
+apply plugin: 'war'
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -35,6 +38,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 //    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 //    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // Servlet API dependency
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 // Define the main class for the application
@@ -45,4 +51,10 @@ jar {
     }
 }
 
-
+// Configure the WAR plugin
+war {
+    archiveName = "java-servlet-demo.war"
+    webInf {
+        from 'src/main/webapp/WEB-INF'
+    }
+}

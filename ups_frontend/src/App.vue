@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">queryOrder</router-link>
-      <router-link to="/redirect-order">redirectOrder</router-link>
+      <router-link to="/query">Query Order</router-link>
+        <router-link to="/redirect">Redirect Order</router-link>
+        <router-link to="/login">Login</router-link>
     </nav>
     <router-view />
   </div>

@@ -19,6 +19,7 @@ public class UserHandler implements Runnable {
             }
             try (ServerSocket serverSocket = new ServerSocket(1029)) {
                 UserClient userClient = new UserClient(serverSocket.accept());
+                System.out.println("accept connection");
                 UserRequestHandler userRequestHandler = new UserRequestHandler(userClient);
                 Thread thread = new Thread(userRequestHandler);
                 thread.start();

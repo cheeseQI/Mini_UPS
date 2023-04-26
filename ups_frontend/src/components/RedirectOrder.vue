@@ -17,47 +17,59 @@
   </div>
 </template>
 <script>
-import { inject } from 'vue';
-import {
-  UUserRequest,
-  URedirect,
-  UUserResponse,
-} from "@/ups_user_pb.js";
+// import { inject } from 'vue';
+// import {
+//   UUserRequest,
+//   URedirect,
+//   UUserResponse,
+// } from "@/ups_user_pb.js";
+import axios from "axios";
 export default {
   data() {
     return {
-      orderId: "",
-      newDestination: "",
+      packageId: "",
+      newX: "",
+      newY: ""
     };
   },
-  setup() {
-    const socket = inject('$socket');
-    return { socket };
-  },
+  // setup() {
+  //   const socket = inject('$socket');
+  //   return { socket };
+  // },
   methods: {
 
     async redirectOrder() {
-      const redirect = new URedirect();
-      redirect.setPackageId(this.packageId);
-      redirect.setX(this.newX);
-      redirect.setY(this.newY);
+      // const redirect = new URedirect();
+      // redirect.setPackageId(this.packageId);
+      // redirect.setX(this.newX);
+      // redirect.setY(this.newY);
+      //
+      // const request = new UUserRequest();
+      // request.setRedirectCommand(redirect);
+      //
+      // this.$socket.send("redirectOrder", request);
 
-      const request = new UUserRequest();
-      request.setRedirectCommand(redirect);
+        try {
+            const response = await axios.post("http://localhost:8080/redirect", {
+                packageId: this.packageId,
+                newX: this.newX,
+                newY: this.newY,
+            });
+            console.log(response);
+        } catch (error) {
+            console.error("Error creating order:", error);
+        }
+    }
+      // const binaryPayload = await this.$socket.onMessage("redirectOrderResponse");
+      // const response = UUserResponse.deserializeBinary(binaryPayload);
+      // const redirectResult = response.getRedirectResult();
 
-      this.$socket.send("redirectOrder", request);
-
-      const binaryPayload = await this.$socket.onMessage("redirectOrderResponse");
-      const response = UUserResponse.deserializeBinary(binaryPayload);
-      const redirectResult = response.getRedirectResult();
-
-      if (redirectResult.getMessage() === "success") {
-        alert("redirect success");
-        this.$router.push("/");
-      } else {
-        alert("redirect failed");
-      }
+      // if (redirectResult.getMessage() === "success") {
+      //   alert("redirect success");
+      //   this.$router.push("/");
+      // } else {
+      //   alert("redirect failed");
+      // }
     },
-  },
 };
 </script>

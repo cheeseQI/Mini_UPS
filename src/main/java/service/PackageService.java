@@ -6,7 +6,6 @@ import mapper.TruckMapper;
 import model.Package;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
-import org.checkerframework.checker.units.qual.A;
 import protocol.WorldUps;
 
 import java.util.ArrayList;

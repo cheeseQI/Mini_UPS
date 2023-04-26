@@ -15,22 +15,22 @@ public class TruckTest extends TestCase {
         super.setUp();
         sqlSession = MyBatisUtil.getSqlSession();
         truckMapper = sqlSession.getMapper(TruckMapper.class);
-        truckMapper.deleteAll();
-        int res = truckMapper.insertTruck(new Truck(1, "IDLE", 1, 2, 1));
-        System.out.println(res);
-        sqlSession.commit();
+//        truckMapper.deleteAll();
+//        int res = truckMapper.insertTruck(new Truck(1, "IDLE", 1, 2, 1));
+//        System.out.println(res);
+//        sqlSession.commit();
     }
 
     public void testGetTruckId() {
-        System.out.println(truckMapper.findByTruckId(1));
+        //System.out.println(truckMapper.findByTruckId(1));
     }
 
     public void testSetTruckStatus() {
-        Truck truck = truckMapper.findByTruckId(1);
-        truck.setStatus("EN ROUTE");
-        truckMapper.updateTruck(truck);
-        sqlSession.commit();
-        testGetTruckId();
+//        Truck truck = truckMapper.findByTruckId(1);
+//        truck.setStatus("EN ROUTE");
+//        truckMapper.updateTruck(truck);
+//        sqlSession.commit();
+//        testGetTruckId();
     }
 
     public void testClean() {

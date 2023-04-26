@@ -6,7 +6,6 @@ import common.ConstantUtil;
 import common.SeqGenerator;
 import model.Package;
 import model.Truck;
-import org.checkerframework.checker.units.qual.A;
 import protocol.AmazonUps;
 import protocol.WorldUps;
 import service.PackageService;

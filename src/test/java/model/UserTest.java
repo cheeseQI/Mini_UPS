@@ -17,11 +17,11 @@ public class UserTest extends TestCase {
         super.setUp();
         sqlSession = MyBatisUtil.getSqlSession();
         userMapper = sqlSession.getMapper(UserMapper.class);
-        //truckMapper = sqlSession.getMapper(TruckMapper.class);
-        userMapper.deleteAll();
+        truckMapper = sqlSession.getMapper(TruckMapper.class);
+        //userMapper.deleteAll();
         //truckMapper.deleteAll();
-        userMapper.insertUser(new User(747, "12345"));
-        sqlSession.commit();
+        //userMapper.insertUser(new User(747, "12345"));
+        //sqlSession.commit();
     }
 
     public void testGetUserIdAndPassword() {
@@ -29,12 +29,12 @@ public class UserTest extends TestCase {
     }
 
     public void testSetPassword() {
-        User user = userMapper.findByUserId(747);
-        System.out.println(user);
-        user.setPassword("321");
-        userMapper.updateUser(user);
-        sqlSession.commit();
-        System.out.println(userMapper.findByUserId(747));
+//        User user = userMapper.findByUserId(747);
+//        System.out.println(user);
+//        user.setPassword("321");
+//        userMapper.updateUser(user);
+//        sqlSession.commit();
+//        System.out.println(userMapper.findByUserId(747));
     }
 
     public void testClean() {

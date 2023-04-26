@@ -1,0 +1,41 @@
+15:49:05.442 [Test worker] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+”15:49:05.465 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.466 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.466 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.466 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.466 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.466 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.467 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”15:49:05.467 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+n15:49:05.528 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+w15:49:05.770 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 1070520293.
+±15:49:05.771 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@3fced7e5]
+f15:49:05.774 [Test worker] DEBUG mapper.UserMapper.deleteAll - ==>  Preparing: DELETE FROM user_table
+P15:49:05.792 [Test worker] DEBUG mapper.UserMapper.deleteAll - ==> Parameters: 
+Q15:49:05.795 [Test worker] DEBUG mapper.UserMapper.deleteAll - <==    Updates: 1
+15:49:05.796 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Committing JDBC Connection [org.postgresql.jdbc.PgConnection@3fced7e5]
+n15:49:05.801 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+w15:49:05.824 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 1443634527.
+±15:49:05.825 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@560c1d5f]
+|15:49:05.825 [Test worker] DEBUG mapper.UserMapper.findByUserId - ==>  Preparing: SELECT * FROM user_table WHERE userId = ?
+_15:49:05.826 [Test worker] DEBUG mapper.UserMapper.findByUserId - ==> Parameters: 747(Integer)
+T15:49:05.855 [Test worker] DEBUG mapper.UserMapper.findByUserId - <==      Total: 0
+null
+n15:49:05.863 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+w15:49:05.882 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 1099108382.
+±15:49:05.882 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@4183101e]
+f15:49:05.883 [Test worker] DEBUG mapper.PackageMapper.deleteAll - ==>  Preparing: DELETE FROM package
+S15:49:05.883 [Test worker] DEBUG mapper.PackageMapper.deleteAll - ==> Parameters: 
+T15:49:05.884 [Test worker] DEBUG mapper.PackageMapper.deleteAll - <==    Updates: 0
+15:49:05.884 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Committing JDBC Connection [org.postgresql.jdbc.PgConnection@4183101e]
+worldid: 1
+7result: "error: warehouse_id/truck_id already exists."
+
+successful connect
+n15:49:06.020 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+v15:49:06.046 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 682635283.
+±15:49:06.046 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@28b03013]
+b15:49:06.046 [Test worker] DEBUG mapper.TruckMapper.deleteAll - ==>  Preparing: DELETE FROM truck
+Q15:49:06.047 [Test worker] DEBUG mapper.TruckMapper.deleteAll - ==> Parameters: 
+R15:49:06.048 [Test worker] DEBUG mapper.TruckMapper.deleteAll - <==    Updates: 1
+15:49:06.048 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Committing JDBC Connection [org.postgresql.jdbc.PgConnection@28b03013]

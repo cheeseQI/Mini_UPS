@@ -45,11 +45,11 @@ public class ReceiveWorldHandler implements Runnable{
             // deal with ack of uResponse, which is used to delete resend uCommands
             for (long ack: uResponses.getAcksList()) {
                 if (Server.uGoPickupMap.containsKey(ack)) {
-                    WorldUps.UGoPickup uGoPickup = Server.uGoPickupMap.get(ack);
+                    //WorldUps.UGoPickup uGoPickup = Server.uGoPickupMap.get(ack);
                     Server.uGoPickupMap.remove(ack);
                     System.out.println("remove uGoPickUp with ack/seq: " + ack);
                 } else if (Server.uGoDeliverMap.containsKey(ack)) {
-                    WorldUps.UGoDeliver uGoDeliver = Server.uGoDeliverMap.get(ack);
+                    //WorldUps.UGoDeliver uGoDeliver = Server.uGoDeliverMap.get(ack);
                     Server.uGoDeliverMap.remove(ack);
                     System.out.println("remove uGoDeliver with ack/seq: " + ack);
                 }

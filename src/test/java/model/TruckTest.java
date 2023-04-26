@@ -21,6 +21,11 @@ public class TruckTest extends TestCase {
 //        sqlSession.commit();
     }
 
+    public void testInsertTruck() {
+        truckMapper.insertTruck(new Truck(1, "zhu", 1, 1, 0));
+        sqlSession.commit();
+    }
+
     public void testGetTruckId() {
         //System.out.println(truckMapper.findByTruckId(1));
     }

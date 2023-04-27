@@ -30,26 +30,26 @@ public class Server {
     }
 
     public void start() {
-        System.out.println("UPS Server is socket with WorldSim");
-        worldClient = new WorldClient("127.0.0.1", 12345);
-        ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
-        Thread worldThread = new Thread(receiveWorldHandler);
-        worldThread.start();
-
-        try (ServerSocket serverSocket = new ServerSocket(7474)) {
-            Socket initSocket = serverSocket.accept();
-            amazonClient = new AmazonClient(initSocket);
-            System.out.println("UPS Server is socket with Amazon");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ReceiveAmazonHandler receiveAmazonHandler = new ReceiveAmazonHandler();
-        Thread amazonThread = new Thread(receiveAmazonHandler);
-        amazonThread.start();
-
-        ResendHandler resendHandler = new ResendHandler();
-        Thread resendThread = new Thread(resendHandler);
-        resendThread.start();
+//        System.out.println("UPS Server is socket with WorldSim");
+//        worldClient = new WorldClient("127.0.0.1", 12345);
+//        ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
+//        Thread worldThread = new Thread(receiveWorldHandler);
+//        worldThread.start();
+//
+//        try (ServerSocket serverSocket = new ServerSocket(7474)) {
+//            Socket initSocket = serverSocket.accept();
+//            amazonClient = new AmazonClient(initSocket);
+//            System.out.println("UPS Server is socket with Amazon");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        ReceiveAmazonHandler receiveAmazonHandler = new ReceiveAmazonHandler();
+//        Thread amazonThread = new Thread(receiveAmazonHandler);
+//        amazonThread.start();
+//
+//        ResendHandler resendHandler = new ResendHandler();
+//        Thread resendThread = new Thread(resendHandler);
+//        resendThread.start();
 
         //user handler-> query & redirect package
         UserHandler userHandler = new UserHandler();

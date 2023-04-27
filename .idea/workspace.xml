@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ups_frontend/src/components/ups_frontend_background.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/PackageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/PackageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/Welcome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +71,7 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "last_opened_file_path": "/Users/bhc/erss-hwk5-sq44-hb147/ups_frontend",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
@@ -75,10 +80,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ups_frontend" />
       <recent name="$PROJECT_DIR$/.gradle/buildOutputCleanup" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ups_frontend/src/components" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="messaging" />

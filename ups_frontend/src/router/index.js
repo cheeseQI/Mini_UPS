@@ -5,10 +5,15 @@ import RedirectOrder from "../components/RedirectOrder.vue";
 import Login from "@/components/LoginComponent.vue";
 import PackageList from "@/components/PackageList.vue";
 import PackageInfo from "@/components/PackageInfo.vue";
-
+import Welcome from "@/components/Welcome.vue"
 // import App from "@/App.vue";
 
 const routes = [
+  {
+    path: "/",
+    name: "WelcomePage",
+    component: Welcome,
+  },
   {
     path: "/query",
     name: "QueryOrder",

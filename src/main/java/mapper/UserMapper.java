@@ -10,6 +10,9 @@ public interface UserMapper {
     @Select("SELECT * FROM user_table")
     List<User> findAll();
 
+    @Select("SELECT * FROM user_table")
+    boolean authentication(String username,String password);
+
     @Select("SELECT * FROM user_table WHERE userId = #{userId}")
     User findByUserId(@Param("userId") Integer userId);
 

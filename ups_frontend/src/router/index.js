@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import QueryOrder from "../components/QueryOrder.vue";
 import RedirectOrder from "../components/RedirectOrder.vue";
 import Login from "@/components/LoginComponent.vue";
+import PackageList from "@/components/PackageList.vue";
+import PackageInfo from "@/components/PackageInfo.vue";
+
 // import App from "@/App.vue";
 
 const routes = [
@@ -20,6 +23,16 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/package-list",
+    name: "PackageList",
+    component: PackageList,
+  },
+  {
+    path: "/package-info",
+    name: "PackageInfo",
+    component: PackageInfo,
   },
 ]
 

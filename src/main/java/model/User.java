@@ -1,20 +1,20 @@
 package model;
 
 public class User {
-    private Integer userId;
+    private String username;
     private String password;
 
     public User(){}
-    public User(Integer userId, String password) {
-        this.userId = userId;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
-    public Integer getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -28,7 +28,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId='" + userId + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

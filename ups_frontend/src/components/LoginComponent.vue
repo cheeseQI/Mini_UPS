@@ -10,6 +10,8 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
     data() {
         return {
@@ -20,15 +22,18 @@ export default {
     },
     methods: {
         async login() {
-            // 在这里添加逻辑以处理登录操作，例如向后端发送请求进行身份验证。
-            // 以下是一个简单的示例，仅检查用户名和密码是否匹配预定义的值。
 
-            if (this.username === "user" && this.password === "password") {
-                this.loginMessage = "Login successful!";
-            } else {
-                this.loginMessage = "Invalid username or password.";
+            try {
+                const response = await axios.post("http://localhost:8080/login", {
+                    username: this.username,
+                    password: this.password,
+                });
+                console.log(response.data);
+                alert(response.data);
+                this.$router.push("/");
+            } catch (error) {
+                console.error("Error creating order:", error);
             }
-            this.$router.push("/");
         }
     }
 };

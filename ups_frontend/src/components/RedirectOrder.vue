@@ -55,7 +55,9 @@ export default {
                 newX: this.newX,
                 newY: this.newY,
             });
-            console.log(response);
+            console.log(response.data);
+            alert(response.data);
+            this.$router.push("/");
         } catch (error) {
             console.error("Error creating order:", error);
         }

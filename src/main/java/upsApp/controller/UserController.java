@@ -1,10 +1,7 @@
 package upsApp.controller;
 
-import common.MyBatisUtil;
-import mapper.PackageMapper;
 import model.Package;
-import org.apache.ibatis.session.SqlSession;
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Pack;
+import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
@@ -12,7 +9,6 @@ import upsApp.Entity.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
     //    @GetMapping("healthCheck")
@@ -22,6 +18,7 @@ public class UserController {
 //        return ResponseEntity.ok(orderInfo);
 //    }
     @GetMapping("query/1/{packageId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<PackageInfoList> getPackageById(@PathVariable String packageId) {
         System.out.println(packageId);
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
@@ -43,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping("query/2/{userId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<PackageInfoList> getPackageByUserId(@PathVariable String userId) {
         System.out.println(userId);
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
@@ -62,5 +60,36 @@ public class UserController {
             pkgInfoList.add(packageInfo);
         }
         return ResponseEntity.ok(pkgInfoList);
+    }
+    @PostMapping("/redirect")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> redirectOrderBy(@RequestBody RedirectRequestBody redirectRequestBody) {
+        System.out.println("redirect Info");
+        System.out.println(redirectRequestBody.getPackageId());
+        System.out.println(redirectRequestBody.getNewX());
+        System.out.println(redirectRequestBody.getNewY());
+        // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
+//        String orderInfo = String.format("hello");
+        service.UserService userService = new UserService();
+        String msg = userService.redirectPackage(
+                redirectRequestBody.getPackageId(),
+                redirectRequestBody.getNewX(),
+                redirectRequestBody.getNewY()
+        );
+        return ResponseEntity.ok(msg);
+    }
+    @PostMapping("/login")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<Boolean> login(@RequestBody LoginRequestBody loginRequestBody) {
+        System.out.println("login Info");
+        System.out.println(loginRequestBody.getUsername());
+        System.out.println(loginRequestBody.getPassword());
+//        String orderInfo = String.format("hello");
+        service.UserService userService = new UserService();
+        boolean authRes = userService.authentication(
+                loginRequestBody.getUsername(),
+                loginRequestBody.getPassword()
+        );
+        return ResponseEntity.ok(authRes);
     }
 }

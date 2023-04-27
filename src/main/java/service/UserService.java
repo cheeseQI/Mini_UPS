@@ -27,7 +27,14 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    public boolean authentication(String username, String password){
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            User user = new User(username,password);
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public void storeUser(User user) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
@@ -39,10 +46,10 @@ public class UserService {
         }
     }
     
-    public void storeUser(Integer userId, String password) {
+    public void storeUser(String username, String password) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            userMapper.insertUser(new User(userId,password));
+            userMapper.insertUser(new User(username,password));
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,10 +65,10 @@ public class UserService {
         return null;
     }
 
-    public List<Package> queryPackageByUserId(Integer userId){
+    public List<Package> queryPackageByUsername(String username){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            return packageMapper.findByUserId(userId);
+            return packageMapper.findByUsername(username);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +87,8 @@ public class UserService {
                 pkg.setDestX(destX);
                 pkg.setDestY(destY);
                 int sqlAck = packageMapper.updatePackage(pkg);
-                return sqlAck == 1 ? "" : "update failed" ;
+                sqlSession.commit();
+                return sqlAck == 1 ? "package update succeeded" : "package update failed" ;
             }
         } catch (Exception e) {
             e.printStackTrace();

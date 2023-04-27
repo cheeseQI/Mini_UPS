@@ -97,7 +97,7 @@ public class ReceiveAmazonHandler implements Runnable {
             for (AmazonUps.AURequestSendUserInfo auRequestSendUserInfo: auCommands.getUserInfoList()) {
                 hasCommandContent = true;
                 ackList.add(auRequestSendUserInfo.getSeqnum());
-                userService.storeUser(auRequestSendUserInfo.getUserid(), auRequestSendUserInfo.getPassword());
+                userService.storeUser(auRequestSendUserInfo.getUsername(), auRequestSendUserInfo.getPassword());
             }
             AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
             // tell amazon the aucommand that has been received

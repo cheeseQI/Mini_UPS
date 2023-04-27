@@ -13,17 +13,17 @@ public interface UserMapper {
     @Select("SELECT * FROM user_table")
     boolean authentication(String username,String password);
 
-    @Select("SELECT * FROM user_table WHERE userId = #{userId}")
-    User findByUserId(@Param("userId") Integer userId);
+    @Select("SELECT * FROM user_table WHERE username = #{username}")
+    User findByUsername(@Param("username") String username);
 
-    @Insert("INSERT INTO user_table (userId, password) VALUES (#{userId}, #{password})")
+    @Insert("INSERT INTO user_table (username, password) VALUES (#{username}, #{password})")
     int insertUser(User user);
 
-    @Update("UPDATE user_table SET password = #{password} WHERE userId = #{userId}")
+    @Update("UPDATE user_table SET password = #{password} WHERE username = #{username}")
     int updateUser(User user);
 
-    @Delete("DELETE FROM user_table WHERE userId = #{userId}")
-    int deleteUser(@Param("userId") String userId);
+    @Delete("DELETE FROM user_table WHERE username = #{username}")
+    int deleteUser(@Param("username") String username);
 
     @Delete("DELETE FROM user_table")
     int deleteAll();

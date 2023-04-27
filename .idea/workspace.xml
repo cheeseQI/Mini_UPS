@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/PackageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/PackageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -29,8 +29,15 @@ export default {
                     password: this.password,
                 });
                 console.log(response.data);
-                alert(response.data);
-                this.$router.push("/");
+                if(response.data === true){
+                    alert("login success");
+                    this.$router.push("/");
+                }
+                else{
+                    alert("login failed");
+                    this.$router.push("/");
+                }
+
             } catch (error) {
                 console.error("Error creating order:", error);
             }

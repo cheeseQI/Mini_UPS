@@ -4,6 +4,7 @@ import model.Package;
 import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import service.PackageService;
 import service.UserService;
 import upsApp.Entity.*;
 
@@ -23,8 +24,8 @@ public class UserController {
         System.out.println(packageId);
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
-        service.UserService userService = new UserService();
-        Package myPackage = userService.queryPackageById(Long.parseLong(packageId));
+        service.PackageService packageService = new PackageService();
+        Package myPackage = packageService.queryPackageById(Long.parseLong(packageId));
         PackageInfo packageInfo = new PackageInfo(
                 myPackage.getPackageId(),
                 myPackage.getDescription(),
@@ -45,8 +46,8 @@ public class UserController {
         System.out.println(username);
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
-        service.UserService userService = new UserService();
-        List<Package> myPackages = userService.queryPackageByUsername(username);
+        service.PackageService packageService = new PackageService();
+        List<Package> myPackages = packageService.queryPackageByUsername(username);
         PackageInfoList pkgInfoList = new PackageInfoList();
         for (Package pkg : myPackages) {
             PackageInfo packageInfo = new PackageInfo(
@@ -70,8 +71,8 @@ public class UserController {
         System.out.println(redirectRequestBody.getNewY());
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
-        service.UserService userService = new UserService();
-        String msg = userService.redirectPackage(
+        service.PackageService packageService = new PackageService();
+        String msg = packageService.redirectPackage(
                 redirectRequestBody.getPackageId(),
                 redirectRequestBody.getNewX(),
                 redirectRequestBody.getNewY()

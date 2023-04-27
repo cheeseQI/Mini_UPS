@@ -32,7 +32,6 @@ public class TruckService {
         return uInitTruckList;
     }
 
-    //todo: atomic
     public void storeTrucks(List<WorldUps.UInitTruck> uInitTruckList) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);

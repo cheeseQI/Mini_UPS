@@ -9,40 +9,28 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="163" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/TruckService.java" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="187" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/PackageService.java" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="610" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="1986" />
+          <option name="caretOffset" value="1952" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="114" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/AmazonMock.java" />
+          <option name="caretOffset" value="1082" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/TruckService.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="673" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/TruckTest.java" />
+          <option name="caretOffset" value="750" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/WorldClient.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml" />
+          <option name="caretOffset" value="1543" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ResendHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1042" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/UserTest.java" />
+          <option name="caretOffset" value="959" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="946" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/PackageTest.java" />
+          <option name="caretOffset" value="226" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/messaging/WorldClientTest.java" />
         </OpenedFileInfo>
       </list>
     </option>

@@ -35,8 +35,8 @@ public class ReceiveWorldHandler implements Runnable{
             throw new IllegalArgumentException(uConnected.getResult());
         }
         ConstantUtil.WORLD_ID = uConnected.getWorldid();
-        //truckService.storeTrucks(uInitTruckList); //todo: remove
-        //truckService.storeDummyTruck(); //todo: remove
+        truckService.storeTrucks(uInitTruckList);
+        truckService.storeDummyTruck();
         while (true) {
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();

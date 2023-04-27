@@ -18,8 +18,8 @@ public class AmazonMock {
         // 2 call truck
         AmazonUps.AUProduct.Builder auproductBuilder1 = AmazonUps.AUProduct.newBuilder();
         AmazonUps.AUProduct.Builder auproductBuilder2 = AmazonUps.AUProduct.newBuilder();
-        auproductBuilder1.setDescription("cool apple").setId(1).setCount(2).setDestX(11).setDestY(12).setUserid(747);
-        auproductBuilder2.setDescription("bad apple").setId(2).setCount(3).setDestX(11).setDestY(12).setUserid(747);
+        auproductBuilder1.setDescription("cool apple").setId(1).setCount(2).setDestX(11).setDestY(12).setUserid(1);
+        auproductBuilder2.setDescription("bad apple").setId(2).setCount(3).setDestX(11).setDestY(12).setUserid(1);
         AmazonUps.AUCallTruck.Builder auCallTruckBuilder = AmazonUps.AUCallTruck.newBuilder();
         auCallTruckBuilder.setSeqnum(1).setWhid(1).setWhX(1).setWhY(1).addThings(auproductBuilder1).addThings(auproductBuilder2);
         AmazonUps.AUCommands.Builder auCommand0 = AmazonUps.AUCommands.newBuilder();

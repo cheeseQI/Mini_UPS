@@ -21,7 +21,7 @@ public class PackageTest extends TestCase {
         //sqlSession.commit();
     }
 
-    public void testUser() {
+    public void testInsertPackage() {
         packageMapper.insertPackage(new Package(2L, "apple from silicon", 1, 1, 1, 10, 10, 1, 1, 1));
         sqlSession.commit();
     }

@@ -39,15 +39,16 @@ public class UserService {
         }
     }
     
-    public void storeUser(Integer userId, String password) {
+    public void storeUser(Integer userId, String password, String userName) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            userMapper.insertUser(new User(userId,password));
+            userMapper.insertUser(new User(userId,password, userName));
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public Package queryPackageById(Long packageId){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);

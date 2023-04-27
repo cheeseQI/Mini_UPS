@@ -59,7 +59,7 @@ public class ReceiveAmazonHandler implements Runnable {
             for (AmazonUps.AUCallTruck auCallTruck: auCommands.getCallTruckList()) {
                 hasCommandContent = true;
                 ackList.add(auCallTruck.getSeqnum());
-                Truck truck = truckService.findTruckToPickUp();
+                Truck truck = truckService.findNearestTruckToPickUp(auCallTruck.getWhX(), auCallTruck.getWhY());
                 System.out.println("find truck for pickup: " + truck);
                 WorldUps.UGoPickup uGoPickup = BuilderUtil.buildUGoPickup(truck.getTruckId(), auCallTruck.getWhid(), SeqGenerator.incrementAndGet());
                 Server.uGoPickupMap.put(uGoPickup.getSeqnum(), uGoPickup);
@@ -97,7 +97,7 @@ public class ReceiveAmazonHandler implements Runnable {
             for (AmazonUps.AURequestSendUserInfo auRequestSendUserInfo: auCommands.getUserInfoList()) {
                 hasCommandContent = true;
                 ackList.add(auRequestSendUserInfo.getSeqnum());
-                userService.storeUser(auRequestSendUserInfo.getUsername(), auRequestSendUserInfo.getPassword());
+                userService.storeUser(auRequestSendUserInfo.getUserid(), auRequestSendUserInfo.getPassword(), auRequestSendUserInfo.getUsername());
             }
             AmazonUps.UACommands.Builder uaCommandsBuilder = AmazonUps.UACommands.newBuilder();
             // tell amazon the aucommand that has been received

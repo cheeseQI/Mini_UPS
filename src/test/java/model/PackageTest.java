@@ -18,9 +18,12 @@ public class PackageTest extends TestCase {
         sqlSession = MyBatisUtil.getSqlSession();
         packageMapper = sqlSession.getMapper(PackageMapper.class);
 //        packageMapper.deleteAll();
-//        Package pkg = new Package(1,"cheese",4,1,1,2,2,1)
-//        packageMapper.insertPackage(new Package(1,"chees));
         //sqlSession.commit();
+    }
+
+    public void testInsertPackage() {
+        packageMapper.insertPackage(new Package(2L, "apple from silicon", 1, 1, 1, 10, 10, 1, 1, 1));
+        sqlSession.commit();
     }
 
     public void testGetPackageId() {

@@ -26,7 +26,7 @@ public class WorldClient extends SocketClient {
         }
     }
 
-    //todo: resend function for <seq, ugopickup>, <seq, ugodeliver> ...
+
     public WorldUps.UResponses receiveUResponse() {
         try {
             return WorldUps.UResponses.parseFrom(codedInputStream.readByteArray());

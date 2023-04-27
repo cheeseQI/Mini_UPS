@@ -24,6 +24,15 @@ public class UserTest extends TestCase {
         //sqlSession.commit();
     }
 
+    public void testInsertUser() {
+        userMapper.insertUser(new User(1 , "123", "haochi"));
+        sqlSession.commit();
+    }
+
+    public void testFindUser() {
+        System.out.println(userMapper.findByUserName("haochi"));
+    }
+
     public void testGetUserIdAndPassword() {
         System.out.println(userMapper.findByUserId(747));
     }

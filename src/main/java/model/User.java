@@ -1,20 +1,22 @@
 package model;
 
 public class User {
-    private String username;
+    private Integer userId;
     private String password;
+    private String userName;
 
     public User(){}
-    public User(String username, String password) {
-        this.username = username;
+    public User(Integer userId, String password, String userName) {
+        this.userId = userId;
         this.password = password;
+        this.userName = userName;
     }
-    public String getUsername() {
-        return username;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
@@ -25,10 +27,19 @@ public class User {
         this.password = password;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "userId='" + userId + '\'' +
+                ", username= " + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

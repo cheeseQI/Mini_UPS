@@ -10,20 +10,20 @@ public interface UserMapper {
     @Select("SELECT * FROM user_table")
     List<User> findAll();
 
-    @Select("SELECT * FROM user_table")
-    boolean authentication(String username,String password);
+    @Select("SELECT * FROM user_table WHERE userId = #{userId}")
+    User findByUserId(@Param("userId") Integer userId);
 
-    @Select("SELECT * FROM user_table WHERE username = #{username}")
-    User findByUsername(@Param("username") String username);
+    @Select("SELECT * FROM user_table WHERE username = #{userName}")
+    User findByUserName(@Param("userName") String userName);
 
-    @Insert("INSERT INTO user_table (username, password) VALUES (#{username}, #{password})")
+    @Insert("INSERT INTO user_table (userId, password, username) VALUES (#{userId}, #{password}, #{userName})")
     int insertUser(User user);
 
-    @Update("UPDATE user_table SET password = #{password} WHERE username = #{username}")
+    @Update("UPDATE user_table SET password = #{password}, username = #{userName} WHERE userId = #{userId}")
     int updateUser(User user);
 
-    @Delete("DELETE FROM user_table WHERE username = #{username}")
-    int deleteUser(@Param("username") String username);
+    @Delete("DELETE FROM user_table WHERE userId = #{userId}")
+    int deleteUser(@Param("userId") Integer userId);
 
     @Delete("DELETE FROM user_table")
     int deleteAll();

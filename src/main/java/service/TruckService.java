@@ -1,6 +1,7 @@
 package service;
 
 import common.MyBatisUtil;
+import common.WeightedScoreCalculator;
 import mapper.TruckMapper;
 import common.BuilderUtil;
 import model.Truck;
@@ -32,7 +33,6 @@ public class TruckService {
         return uInitTruckList;
     }
 
-    //todo: atomic
     public void storeTrucks(List<WorldUps.UInitTruck> uInitTruckList) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
@@ -45,12 +45,25 @@ public class TruckService {
         }
     }
 
-    //todo: add short-distance algorithm, and once recv ack, rememeber to update database
-    public Truck findTruckToPickUp() {
+    // short-distance & min-package weight algorithm to find package
+    public Truck findNearestTruckToPickUp(int whX, int whY) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
             List<Truck> truckList = truckMapper.findAllIdle();
-            return truckList.get(0);
+            double maxScore = Integer.MIN_VALUE;
+            int maxIdx = 0;
+            for (int i = 0; i < truckList.size(); i++) {
+                Truck truck = truckList.get(i);
+                double deltaX = truck.getCurrX() - whX;
+                double deltaY = truck.getCurrY() - whY;
+                double dis = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                double score = WeightedScoreCalculator.calculateWeightedScore((double)truck.getPackageNum(), dis);
+                if (score >= maxScore) {
+                    maxScore = score;
+                    maxIdx = i;
+                }
+            }
+            return truckList.get(maxIdx);
         } catch (Exception e) {
             e.printStackTrace();
         }

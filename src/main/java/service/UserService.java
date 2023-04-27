@@ -27,8 +27,38 @@ public class UserService {
             e.printStackTrace();
         }
     }
+    public User getUserByUsername(String username) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.findByUserName(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public User getUserByUserId(Integer userId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.findByUserId(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-    
+    public boolean authentication(String username, String password){
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.findByUserName(username);
+            if(user !=null && password.equals(user.getPassword())){
+                return true;
+            }
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public void storeUser(User user) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -49,44 +79,35 @@ public class UserService {
         }
     }
 
-    public Package queryPackageById(Long packageId){
-        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            return packageMapper.findByPackageId(packageId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Package queryPackageById(Long packageId){
+//        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+//            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+//            return packageMapper.findByPackageId(packageId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    public List<Package> queryPackageByUserId(Integer userId){
-        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            return packageMapper.findByUserId(userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    //todo: need atomic, update fail logic
-    public String redirectPackage(Long packageId, int destX, int destY){
-        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
-            Package pkg = packageMapper.findByPackageId(packageId);
-            if(truckMapper.findByTruckId(pkg.getTruckId()).getStatus().equals("DELIVERING") || pkg.getTruckId() == 0){
-                return "package is already on the way of delivering";
-            }
-            else{
-                pkg.setDestX(destX);
-                pkg.setDestY(destY);
-                int sqlAck = packageMapper.updatePackage(pkg);
-                return sqlAck == 1 ? "" : "update failed" ;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    //todo: need atomic, update fail logic
+//    public String redirectPackage(Long packageId, int destX, int destY){
+//        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+//            PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+//            TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+//            Package pkg = packageMapper.findByPackageId(packageId);
+//            if(truckMapper.findByTruckId(pkg.getTruckId()).getStatus().equals("DELIVERING") || pkg.getTruckId() == 0){
+//                return "package is already on the way of delivering";
+//            }
+//            else{
+//                pkg.setDestX(destX);
+//                pkg.setDestY(destY);
+//                int sqlAck = packageMapper.updatePackage(pkg);
+//                return sqlAck == 1 ? "" : "update failed" ;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 }

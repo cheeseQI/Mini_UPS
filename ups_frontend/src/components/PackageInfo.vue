@@ -6,8 +6,9 @@
         <p>Description: {{ this.$route.query.description }}</p>
         <p>Count: {{ this.$route.query.count }}</p>
         <p>Destination: ({{ this.$route.query.destX }}, {{ this.$route.query.destY }})</p>
-        <p>User ID: {{ this.$route.query.userId }}</p>
-        <button @click="$router.push('/')">Back to Query</button>
+        <p>Username: {{ this.$route.query.username }}</p>
+        <button @click="$router.push('/query')">Back to Query</button>
+        <button @click="$router.push('/')">Back to Welcome</button>
     </div>
 </template>
 <script>

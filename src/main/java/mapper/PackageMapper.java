@@ -13,8 +13,8 @@ public interface PackageMapper {
     @Select("SELECT * FROM package WHERE packageId = #{packageId}")
     Package findByPackageId(@Param("packageId") Long packageId);
 
-    @Select("SELECT * FROM package WHERE username = #{username}")
-    List<Package> findByUsername(@Param("username") String username);
+    @Select("SELECT * FROM package WHERE userId = #{userId}")
+    List<Package> findByUserId(@Param("userId") Integer userId);
 
     @Select("SELECT * FROM package WHERE truckId = #{truckId}")
     List<Package> findByTruckId(@Param("truckId") Integer truckId);

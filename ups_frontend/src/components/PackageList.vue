@@ -21,9 +21,10 @@
                 Destination: ({{ getPackageInfo(selectedPackageId).destX }},
                 {{ getPackageInfo(selectedPackageId).destY }})
             </p>
-            <p>User ID: {{ getPackageInfo(selectedPackageId).userId }}</p>
+            <p>Username: {{ getPackageInfo(selectedPackageId).username }}</p>
         </div>
-        <button @click="$router.push('/')">Back to Query</button>
+        <button @click="$router.push('/query')">Back to Query</button>
+        <button @click="$router.push('/')">Back to Welcome</button>
     </div>
 </template>
 

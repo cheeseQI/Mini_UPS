@@ -32,7 +32,7 @@ public class Server {
 
     public void start() {
         System.out.println("UPS Server is socket with WorldSim");
-        worldClient = new WorldClient("127.0.0.1", ConstantUtil.WORLD_PORT);
+        worldClient = new WorldClient("vcm-32430.vm.duke.edu", ConstantUtil.WORLD_PORT);
         ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
         Thread worldThread = new Thread(receiveWorldHandler);
         worldThread.start();

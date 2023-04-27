@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ups_frontend/src/components/ups_frontend_background.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/Welcome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/messaging/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/messaging/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Package.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Package.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/PackageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/PackageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/Entity/PackageInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/upsApp/Entity/PackageInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PackageInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageInfo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PackageList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrder.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,11 +72,19 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/bhc/erss-hwk5-sq44-hb147/ups_frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "f155f3eb79f2837c90b570e5b2039336",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -231,6 +240,7 @@
       <workItem from="1682371823102" duration="4163000" />
       <workItem from="1682432248769" duration="6281000" />
       <workItem from="1682537459977" duration="960000" />
+      <workItem from="1682636508805" duration="2430000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681687892775</created>

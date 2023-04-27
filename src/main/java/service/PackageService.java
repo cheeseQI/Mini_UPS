@@ -3,8 +3,10 @@ package service;
 import common.MyBatisUtil;
 import mapper.PackageMapper;
 import mapper.TruckMapper;
+import mapper.UserMapper;
 import model.Package;
 import model.Truck;
+import model.User;
 import org.apache.ibatis.session.SqlSession;
 import protocol.WorldUps;
 
@@ -25,8 +27,10 @@ public class PackageService {
 
     public List<Package> queryPackageByUsername(String username){
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.findByUserName(username);
             PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
-            return packageMapper.findByUsername(username);
+            return packageMapper.findByUserId(user.getUserId());
         } catch (Exception e) {
             e.printStackTrace();
         }

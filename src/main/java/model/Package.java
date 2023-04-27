@@ -13,7 +13,7 @@ public class Package {
     private int startY;
 
     public Package(){}
-    public Package(Long packageId, String description, Integer itemCount, Integer truckId, Integer userId, int destX, int destY, int whid, int startX, int startY) {
+    public Package(Long packageId, String description, Integer itemCount, Integer truckId, Integer userId,int destX, int destY, int whid, int startX, int startY) {
         this.packageId = packageId;
         this.description = description;
         this.itemNum = itemCount;

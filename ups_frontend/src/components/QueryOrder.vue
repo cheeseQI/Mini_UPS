@@ -7,13 +7,12 @@
             <br />
             <button type="submit">Query Order by Package ID</button>
         </form>
-        <form @submit.prevent="queryOrderByUserId">
-            <label for="userId">User ID:</label>
-            <input v-model="userId" type="text" id="userId" name="userId" />
+        <form @submit.prevent="queryOrderByUsername">
+            <label for="username">User ID:</label>
+            <input v-model="username" type="text" id="username" name="username" />
             <br />
             <button type="submit">Query Order by User ID</button>
         </form>
-<!--        <router-view :packageInfo="packageInfo" :packageList="packageList"></router-view>-->
     </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
     data() {
         return {
             packageId: "",
-            userId: "",
+            username: "",
             // packageInfo: {}, // 将这些数据传递给子组件
             // packageList: [],
         };
@@ -52,7 +51,7 @@ export default {
                         count: packageInfo.count,
                         destX: packageInfo.destX,
                         destY: packageInfo.destY,
-                        userId: packageInfo.userId
+                        username: packageInfo.username
                     }
                 });
             } catch (error) {
@@ -60,12 +59,12 @@ export default {
                 alert("查询订单失败，请检查订单号或稍后再试。");
             }
         },
-        async queryOrderByUserId() {
-            console.log("query by userId");
+        async queryOrderByUsername() {
+            console.log("query by username");
 
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/query/2/${this.userId}`
+                    `http://localhost:8080/query/2/${this.username}`
                 );
                 const packageList = response.data.PackageInfoList;
                 this.$router.push({
@@ -82,48 +81,3 @@ export default {
     },
 };
 </script>
-
-
-<!--<template>-->
-<!--  <div>-->
-<!--    <h1>Query Order</h1>-->
-<!--    <form @submit.prevent="queryOrder">-->
-<!--      <label for="packageId">Package ID:</label>-->
-<!--      <input v-model="packageId" type="text" id="packageId" name="packageId" />-->
-<!--      <br />-->
-<!--      <label for="userId">User ID:</label>-->
-<!--      <input v-model="userId" type="text" id="userId" name="userId" />-->
-<!--      <br />-->
-<!--      <button type="submit">Query Order</button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</template>-->
-
-
-<!--<script>-->
-<!--import axios from "axios";-->
-<!--export default {-->
-<!--    data() {-->
-<!--        return {-->
-<!--            packageId: '',-->
-<!--            userId: '',-->
-<!--        };-->
-<!--    },-->
-<!--    methods: {-->
-<!--        async queryOrder() {-->
-<!--            console.log("query");-->
-
-<!--            try {-->
-<!--                const response = await axios.get(-->
-<!--                    `http://localhost:8080/query/1/${this.packageId}`-->
-<!--                );-->
-<!--                console.log(response.data);-->
-<!--            } catch (error) {-->
-<!--                console.error(error);-->
-<!--                alert("查询订单失败，请检查订单号或稍后再试。");-->
-<!--            }-->
-<!--            this.$router.push("/");-->
-<!--        },-->
-<!--    },-->
-<!--};-->
-<!--</script>-->

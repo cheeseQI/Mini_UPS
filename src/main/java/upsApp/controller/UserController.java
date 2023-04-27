@@ -1,6 +1,7 @@
 package upsApp.controller;
 
 import model.Package;
+import model.User;
 import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,18 +26,19 @@ public class UserController {
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
         service.PackageService packageService = new PackageService();
+        service.UserService userService = new UserService();
         Package myPackage = packageService.queryPackageById(Long.parseLong(packageId));
+        User user = userService.getUserByUserId(myPackage.getUserId());
         PackageInfo packageInfo = new PackageInfo(
                 myPackage.getPackageId(),
                 myPackage.getDescription(),
                 myPackage.getItemNum(),
                 myPackage.getDestX(),
                 myPackage.getDestY(),
-                myPackage.getUserId()
+                user.getUserName()
         );
         PackageInfoList pkgInfoList = new PackageInfoList();
         pkgInfoList.add(packageInfo);
-
         return ResponseEntity.ok(pkgInfoList);
     }
 
@@ -47,16 +49,18 @@ public class UserController {
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
         service.PackageService packageService = new PackageService();
+        service.UserService userService = new UserService();
         List<Package> myPackages = packageService.queryPackageByUsername(username);
         PackageInfoList pkgInfoList = new PackageInfoList();
         for (Package pkg : myPackages) {
+            User user = userService.getUserByUserId(pkg.getUserId());
             PackageInfo packageInfo = new PackageInfo(
                     pkg.getPackageId(),
                     pkg.getDescription(),
                     pkg.getItemNum(),
                     pkg.getDestX(),
                     pkg.getDestY(),
-                    pkg.getUserId()
+                    user.getUserName()
             );
             pkgInfoList.add(packageInfo);
         }

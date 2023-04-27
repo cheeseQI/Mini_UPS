@@ -15,8 +15,8 @@ public class PackageInfo {
     private Integer destX;
     @JsonProperty("destY")
     private Integer destY;
-    @JsonProperty("userId")
-    private Integer userId;
+    @JsonProperty("username")
+    private String username;
     public Long getPackageId() {
         return packageId;
     }
@@ -57,19 +57,19 @@ public class PackageInfo {
         this.destY = destY;
     }
 
-    public Integer getUserName() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userId = userId;
+    public void setUsername(String userName) {
+        this.username = username;
     }
-    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, Integer userId) {
+    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, String username) {
         this.packageId = packageId;
         this.description = description;
         this.count = count;
         this.destX = destX;
         this.destY = destY;
-        this.userId = userId;
+        this.username = username;
     }
 }

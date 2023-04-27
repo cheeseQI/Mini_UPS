@@ -34,6 +34,7 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return true;
     }
     
     public void storeUser(User user) {

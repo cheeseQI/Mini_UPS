@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/upsApp/Entity/LoginRequestBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/upsApp/Entity/RedirectRequestBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageInfo.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/WebConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/upsApp/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/2c17e67e.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

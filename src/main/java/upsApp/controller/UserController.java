@@ -39,14 +39,14 @@ public class UserController {
         return ResponseEntity.ok(pkgInfoList);
     }
 
-    @GetMapping("query/2/{userId}")
+    @GetMapping("query/2/{username}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<PackageInfoList> getPackageByUserId(@PathVariable String userId) {
-        System.out.println(userId);
+    public ResponseEntity<PackageInfoList> getPackageByUsername(@PathVariable String username) {
+        System.out.println(username);
         // 在实际应用中，您需要查询数据库或其他数据源获取订单信息
 //        String orderInfo = String.format("hello");
         service.UserService userService = new UserService();
-        List<Package> myPackages = userService.queryPackageByUserId(Integer.parseInt(userId));
+        List<Package> myPackages = userService.queryPackageByUsername(username);
         PackageInfoList pkgInfoList = new PackageInfoList();
         for (Package pkg : myPackages) {
             PackageInfo packageInfo = new PackageInfo(

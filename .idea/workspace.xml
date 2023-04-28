@@ -5,27 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ups_frontend/public/ups.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/66fbb12e.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/66fbb12e.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/assets/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PersonalCenter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PersonalCenter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrderById.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrderById.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +40,17 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="hw5_proj" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -76,55 +83,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bhc/erss-hwk5-sq44-hb147/ups_frontend/public&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;f155f3eb79f2837c90b570e5b2039336&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/upsApp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docker_deploy" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ups_frontend/public" />
-      <recent name="$PROJECT_DIR$/ups_frontend/src/assets" />
-      <recent name="$PROJECT_DIR$/ups_frontend/src/components" />
-      <recent name="$PROJECT_DIR$/ups_frontend" />
+      <recent name="$PROJECT_DIR$/docker_deploy" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/.gradle/buildOutputCleanup" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ups_frontend/src/assets" />
-      <recent name="$PROJECT_DIR$/ups_frontend/public" />
-      <recent name="$PROJECT_DIR$/ups_frontend/src/components" />
+      <recent name="$PROJECT_DIR$/docker_deploy" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="upsApp" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="messaging" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="upsApp.Entity" />
-    </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.MyApplication">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="App" />
+  <component name="RunManager" selected="Application.AmazonMock">
+    <configuration name="AmazonMock" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="messaging.AmazonMock" />
       <module name="hw5_proj.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="messaging.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,31 +148,6 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
-      <method v="2" />
-    </configuration>
-    <configuration name="PackageTest.testInsertPackage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;model.PackageTest.testInsertPackage&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="TruckTest.testClean" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -198,7 +171,29 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="UserTest.testClean" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;model.UserTest.testClean&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="UserTest.testInsertUser" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -222,33 +217,22 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="MyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="hw5_proj.main" />
-      <projectPathOnTarget name="projectPathOnTarget" value="/home/hb174/hw5_proj" />
-      <target name="@@@LOCAL@@@" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="upsApp.MyApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.App" />
-      <item itemvalue="Gradle.PackageTest.testInsertPackage" />
-      <item itemvalue="Gradle.UserTest.testInsertUser" />
-      <item itemvalue="Gradle.PackageTest.testClean" />
-      <item itemvalue="Gradle.TruckTest.testClean" />
-      <item itemvalue="Spring Boot.MyApplication" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PackageTest.testInsertPackage" />
         <item itemvalue="Gradle.UserTest.testInsertUser" />
-        <item itemvalue="Gradle.PackageTest.testClean" />
-        <item itemvalue="Application.App" />
+        <item itemvalue="Application.AmazonMock" />
+        <item itemvalue="Gradle.UserTest.testClean" />
         <item itemvalue="Gradle.TruckTest.testClean" />
+        <item itemvalue="Gradle.PackageTest.testClean" />
       </list>
     </recent_temporary>
   </component>
@@ -266,9 +250,11 @@
       <workItem from="1682293794193" duration="2000" />
       <workItem from="1682371823102" duration="4163000" />
       <workItem from="1682432248769" duration="6281000" />
-      <workItem from="1682537459977" duration="960000" />
-      <workItem from="1682636508805" duration="17745000" />
-      <workItem from="1682716443387" duration="1108000" />
+      <workItem from="1682537459977" duration="2975000" />
+      <workItem from="1682622292213" duration="4126000" />
+      <workItem from="1682635157115" duration="3914000" />
+      <workItem from="1682705785615" duration="598000" />
+      <workItem from="1682706451004" duration="8135000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681687892775</created>
@@ -305,7 +291,49 @@
       <option name="project" value="LOCAL" />
       <updated>1682456761981</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="modify spring">
+      <created>1682539125525</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682539125525</updated>
+    </task>
+    <task id="LOCAL-00007" summary="modify todo">
+      <created>1682625372033</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682625372034</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modify user table">
+      <created>1682632132555</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682632132555</updated>
+    </task>
+    <task id="LOCAL-00009" summary="finish cooperate">
+      <created>1682640651975</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682640651975</updated>
+    </task>
+    <task id="LOCAL-00010" summary="finish cooperate">
+      <created>1682716600393</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682716600393</updated>
+    </task>
+    <task id="LOCAL-00011" summary="finish docker">
+      <created>1682719859236</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682719859236</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,13 +344,15 @@
     <MESSAGE value="finish status change database logic" />
     <MESSAGE value="finish truck update" />
     <MESSAGE value="modify proto" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify proto" />
+    <MESSAGE value="modify spring" />
+    <MESSAGE value="modify todo" />
+    <MESSAGE value="modify user table" />
+    <MESSAGE value="finish cooperate" />
+    <MESSAGE value="finish docker" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish docker" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/hw5_proj$App.ic" NAME="App Coverage Results" MODIFIED="1682367171781" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

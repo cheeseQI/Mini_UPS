@@ -1,7 +1,11 @@
 package upsApp;
 
 import common.MyBatisUtil;
+import mapper.PackageMapper;
+import mapper.TruckMapper;
+import mapper.UserMapper;
 import messaging.Server;
+import model.User;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,6 +36,16 @@ public class MyApplication {
             System.out.println("Failed to connect to PostgreSQL database after several attempts.");
             return;
         }
+
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
+        TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        packageMapper.deleteAll();
+        truckMapper.deleteAll();
+        userMapper.deleteAll();
+        sqlSession.commit();
+
         Server server = new Server();
         server.start();
     }

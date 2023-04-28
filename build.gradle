@@ -57,12 +57,22 @@ dependencies {
 
 // Define the main class for the application
 mainClassName = 'App'
-jar {
-    manifest {
-        attributes 'Main-Class': 'App'
-    }
-}
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'upsApp/MyApplication.java'
+//    }
+//    from {
+//        // 将整个项目的文件包括在 Jar 包中
+//        include '.'
+//    }
+//}
+bootJar {
+    // 配置应用程序的属性
+    // ...
 
+    // 配置可执行 Jar 包的属性
+    mainClassName = 'upsApp.MyApplication'
+}
 // Configure the WAR plugin
 war {
     archiveName = "java-servlet-demo.war"

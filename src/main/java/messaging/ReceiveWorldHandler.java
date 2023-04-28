@@ -23,7 +23,6 @@ public class ReceiveWorldHandler implements Runnable{
     public void run() {
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);
-        PackageMapper packageMapper = sqlSession.getMapper(PackageMapper.class);
         TruckService truckService = new TruckService();
         PackageService packageService = new PackageService();
         List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();

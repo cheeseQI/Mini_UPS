@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  postgres_siqi:
+    image: postgres:latest
+    container_name: postgres_siqi
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hw4
+      POSTGRES_DB: postgres
+    volumes:
+      - ./truck.sql:/docker-entrypoint-initdb.d/1-truck.sql
+      - ./user_table.sql:/docker-entrypoint-initdb.d/2-user_table.sql
+      - ./package.sql:/docker-entrypoint-initdb.d/3-package.sql
+
+  app_siqi:
+    build: .
+    container_name: app_siqi
+    ports:
+      - "7474:7474"
+      - "8080:8080"
+    depends_on:
+      - postgres_siqi

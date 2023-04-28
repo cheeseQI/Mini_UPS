@@ -8,6 +8,7 @@ import java.net.Socket;
 public class AmazonMock {
     public static void main(String[] args) throws IOException {
         UpsClient upsClient = new UpsClient("vcm-32430.vm.duke.edu", 7474);
+        //UpsClient upsClient = new UpsClient("65.75.220.176", 55556);
         System.out.println("socket with ups");
         AmazonUps.UAConnect uaConnect = upsClient.receiveUAConnect();
         System.out.println(uaConnect);

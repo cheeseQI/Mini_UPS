@@ -1,16 +1,14 @@
-17:32:19.114 [Test worker] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
-”17:32:19.144 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.145 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.145 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.146 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.146 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.146 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.146 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-”17:32:19.147 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
-n17:32:19.207 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
-v17:32:19.437 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 572860731.
-±17:32:19.437 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@2225293b]
-Ñ17:32:19.440 [Test worker] DEBUG mapper.PackageMapper.insertPackage - ==>  Preparing: INSERT INTO package (packageId, description, itemNum, truckId, userId, destX, destY, whid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-Ä17:32:19.458 [Test worker] DEBUG mapper.PackageMapper.insertPackage - ==> Parameters: 2(Long), apple from silicon(String), 1(Integer), 1(Integer), 1(Integer), 10(Integer), 10(Integer), 1(Integer)
-X17:32:19.462 [Test worker] DEBUG mapper.PackageMapper.insertPackage - <==    Updates: 1
-17:32:19.462 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Committing JDBC Connection [org.postgresql.jdbc.PgConnection@2225293b]
+21:08:07.791 [Test worker] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+”21:08:07.802 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+”21:08:07.803 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - PooledDataSource forcefully closed/removed all connections.
+n21:08:07.839 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Opening JDBC Connection
+w21:08:08.030 [Test worker] DEBUG org.apache.ibatis.datasource.pooled.PooledDataSource - Created connection 1678904009.
+±21:08:08.030 [Test worker] DEBUG org.apache.ibatis.transaction.jdbc.JdbcTransaction - Setting autocommit to false on JDBC Connection [org.postgresql.jdbc.PgConnection@64120ac9]
+Ñ21:08:08.032 [Test worker] DEBUG mapper.PackageMapper.insertPackage - ==>  Preparing: INSERT INTO package (packageId, description, itemNum, truckId, userId, destX, destY, whid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+¸21:08:08.049 [Test worker] DEBUG mapper.PackageMapper.insertPackage - ==> Parameters: 4(Long), iphone(String), 1(Integer), 1(Integer), 1(Integer), 10(Integer), 10(Integer), 1(Integer)

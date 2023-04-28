@@ -19,10 +19,10 @@ public interface PackageMapper {
     @Select("SELECT * FROM package WHERE truckId = #{truckId}")
     List<Package> findByTruckId(@Param("truckId") Integer truckId);
 
-    @Insert("INSERT INTO package (packageId, description, itemNum, truckId, username, destX, destY, whid) VALUES (#{packageId}, #{description}, #{itemNum}, #{truckId}, #{username}, #{destX}, #{destY}, #{whid})")
+    @Insert("INSERT INTO package (packageId, description, itemNum, truckId, userId, destX, destY, whid,startX,startY) VALUES (#{packageId}, #{description}, #{itemNum}, #{truckId}, #{userId}, #{destX}, #{destY}, #{whid}, #{startX}, #{startY})")
     int insertPackage(Package pack);
 
-    @Update("UPDATE package SET description = #{description}, itemNum = #{itemNum}, truckId = #{truckId}, username = #{username}, destX = #{destX}, destY = #{destY}, whid = #{whid} WHERE packageId = #{packageId}")
+    @Update("UPDATE package SET description = #{description}, itemNum = #{itemNum}, truckId = #{truckId}, userId = #{userId}, destX = #{destX}, destY = #{destY}, whid = #{whid}, startX = #{startX}, startY = #{startY} WHERE packageId = #{packageId}")
     int updatePackage(Package pack);
 
     @Delete("DELETE FROM package WHERE packageId = #{packageId}")

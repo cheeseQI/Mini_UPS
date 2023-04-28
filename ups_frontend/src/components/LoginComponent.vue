@@ -31,6 +31,8 @@ export default {
                 console.log(response.data);
                 if(response.data === true){
                     alert("login success");
+                    localStorage.setItem("loggedIn","true") ;
+                    localStorage.setItem("username",this.username) ;
                     this.$router.push("/");
                 }
                 else{

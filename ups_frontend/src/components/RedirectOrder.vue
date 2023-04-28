@@ -3,9 +3,8 @@
   <div>
     <h1>Redirect Order</h1>
     <form @submit.prevent="redirectOrder">
-      <label for="packageId">Package ID:</label>
-      <input v-model="packageId" type="text" id="packageId" name="packageId" />
-      <br />
+        <label for="packageId">Package ID: {{$route.query.packageId}}</label>      <br />
+        <label for="description">Description: {{$route.query.description}}</label>      <br />
       <label for="newX">New X:</label>
       <input v-model="newX" type="text" id="newX" name="newX" />
       <br />
@@ -38,6 +37,25 @@ export default {
   // },
   methods: {
 
+      async queryOrderByUsername() {
+          console.log("query by username");
+
+          try {
+              const response = await axios.get(
+                  `http://localhost:8080/query/2/${this.username}`
+              );
+              const packageList = response.data.PackageInfoList;
+              this.$router.push({
+                  path:"/package-list",
+                  query:{
+                      packageList: JSON.stringify(packageList)
+                  }
+              });
+          } catch (error) {
+              console.error(error);
+              alert("查询订单失败，请检查用户 ID 或稍后再试。");
+          }
+      },
     async redirectOrder() {
       // const redirect = new URedirect();
       // redirect.setPackageId(this.packageId);
@@ -50,8 +68,9 @@ export default {
       // this.$socket.send("redirectOrder", request);
 
         try {
+            console.log(this.$route.query.packageId);
             const response = await axios.post("http://localhost:8080/redirect", {
-                packageId: this.packageId,
+                packageId: this.$route.query.packageId,
                 newX: this.newX,
                 newY: this.newY,
             });

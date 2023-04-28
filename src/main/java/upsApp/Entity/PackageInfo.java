@@ -17,6 +17,29 @@ public class PackageInfo {
     private Integer destY;
     @JsonProperty("username")
     private String username;
+
+    @JsonProperty("startX")
+    private Integer startX;
+    @JsonProperty("startY")
+    private Integer startY;
+    @JsonProperty("currX")
+    private Integer currX;
+    @JsonProperty("currY")
+    private Integer currY;
+
+    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, String username, Integer startX, Integer startY, Integer currX, Integer currY) {
+        this.packageId = packageId;
+        this.description = description;
+        this.count = count;
+        this.destX = destX;
+        this.destY = destY;
+        this.username = username;
+        this.startX = startX;
+        this.startY = startY;
+        this.currX = currX;
+        this.currY = currY;
+    }
+
     public Long getPackageId() {
         return packageId;
     }
@@ -64,12 +87,37 @@ public class PackageInfo {
     public void setUsername(String userName) {
         this.username = username;
     }
-    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, String username) {
-        this.packageId = packageId;
-        this.description = description;
-        this.count = count;
-        this.destX = destX;
-        this.destY = destY;
-        this.username = username;
+
+    public Integer getStartX() {
+        return startX;
+    }
+
+    public void setStartX(Integer destX) {
+        this.startX = startX;
+    }
+
+    public Integer getStartY() {
+        return startY;
+    }
+
+    public void setStartY(Integer destY) {
+        this.startY = startY;
+    }
+
+
+    public Integer getCurrX() {
+        return currX;
+    }
+
+    public void setCurrX(Integer currX) {
+        this.currX = currX;
+    }
+
+    public Integer getCurrY() {
+        return currY;
+    }
+
+    public void setCurrY(Integer currY) {
+        this.currY = currY;
     }
 }

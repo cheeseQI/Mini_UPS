@@ -1,11 +1,13 @@
 package upsApp.controller;
 
 import model.Package;
+import model.Truck;
 import model.User;
 import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.PackageService;
+import service.TruckService;
 import service.UserService;
 import upsApp.Entity.*;
 
@@ -27,16 +29,23 @@ public class UserController {
 //        String orderInfo = String.format("hello");
         service.PackageService packageService = new PackageService();
         service.UserService userService = new UserService();
+        service.TruckService  truckService = new TruckService();
         Package myPackage = packageService.queryPackageById(Long.parseLong(packageId));
         User user = userService.getUserByUserId(myPackage.getUserId());
+        Truck truck = truckService.findTruckById(myPackage.getTruckId());
         PackageInfo packageInfo = new PackageInfo(
                 myPackage.getPackageId(),
                 myPackage.getDescription(),
                 myPackage.getItemNum(),
                 myPackage.getDestX(),
                 myPackage.getDestY(),
-                user.getUserName()
+                user.getUserName(),
+                myPackage.getStartX(),
+                myPackage.getStartY(),
+                truck.getCurrX(),
+                truck.getCurrY()
         );
+        System.out.println(myPackage);
         PackageInfoList pkgInfoList = new PackageInfoList();
         pkgInfoList.add(packageInfo);
         return ResponseEntity.ok(pkgInfoList);
@@ -50,17 +59,23 @@ public class UserController {
 //        String orderInfo = String.format("hello");
         service.PackageService packageService = new PackageService();
         service.UserService userService = new UserService();
+        service.TruckService  truckService = new TruckService();
         List<Package> myPackages = packageService.queryPackageByUsername(username);
         PackageInfoList pkgInfoList = new PackageInfoList();
         for (Package pkg : myPackages) {
             User user = userService.getUserByUserId(pkg.getUserId());
+            Truck truck = truckService.findTruckById(pkg.getTruckId());
             PackageInfo packageInfo = new PackageInfo(
                     pkg.getPackageId(),
                     pkg.getDescription(),
                     pkg.getItemNum(),
                     pkg.getDestX(),
                     pkg.getDestY(),
-                    user.getUserName()
+                    user.getUserName(),
+                    pkg.getStartX(),
+                    pkg.getStartY(),
+                    truck.getCurrX(),
+                    truck.getCurrY()
             );
             pkgInfoList.add(packageInfo);
         }

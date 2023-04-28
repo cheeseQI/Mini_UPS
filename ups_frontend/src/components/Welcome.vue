@@ -14,15 +14,10 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'WelcomePage',
-};
-</script>
 
 <style scoped>
 body {
-    background-image: url('ups_frontend_background.jpg');
+    background-image: url('../assets/ups_frontend_background.jpg');
     background-size: cover;
     background-position: center;
     font-family: 'Arial', sans-serif;
@@ -38,3 +33,9 @@ h1 {
     font-size: 1.5rem;
 }
 </style>
+
+<script>
+export default {
+    name: 'WelcomePage',
+};
+</script>

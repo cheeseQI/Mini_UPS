@@ -66,7 +66,7 @@ public class ReceiveAmazonHandler implements Runnable {
                 truckService.setTruckStatus(uGoPickup.getTruckid(), ConstantUtil.TRUCK_TRAVEL);
                 for (AmazonUps.AUProduct auProduct: auCallTruck.getThingsList()) {
                     packageService.insertPackage(auProduct.getId(), auProduct.getDescription(), auProduct.getCount(), truck.getTruckId(),
-                            auProduct.getUserid(), auProduct.getDestX(), auProduct.getDestY(), auCallTruck.getWhid(), auProduct.getDestX(), auProduct.getDestY());
+                            auProduct.getUserid(), auProduct.getDestX(), auProduct.getDestY(), auCallTruck.getWhid(), auCallTruck.getWhX(), auCallTruck.getWhY());
                 }
             }
             for (AmazonUps.AUTruckGoDeliver auTruckGoDeliver: auCommands.getTruckGoDeliverList()) {

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/query">Query Order</router-link>
-        <router-link to="/redirect">Redirect Order</router-link>
-        <router-link to="/login">Login</router-link>
+        <router-link to="/queryOrderById">Query Order By Id</router-link>
+        <router-link to="/personalCenter">Login Amazon Account</router-link>
+<!--        <router-link to="/login">Login</router-link>-->
     </nav>
     <router-view />
   </div>

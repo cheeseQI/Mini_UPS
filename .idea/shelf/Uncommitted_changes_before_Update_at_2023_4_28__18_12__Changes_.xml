@@ -1,0 +1,69 @@
+<changelist name="Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]" date="1682719972138" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2023/4/28, 18:12 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="build/test-results/test/binary/results.bin" />
+    <option name="AFTER_PATH" value="build/test-results/test/binary/results.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/results.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/executionHistory/executionHistory.lock" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/executionHistory/executionHistory.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/executionHistory.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/test-results/test/binary/output.bin" />
+    <option name="AFTER_PATH" value="build/test-results/test/binary/output.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/output.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/javaCompile/classAnalysis.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/javaCompile/classAnalysis.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/classAnalysis.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/buildOutputCleanup.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/fileHashes/fileHashes.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/fileHashes/fileHashes.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/fileHashes.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/executionHistory/executionHistory.bin" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/executionHistory/executionHistory.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/executionHistory.bin" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="build/test-results/test/binary/output.bin.idx" />
+    <option name="AFTER_PATH" value="build/test-results/test/binary/output.bin.idx" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/output.bin.idx" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/fileHashes/fileHashes.lock" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/fileHashes/fileHashes.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/fileHashes.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="ups_frontend/public/favicon.ico" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="ups_frontend/src/assets/logo.png" />
+    <option name="AFTER_PATH" value="ups_frontend/src/assets/logo.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/logo.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/6.8.3/javaCompile/javaCompile.lock" />
+    <option name="AFTER_PATH" value=".gradle/6.8.3/javaCompile/javaCompile.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/javaCompile.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="ups_frontend/public/ups.ico" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_4_28,_18_12_[Changes]/ups.ico" />
+  </binary>
+</changelist>

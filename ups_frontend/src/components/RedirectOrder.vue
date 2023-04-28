@@ -33,7 +33,7 @@ export default {
 
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/query/2/${this.username}`
+                    `http://vcm-32430.vm.duke.edu:8080/query/2/${this.username}`
                 );
                 const packageList = response.data.PackageInfoList;
                 this.$router.push({

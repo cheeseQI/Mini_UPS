@@ -21,7 +21,7 @@ export default {
             console.log(localStorage.getItem("username"));
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/query/2/${localStorage.getItem("username")}`
+                    `http://vcm-32430.vm.duke.edu:8080/query/2/${localStorage.getItem("username")}`
                 );
                 const packageList = response.data.PackageInfoList;
                 this.$router.push({

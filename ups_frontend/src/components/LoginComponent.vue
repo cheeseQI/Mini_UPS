@@ -24,7 +24,7 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.post("http://localhost:8080/login", {
+                const response = await axios.post("http://vcm-32430.vm.duke.edu:8080/login", {
                     username: this.username,
                     password: this.password,
                 });

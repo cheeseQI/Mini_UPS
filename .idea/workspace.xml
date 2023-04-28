@@ -5,37 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ups_frontend/public/ups.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/66fbb12e.json" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/node_modules/.cache/eslint/66fbb12e.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/public/favicon.ico" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ups_frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ups_frontend/src/assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/assets/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PackageInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageInfo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PackageList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PackageList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/PersonalCenter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/PersonalCenter.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrderById.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/QueryOrderById.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/RedirectOrder.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/components/Welcome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/components/Welcome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/src/views/HomeView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ups_frontend/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ups_frontend/vue.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,30 +76,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/bhc/erss-hwk5-sq44-hb147/ups_frontend/src/components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "f155f3eb79f2837c90b570e5b2039336",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bhc/erss-hwk5-sq44-hb147/ups_frontend/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f155f3eb79f2837c90b570e5b2039336&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ups_frontend/public" />
+      <recent name="$PROJECT_DIR$/ups_frontend/src/assets" />
       <recent name="$PROJECT_DIR$/ups_frontend/src/components" />
       <recent name="$PROJECT_DIR$/ups_frontend" />
       <recent name="$PROJECT_DIR$/.gradle/buildOutputCleanup" />
@@ -129,7 +121,7 @@
       <recent name="upsApp.Entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PackageTest.testInsertPackage">
+  <component name="RunManager" selected="Spring Boot.MyApplication">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="App" />
       <module name="hw5_proj.main" />
@@ -275,7 +267,8 @@
       <workItem from="1682371823102" duration="4163000" />
       <workItem from="1682432248769" duration="6281000" />
       <workItem from="1682537459977" duration="960000" />
-      <workItem from="1682636508805" duration="15367000" />
+      <workItem from="1682636508805" duration="17745000" />
+      <workItem from="1682716443387" duration="1108000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681687892775</created>

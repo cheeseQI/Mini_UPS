@@ -22,7 +22,7 @@ public class PackageTest extends TestCase {
     }
 
     public void testInsertPackage() {
-        packageMapper.insertPackage(new Package(3L, "pad", 1, 1, 1, 10, 10, 1, 1, 1));
+        packageMapper.insertPackage(new Package(2L, "shoes", 1, 1, 1, 10, 10, 1, 1, 1));
         sqlSession.commit();
     }
 

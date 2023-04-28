@@ -58,8 +58,8 @@ public class Server {
         userThread.start();
 
         //update truck handler -> update truck table
-//        TruckUpdateHandler truckUpdateHandler = new TruckUpdateHandler();
-//        Thread truckThread = new Thread(truckUpdateHandler);
-//        truckThread.start();
+        TruckUpdateHandler truckUpdateHandler = new TruckUpdateHandler();
+        Thread truckThread = new Thread(truckUpdateHandler);
+        truckThread.start();
     }
 }

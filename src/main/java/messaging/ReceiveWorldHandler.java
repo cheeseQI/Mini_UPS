@@ -41,7 +41,7 @@ public class ReceiveWorldHandler implements Runnable{
             boolean hasCommandContent = false;
             List<Long> ackList = new ArrayList<>();
             WorldUps.UResponses uResponses = Server.worldClient.receiveUResponse();
-            System.out.println("receive uresponse from world: " + uResponses);
+            //System.out.println("receive uresponse from world: " + uResponses);
             // deal with ack of uResponse, which is used to delete resend uCommands
             for (long ack: uResponses.getAcksList()) {
                 if (Server.uGoPickupMap.containsKey(ack)) {
@@ -91,7 +91,7 @@ public class ReceiveWorldHandler implements Runnable{
             if (!hasCommandContent) {
                 continue;
             }
-            System.out.println("send to world: " + uCommandsBuilder);
+            //System.out.println("send to world: " + uCommandsBuilder);
             Server.worldClient.sendMessage(uCommandsBuilder.build());
         }
     }

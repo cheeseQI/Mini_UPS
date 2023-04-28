@@ -43,11 +43,11 @@ public class ReceiveAmazonHandler implements Runnable {
             // deal with ack of aucommand to ack old uacommand
             for (long ack: auCommands.getAcksList()) {
                 if (Server.uaTruckArrivedMap.containsKey(ack)) {
-                    AmazonUps.UATruckArrived uaTruckArrived = Server.uaTruckArrivedMap.get(ack);
+                    //AmazonUps.UATruckArrived uaTruckArrived = Server.uaTruckArrivedMap.get(ack);
                     Server.uaTruckArrivedMap.remove(ack);
                     System.out.println("remove uaTruckArrived from resend");
                 } else if (Server.uaTruckDeliverMadeMap.containsKey(ack)) {
-                    AmazonUps.UATruckDeliverMade uaTruckDeliverMade = Server.uaTruckDeliverMadeMap.get(ack);
+                    //AmazonUps.UATruckDeliverMade uaTruckDeliverMade = Server.uaTruckDeliverMadeMap.get(ack);
                     Server.uaTruckDeliverMadeMap.remove(ack);
                     System.out.println("remove uaTruckDeliverMade from resend");
                 } else if (Server.uaUpdatePackageStatusMap.containsKey(ack)) {

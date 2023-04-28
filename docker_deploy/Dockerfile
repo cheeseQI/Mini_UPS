@@ -9,5 +9,6 @@ RUN apk update && apk add postgresql && apk add postgresql-client && rm -rf /var
 
 EXPOSE 7474
 EXPOSE 8080
+EXPOSE 5432
 
 CMD ["java", "-jar", "/app/hw5_proj.jar"]

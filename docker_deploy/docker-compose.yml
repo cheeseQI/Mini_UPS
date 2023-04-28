@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  my_network:
+    driver: bridge
+
 services:
   postgres_siqi:
     image: postgres:latest
@@ -12,6 +16,8 @@ services:
       - ./truck.sql:/docker-entrypoint-initdb.d/1-truck.sql
       - ./user_table.sql:/docker-entrypoint-initdb.d/2-user_table.sql
       - ./package.sql:/docker-entrypoint-initdb.d/3-package.sql
+    networks:
+      - my_network
 
   app_siqi:
     build: .
@@ -21,3 +27,5 @@ services:
       - "8080:8080"
     depends_on:
       - postgres_siqi
+    networks:
+      - my_network

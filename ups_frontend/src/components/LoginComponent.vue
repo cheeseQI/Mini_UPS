@@ -11,20 +11,33 @@
                 <span class="icon">&#xe90b;</span>
             </div>
             <button @click="login">Login</button>
-            <div v-if="loginMessage" class="login-message">{{ loginMessage }}</div>
+<!--            <div v-if="loginMessage" class="login-message">{{ loginMessage }}</div>-->
         </div>
     </div>
 </template>
 <script>
 import axios from "axios";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
+// import app from "@/App.vue"; // Import SweetAlert2
 
 export default {
-    // ...
+    //
+    // mounted() {
+    //     this.name = app.config.globalProperties;
+    // },
+
+    data() {
+        return {
+            username: '',
+            password: '',
+        };
+    },
     methods: {
         async login() {
+            console.log(`http://${this.$hostname}:8080/query/2/${localStorage.getItem("username")}`);
+
             try {
-                const response = await axios.post("http://vcm-30653.vm.duke.edu:8080/login", {
+                const response = await axios.post(`http://${this.$hostname}:8080/login`, {
                     username: this.username,
                     password: this.password,
                 });

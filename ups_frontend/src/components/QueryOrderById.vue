@@ -29,7 +29,7 @@ export default {
 
             try {
                 const response = await axios.get(
-                    `http://vcm-30653.vm.duke.edu:8080/query/1/${this.packageId}`
+                    `${this.$hostname}:8080/query/1/${this.packageId}`
                 );
                 console.log(response.data.PackageInfoList[0]);
                 const packageInfo = response.data.PackageInfoList[0];

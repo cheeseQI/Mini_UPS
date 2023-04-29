@@ -1,0 +1,669 @@
+Index: src/test/java/model/UserTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\n\nimport junit.framework.TestCase;\n//import mapper.PackageMapper;\nimport mapper.TruckMapper;\nimport mapper.UserMapper;\nimport org.apache.ibatis.session.SqlSession;\nimport common.MyBatisUtil;\n\npublic class UserTest extends TestCase {\n    private SqlSession sqlSession;\n    private UserMapper userMapper;\n    private TruckMapper truckMapper;\n\n    @Override\n    protected void setUp() throws Exception {\n        super.setUp();\n        sqlSession = MyBatisUtil.getSqlSession();\n        userMapper = sqlSession.getMapper(UserMapper.class);\n        truckMapper = sqlSession.getMapper(TruckMapper.class);\n        //userMapper.deleteAll();\n        //truckMapper.deleteAll();\n        //userMapper.insertUser(new User(747, \"12345\"));\n        //sqlSession.commit();\n    }\n\n    public void testInsertUser() {\n        userMapper.insertUser(new User(1 , \"123\", \"haochi\"));\n        sqlSession.commit();\n    }\n\n    public void testFindUser() {\n        System.out.println(userMapper.findByUserName(\"haochi\"));\n    }\n\n    public void testGetUserIdAndPassword() {\n        System.out.println(userMapper.findByUserId(747));\n    }\n\n    public void testSetPassword() {\n//        User user = userMapper.findByUserId(747);\n//        System.out.println(user);\n//        user.setPassword(\"321\");\n//        userMapper.updateUser(user);\n//        sqlSession.commit();\n//        System.out.println(userMapper.findByUserId(747));\n    }\n\n    public void testClean() {\n        userMapper.deleteAll();\n        sqlSession.commit();\n    }\n\n//    @Override\n//    protected void tearDown() throws Exception {\n//        userMapper.deleteAll();\n//        sqlSession.commit();\n//        sqlSession.close();\n//        super.tearDown();\n//    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/model/UserTest.java b/src/test/java/model/UserTest.java
+--- a/src/test/java/model/UserTest.java	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/src/test/java/model/UserTest.java	(date 1682781174653)
+@@ -8,16 +8,16 @@
+ import common.MyBatisUtil;
+ 
+ public class UserTest extends TestCase {
+-    private SqlSession sqlSession;
+-    private UserMapper userMapper;
+-    private TruckMapper truckMapper;
++//    private SqlSession sqlSession;
++//    private UserMapper userMapper;
++//    private TruckMapper truckMapper;
+ 
+     @Override
+     protected void setUp() throws Exception {
+-        super.setUp();
+-        sqlSession = MyBatisUtil.getSqlSession();
+-        userMapper = sqlSession.getMapper(UserMapper.class);
+-        truckMapper = sqlSession.getMapper(TruckMapper.class);
++//        super.setUp();
++//        sqlSession = MyBatisUtil.getSqlSession();
++//        userMapper = sqlSession.getMapper(UserMapper.class);
++//        truckMapper = sqlSession.getMapper(TruckMapper.class);
+         //userMapper.deleteAll();
+         //truckMapper.deleteAll();
+         //userMapper.insertUser(new User(747, "12345"));
+@@ -25,17 +25,17 @@
+     }
+ 
+     public void testInsertUser() {
+-        userMapper.insertUser(new User(1 , "123", "haochi"));
+-        sqlSession.commit();
+-    }
+-
+-    public void testFindUser() {
+-        System.out.println(userMapper.findByUserName("haochi"));
++//        userMapper.insertUser(new User(1 , "123", "haochi"));
++//        sqlSession.commit();
+     }
+ 
+-    public void testGetUserIdAndPassword() {
+-        System.out.println(userMapper.findByUserId(747));
+-    }
++//    public void testFindUser() {
++//        System.out.println(userMapper.findByUserName("haochi"));
++//    }
++//
++//    public void testGetUserIdAndPassword() {
++//        System.out.println(userMapper.findByUserId(747));
++//    }
+ 
+     public void testSetPassword() {
+ //        User user = userMapper.findByUserId(747);
+@@ -46,10 +46,10 @@
+ //        System.out.println(userMapper.findByUserId(747));
+     }
+ 
+-    public void testClean() {
+-        userMapper.deleteAll();
+-        sqlSession.commit();
+-    }
++//    public void testClean() {
++//        userMapper.deleteAll();
++//        sqlSession.commit();
++//    }
+ 
+ //    @Override
+ //    protected void tearDown() throws Exception {
+Index: build/reports/tests/test/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n<meta http-equiv=\"x-ua-compatible\" content=\"IE=edge\"/>\n<title>Test results - Test Summary</title>\n<link href=\"css/base-style.css\" rel=\"stylesheet\" type=\"text/css\"/>\n<link href=\"css/style.css\" rel=\"stylesheet\" type=\"text/css\"/>\n<script src=\"js/report.js\" type=\"text/javascript\"></script>\n</head>\n<body>\n<div id=\"content\">\n<h1>Test Summary</h1>\n<div id=\"summary\">\n<table>\n<tr>\n<td>\n<div class=\"summaryGroup\">\n<table>\n<tr>\n<td>\n<div class=\"infoBox\" id=\"tests\">\n<div class=\"counter\">1</div>\n<p>tests</p>\n</div>\n</td>\n<td>\n<div class=\"infoBox\" id=\"failures\">\n<div class=\"counter\">1</div>\n<p>failures</p>\n</div>\n</td>\n<td>\n<div class=\"infoBox\" id=\"ignored\">\n<div class=\"counter\">0</div>\n<p>ignored</p>\n</div>\n</td>\n<td>\n<div class=\"infoBox\" id=\"duration\">\n<div class=\"counter\">0.260s</div>\n<p>duration</p>\n</div>\n</td>\n</tr>\n</table>\n</div>\n</td>\n<td>\n<div class=\"infoBox failures\" id=\"successRate\">\n<div class=\"percent\">0%</div>\n<p>successful</p>\n</div>\n</td>\n</tr>\n</table>\n</div>\n<div id=\"tabs\">\n<ul class=\"tabLinks\">\n<li>\n<a href=\"#tab0\">Failed tests</a>\n</li>\n<li>\n<a href=\"#tab1\">Packages</a>\n</li>\n<li>\n<a href=\"#tab2\">Classes</a>\n</li>\n</ul>\n<div id=\"tab0\" class=\"tab\">\n<h2>Failed tests</h2>\n<ul class=\"linkList\">\n<li>\n<a href=\"classes/model.UserTest.html\">UserTest</a>.\n<a href=\"classes/model.UserTest.html#testInsertUser\">testInsertUser</a>\n</li>\n</ul>\n</div>\n<div id=\"tab1\" class=\"tab\">\n<h2>Packages</h2>\n<table>\n<thead>\n<tr>\n<th>Package</th>\n<th>Tests</th>\n<th>Failures</th>\n<th>Ignored</th>\n<th>Duration</th>\n<th>Success rate</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td class=\"failures\">\n<a href=\"packages/model.html\">model</a>\n</td>\n<td>1</td>\n<td>1</td>\n<td>0</td>\n<td>0.260s</td>\n<td class=\"failures\">0%</td>\n</tr>\n</tbody>\n</table>\n</div>\n<div id=\"tab2\" class=\"tab\">\n<h2>Classes</h2>\n<table>\n<thead>\n<tr>\n<th>Class</th>\n<th>Tests</th>\n<th>Failures</th>\n<th>Ignored</th>\n<th>Duration</th>\n<th>Success rate</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td class=\"failures\">\n<a href=\"classes/model.UserTest.html\">model.UserTest</a>\n</td>\n<td>1</td>\n<td>1</td>\n<td>0</td>\n<td>0.260s</td>\n<td class=\"failures\">0%</td>\n</tr>\n</tbody>\n</table>\n</div>\n</div>\n<div id=\"footer\">\n<p>\n<div>\n<label class=\"hidden\" id=\"label-for-line-wrapping-toggle\" for=\"line-wrapping-toggle\">Wrap lines\n<input id=\"line-wrapping-toggle\" type=\"checkbox\" autocomplete=\"off\"/>\n</label>\n</div>Generated by \n<a href=\"http://www.gradle.org\">Gradle 6.8.3</a> at Apr 28, 2023 6:01:04 PM</p>\n</div>\n</div>\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/reports/tests/test/index.html b/build/reports/tests/test/index.html
+--- a/build/reports/tests/test/index.html	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/build/reports/tests/test/index.html	(date 1682782508319)
+@@ -20,13 +20,13 @@
+ <tr>
+ <td>
+ <div class="infoBox" id="tests">
+-<div class="counter">1</div>
++<div class="counter">10</div>
+ <p>tests</p>
+ </div>
+ </td>
+ <td>
+ <div class="infoBox" id="failures">
+-<div class="counter">1</div>
++<div class="counter">0</div>
+ <p>failures</p>
+ </div>
+ </td>
+@@ -38,7 +38,7 @@
+ </td>
+ <td>
+ <div class="infoBox" id="duration">
+-<div class="counter">0.260s</div>
++<div class="counter">0.006s</div>
+ <p>duration</p>
+ </div>
+ </td>
+@@ -47,8 +47,8 @@
+ </div>
+ </td>
+ <td>
+-<div class="infoBox failures" id="successRate">
+-<div class="percent">0%</div>
++<div class="infoBox success" id="successRate">
++<div class="percent">100%</div>
+ <p>successful</p>
+ </div>
+ </td>
+@@ -58,25 +58,13 @@
+ <div id="tabs">
+ <ul class="tabLinks">
+ <li>
+-<a href="#tab0">Failed tests</a>
+-</li>
+-<li>
+-<a href="#tab1">Packages</a>
++<a href="#tab0">Packages</a>
+ </li>
+ <li>
+-<a href="#tab2">Classes</a>
++<a href="#tab1">Classes</a>
+ </li>
+ </ul>
+ <div id="tab0" class="tab">
+-<h2>Failed tests</h2>
+-<ul class="linkList">
+-<li>
+-<a href="classes/model.UserTest.html">UserTest</a>.
+-<a href="classes/model.UserTest.html#testInsertUser">testInsertUser</a>
+-</li>
+-</ul>
+-</div>
+-<div id="tab1" class="tab">
+ <h2>Packages</h2>
+ <table>
+ <thead>
+@@ -91,19 +79,19 @@
+ </thead>
+ <tbody>
+ <tr>
+-<td class="failures">
++<td class="success">
+ <a href="packages/model.html">model</a>
+ </td>
+-<td>1</td>
+-<td>1</td>
++<td>10</td>
+ <td>0</td>
+-<td>0.260s</td>
+-<td class="failures">0%</td>
++<td>0</td>
++<td>0.006s</td>
++<td class="success">100%</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+-<div id="tab2" class="tab">
++<div id="tab1" class="tab">
+ <h2>Classes</h2>
+ <table>
+ <thead>
+@@ -118,14 +106,34 @@
+ </thead>
+ <tbody>
+ <tr>
+-<td class="failures">
++<td class="success">
++<a href="classes/model.PackageTest.html">model.PackageTest</a>
++</td>
++<td>4</td>
++<td>0</td>
++<td>0</td>
++<td>0.003s</td>
++<td class="success">100%</td>
++</tr>
++<tr>
++<td class="success">
++<a href="classes/model.TruckTest.html">model.TruckTest</a>
++</td>
++<td>4</td>
++<td>0</td>
++<td>0</td>
++<td>0.003s</td>
++<td class="success">100%</td>
++</tr>
++<tr>
++<td class="success">
+ <a href="classes/model.UserTest.html">model.UserTest</a>
+ </td>
+-<td>1</td>
+-<td>1</td>
++<td>2</td>
+ <td>0</td>
+-<td>0.260s</td>
+-<td class="failures">0%</td>
++<td>0</td>
++<td>0s</td>
++<td class="success">100%</td>
+ </tr>
+ </tbody>
+ </table>
+@@ -138,7 +146,7 @@
+ <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+ </label>
+ </div>Generated by 
+-<a href="http://www.gradle.org">Gradle 6.8.3</a> at Apr 28, 2023 6:01:04 PM</p>
++<a href="http://www.gradle.org">Gradle 6.8.3</a> at Apr 29, 2023 11:35:08 AM</p>
+ </div>
+ </div>
+ </body>
+Index: build/scripts/hw5_proj.bat
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@rem\r\n@rem Copyright 2015 the original author or authors.\r\n@rem\r\n@rem Licensed under the Apache License, Version 2.0 (the \"License\");\r\n@rem you may not use this file except in compliance with the License.\r\n@rem You may obtain a copy of the License at\r\n@rem\r\n@rem      https://www.apache.org/licenses/LICENSE-2.0\r\n@rem\r\n@rem Unless required by applicable law or agreed to in writing, software\r\n@rem distributed under the License is distributed on an \"AS IS\" BASIS,\r\n@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n@rem See the License for the specific language governing permissions and\r\n@rem limitations under the License.\r\n@rem\r\n\r\n@if \"%DEBUG%\" == \"\" @echo off\r\n@rem ##########################################################################\r\n@rem\r\n@rem  hw5_proj startup script for Windows\r\n@rem\r\n@rem ##########################################################################\r\n\r\n@rem Set local scope for the variables with windows NT shell\r\nif \"%OS%\"==\"Windows_NT\" setlocal\r\n\r\nset DIRNAME=%~dp0\r\nif \"%DIRNAME%\" == \"\" set DIRNAME=.\r\nset APP_BASE_NAME=%~n0\r\nset APP_HOME=%DIRNAME%..\r\n\r\n@rem Resolve any \".\" and \"..\" in APP_HOME to make it shorter.\r\nfor %%i in (\"%APP_HOME%\") do set APP_HOME=%%~fi\r\n\r\n@rem Add default JVM options here. You can also use JAVA_OPTS and HW5_PROJ_OPTS to pass JVM options to this script.\r\nset DEFAULT_JVM_OPTS=\r\n\r\n@rem Find java.exe\r\nif defined JAVA_HOME goto findJavaFromJavaHome\r\n\r\nset JAVA_EXE=java.exe\r\n%JAVA_EXE% -version >NUL 2>&1\r\nif \"%ERRORLEVEL%\" == \"0\" goto execute\r\n\r\necho.\r\necho ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.\r\necho.\r\necho Please set the JAVA_HOME variable in your environment to match the\r\necho location of your Java installation.\r\n\r\ngoto fail\r\n\r\n:findJavaFromJavaHome\r\nset JAVA_HOME=%JAVA_HOME:\"=%\r\nset JAVA_EXE=%JAVA_HOME%/bin/java.exe\r\n\r\nif exist \"%JAVA_EXE%\" goto execute\r\n\r\necho.\r\necho ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%\r\necho.\r\necho Please set the JAVA_HOME variable in your environment to match the\r\necho location of your Java installation.\r\n\r\ngoto fail\r\n\r\n:execute\r\n@rem Setup the command line\r\n\r\nset CLASSPATH=%APP_HOME%\\lib\\hw5_proj-plain.jar;%APP_HOME%\\lib\\guava-23.0.jar;%APP_HOME%\\lib\\spring-boot-starter-web-2.5.6.jar;%APP_HOME%\\lib\\protobuf-java-3.18.1.jar;%APP_HOME%\\lib\\mybatis-3.5.7.jar;%APP_HOME%\\lib\\postgresql-42.2.23.jar;%APP_HOME%\\lib\\jsr305-1.3.9.jar;%APP_HOME%\\lib\\error_prone_annotations-2.0.18.jar;%APP_HOME%\\lib\\j2objc-annotations-1.1.jar;%APP_HOME%\\lib\\animal-sniffer-annotations-1.14.jar;%APP_HOME%\\lib\\spring-boot-starter-json-2.5.6.jar;%APP_HOME%\\lib\\spring-boot-starter-2.5.6.jar;%APP_HOME%\\lib\\spring-boot-starter-tomcat-2.5.6.jar;%APP_HOME%\\lib\\spring-webmvc-5.3.12.jar;%APP_HOME%\\lib\\spring-web-5.3.12.jar;%APP_HOME%\\lib\\checker-qual-3.5.0.jar;%APP_HOME%\\lib\\spring-boot-autoconfigure-2.5.6.jar;%APP_HOME%\\lib\\spring-boot-2.5.6.jar;%APP_HOME%\\lib\\spring-boot-starter-logging-2.5.6.jar;%APP_HOME%\\lib\\jakarta.annotation-api-1.3.5.jar;%APP_HOME%\\lib\\spring-context-5.3.12.jar;%APP_HOME%\\lib\\spring-aop-5.3.12.jar;%APP_HOME%\\lib\\spring-beans-5.3.12.jar;%APP_HOME%\\lib\\spring-expression-5.3.12.jar;%APP_HOME%\\lib\\spring-core-5.3.12.jar;%APP_HOME%\\lib\\snakeyaml-1.28.jar;%APP_HOME%\\lib\\jackson-datatype-jsr310-2.12.5.jar;%APP_HOME%\\lib\\jackson-module-parameter-names-2.12.5.jar;%APP_HOME%\\lib\\jackson-annotations-2.12.5.jar;%APP_HOME%\\lib\\jackson-core-2.12.5.jar;%APP_HOME%\\lib\\jackson-datatype-jdk8-2.12.5.jar;%APP_HOME%\\lib\\jackson-databind-2.12.5.jar;%APP_HOME%\\lib\\tomcat-embed-websocket-9.0.54.jar;%APP_HOME%\\lib\\tomcat-embed-core-9.0.54.jar;%APP_HOME%\\lib\\tomcat-embed-el-9.0.54.jar;%APP_HOME%\\lib\\logback-classic-1.2.6.jar;%APP_HOME%\\lib\\log4j-to-slf4j-2.14.1.jar;%APP_HOME%\\lib\\jul-to-slf4j-1.7.32.jar;%APP_HOME%\\lib\\spring-jcl-5.3.12.jar;%APP_HOME%\\lib\\logback-core-1.2.6.jar;%APP_HOME%\\lib\\slf4j-api-1.7.32.jar;%APP_HOME%\\lib\\log4j-api-2.14.1.jar\r\n\r\n\r\n@rem Execute hw5_proj\r\n\"%JAVA_EXE%\" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HW5_PROJ_OPTS%  -classpath \"%CLASSPATH%\" App %*\r\n\r\n:end\r\n@rem End local scope for the variables with windows NT shell\r\nif \"%ERRORLEVEL%\"==\"0\" goto mainEnd\r\n\r\n:fail\r\nrem Set variable HW5_PROJ_EXIT_CONSOLE if you need the _script_ return code instead of\r\nrem the _cmd.exe /c_ return code!\r\nif  not \"\" == \"%HW5_PROJ_EXIT_CONSOLE%\" exit 1\r\nexit /b 1\r\n\r\n:mainEnd\r\nif \"%OS%\"==\"Windows_NT\" endlocal\r\n\r\n:omega\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/scripts/hw5_proj.bat b/build/scripts/hw5_proj.bat
+--- a/build/scripts/hw5_proj.bat	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/build/scripts/hw5_proj.bat	(date 1682782501730)
+@@ -71,7 +71,7 @@
+ 
+ 
+ @rem Execute hw5_proj
+-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HW5_PROJ_OPTS%  -classpath "%CLASSPATH%" App %*
++"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HW5_PROJ_OPTS%  -classpath "%CLASSPATH%"  %*
+ 
+ :end
+ @rem End local scope for the variables with windows NT shell
+Index: src/test/java/model/TruckTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\n\nimport common.MyBatisUtil;\nimport junit.framework.TestCase;\nimport mapper.PackageMapper;\nimport mapper.TruckMapper;\nimport org.apache.ibatis.session.SqlSession;\n\npublic class TruckTest extends TestCase {\n    private SqlSession sqlSession;\n    private TruckMapper truckMapper;\n\n    @Override\n    protected void setUp() throws Exception {\n        super.setUp();\n        sqlSession = MyBatisUtil.getSqlSession();\n        truckMapper = sqlSession.getMapper(TruckMapper.class);\n//        truckMapper.deleteAll();\n//        int res = truckMapper.insertTruck(new Truck(1, \"IDLE\", 1, 2, 1));\n//        System.out.println(res);\n//        sqlSession.commit();\n    }\n\n    public void testInsertTruck() {\n        truckMapper.insertTruck(new Truck(1, \"zhu\", 1, 1, 0));\n        sqlSession.commit();\n    }\n\n    public void testGetTruckId() {\n        //System.out.println(truckMapper.findByTruckId(1));\n    }\n\n    public void testSetTruckStatus() {\n//        Truck truck = truckMapper.findByTruckId(1);\n//        truck.setStatus(\"EN ROUTE\");\n//        truckMapper.updateTruck(truck);\n//        sqlSession.commit();\n//        testGetTruckId();\n    }\n\n    public void testClean() {\n        truckMapper.deleteAll();\n        sqlSession.commit();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/model/TruckTest.java b/src/test/java/model/TruckTest.java
+--- a/src/test/java/model/TruckTest.java	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/src/test/java/model/TruckTest.java	(date 1682781174641)
+@@ -12,9 +12,9 @@
+ 
+     @Override
+     protected void setUp() throws Exception {
+-        super.setUp();
+-        sqlSession = MyBatisUtil.getSqlSession();
+-        truckMapper = sqlSession.getMapper(TruckMapper.class);
++//        super.setUp();
++//        sqlSession = MyBatisUtil.getSqlSession();
++//        truckMapper = sqlSession.getMapper(TruckMapper.class);
+ //        truckMapper.deleteAll();
+ //        int res = truckMapper.insertTruck(new Truck(1, "IDLE", 1, 2, 1));
+ //        System.out.println(res);
+@@ -22,8 +22,8 @@
+     }
+ 
+     public void testInsertTruck() {
+-        truckMapper.insertTruck(new Truck(1, "zhu", 1, 1, 0));
+-        sqlSession.commit();
++//        truckMapper.insertTruck(new Truck(1, "zhu", 1, 1, 0));
++//        sqlSession.commit();
+     }
+ 
+     public void testGetTruckId() {
+@@ -39,7 +39,7 @@
+     }
+ 
+     public void testClean() {
+-        truckMapper.deleteAll();
+-        sqlSession.commit();
++//        truckMapper.deleteAll();
++//        sqlSession.commit();
+     }
+ }
+\ No newline at end of file
+Index: src/test/java/model/PackageTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\n\nimport common.MyBatisUtil;\nimport junit.framework.TestCase;\nimport mapper.PackageMapper;\nimport mapper.TruckMapper;\nimport mapper.UserMapper;\nimport org.apache.ibatis.session.SqlSession;\nimport org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Pack;\n\npublic class PackageTest extends TestCase {\n    private SqlSession sqlSession;\n    private PackageMapper packageMapper;\n\n    @Override\n    protected void setUp() throws Exception {\n        super.setUp();\n        sqlSession = MyBatisUtil.getSqlSession();\n        packageMapper = sqlSession.getMapper(PackageMapper.class);\n//        packageMapper.deleteAll();\n        //sqlSession.commit();\n    }\n\n    public void testInsertPackage() {\n        packageMapper.insertPackage(new Package(2L, \"shoes\", 1, 1, 1, 10, 10, 1, 1, 1));\n        sqlSession.commit();\n    }\n\n    public void testGetPackageId() {\n//        System.out.println(packageMapper.findByPackageId(2L));\n    }\n\n    public void testSetPackage() {\n//        Package pkg = packageMapper.findByPackageId(2L);\n//        pkg.setDescription(\"apple from cool house\");\n//        packageMapper.updatePackage(pkg);\n//        sqlSession.commit();\n    }\n\n    public void testClean() {\n        packageMapper.deleteAll();\n        sqlSession.commit();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/model/PackageTest.java b/src/test/java/model/PackageTest.java
+--- a/src/test/java/model/PackageTest.java	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/src/test/java/model/PackageTest.java	(date 1682781174661)
+@@ -14,16 +14,16 @@
+ 
+     @Override
+     protected void setUp() throws Exception {
+-        super.setUp();
+-        sqlSession = MyBatisUtil.getSqlSession();
+-        packageMapper = sqlSession.getMapper(PackageMapper.class);
++//        super.setUp();
++//        sqlSession = MyBatisUtil.getSqlSession();
++//        packageMapper = sqlSession.getMapper(PackageMapper.class);
+ //        packageMapper.deleteAll();
+         //sqlSession.commit();
+     }
+ 
+     public void testInsertPackage() {
+-        packageMapper.insertPackage(new Package(2L, "shoes", 1, 1, 1, 10, 10, 1, 1, 1));
+-        sqlSession.commit();
++//        packageMapper.insertPackage(new Package(2L, "shoes", 1, 1, 1, 10, 10, 1, 1, 1));
++//        sqlSession.commit();
+     }
+ 
+     public void testGetPackageId() {
+@@ -38,7 +38,7 @@
+     }
+ 
+     public void testClean() {
+-        packageMapper.deleteAll();
+-        sqlSession.commit();
++//        packageMapper.deleteAll();
++//        sqlSession.commit();
+     }
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"hw5_proj\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Interface\" />\n        <option value=\"JUnit3 Test Class\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2OWbf2HTbSDw33PElRWOALbUCHU\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"DatabaseDriversLRU\" value=\"postgresql\" />\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"last_directory_selection\" value=\"$PROJECT_DIR$/src/main/java/upsApp\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/docker_deploy\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/docker_deploy\" />\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/.gradle/buildOutputCleanup\" />\n    </key>\n    <key name=\"CreateTestDialog.Recents.Supers\">\n      <recent name=\"junit.framework.TestCase\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/docker_deploy\" />\n    </key>\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\n      <recent name=\"upsApp\" />\n    </key>\n    <key name=\"CreateTestDialog.RecentsKey\">\n      <recent name=\"messaging\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Application.AmazonMock\">\n    <configuration name=\"AmazonMock\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"messaging.AmazonMock\" />\n      <module name=\"hw5_proj.main\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"messaging.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"PackageTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.PackageTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TruckTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.TruckTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"UserTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.UserTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"UserTest.testInsertUser\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.UserTest.testInsertUser&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"MyApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\n      <module name=\"hw5_proj.main\" />\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"upsApp.MyApplication\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.UserTest.testInsertUser\" />\n        <item itemvalue=\"Application.AmazonMock\" />\n        <item itemvalue=\"Gradle.UserTest.testClean\" />\n        <item itemvalue=\"Gradle.TruckTest.testClean\" />\n        <item itemvalue=\"Gradle.PackageTest.testClean\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf\" name=\"Changes\" comment=\"\" />\n      <created>1681679399773</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1681679399773</updated>\n      <workItem from=\"1681679403030\" duration=\"1767000\" />\n      <workItem from=\"1681682265754\" duration=\"1985000\" />\n      <workItem from=\"1681760598638\" duration=\"5718000\" />\n      <workItem from=\"1682293794193\" duration=\"2000\" />\n      <workItem from=\"1682371823102\" duration=\"4163000\" />\n      <workItem from=\"1682432248769\" duration=\"6281000\" />\n      <workItem from=\"1682537459977\" duration=\"2975000\" />\n      <workItem from=\"1682622292213\" duration=\"4126000\" />\n      <workItem from=\"1682635157115\" duration=\"3914000\" />\n      <workItem from=\"1682705785615\" duration=\"598000\" />\n      <workItem from=\"1682706451004\" duration=\"8135000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <created>1681687892775</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1681687892776</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"first commit\">\n      <created>1681689409077</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1681689409077</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"finish status change database logic\">\n      <created>1682381452728</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682381452728</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"finish truck update\">\n      <created>1682436276811</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682436276811</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"modify proto\">\n      <created>1682456761981</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682456761981</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"modify spring\">\n      <created>1682539125525</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682539125525</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"modify todo\">\n      <created>1682625372033</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682625372034</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"modify user table\">\n      <created>1682632132555</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682632132555</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"finish cooperate\">\n      <created>1682640651975</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682640651975</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"finish cooperate\">\n      <created>1682716600393</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682716600393</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"finish docker\">\n      <created>1682719859236</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682719859236</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"12\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"finish status change database logic\" />\n    <MESSAGE value=\"finish truck update\" />\n    <MESSAGE value=\"modify proto\" />\n    <MESSAGE value=\"modify spring\" />\n    <MESSAGE value=\"modify todo\" />\n    <MESSAGE value=\"modify user table\" />\n    <MESSAGE value=\"finish cooperate\" />\n    <MESSAGE value=\"finish docker\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"finish docker\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/.idea/workspace.xml	(date 1682806173628)
+@@ -4,8 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
++    <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="modify frontend with new vm">
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
+@@ -21,8 +20,23 @@
+       <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/distributions/hw5_proj.tar" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/hw5_proj.tar" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/distributions/hw5_proj.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/hw5_proj.zip" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/libs/hw5_proj.jar" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/scripts/hw5_proj" beforeDir="false" afterPath="$PROJECT_DIR$/build/scripts/hw5_proj" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/scripts/hw5_proj.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build/scripts/hw5_proj.bat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/docker_deploy/hw5_proj.jar" beforeDir="false" afterPath="$PROJECT_DIR$/docker_deploy/hw5_proj.jar" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/messaging/WorldClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/messaging/WorldClientTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/PackageTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/model/TruckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/TruckTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/model/UserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/UserTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/world_simulator_exec/docker_deploy/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/world_simulator_exec/docker_deploy/docker-compose.yml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -89,10 +103,13 @@
+     <property name="RequestMappingsPanelOrder1" value="1" />
+     <property name="RequestMappingsPanelWidth0" value="75" />
+     <property name="RequestMappingsPanelWidth1" value="75" />
++    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/upsApp" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/docker_deploy" />
++    <property name="vue.rearranger.settings.migration" value="true" />
+   </component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+@@ -113,20 +130,7 @@
+       <recent name="messaging" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.AmazonMock">
+-    <configuration name="AmazonMock" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="messaging.AmazonMock" />
+-      <module name="hw5_proj.main" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="messaging.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
++  <component name="RunManager" selected="Gradle.PackageTest.testClean">
+     <configuration name="PackageTest.testClean" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+@@ -215,6 +219,27 @@
+         <option name="vmOptions" />
+       </ExternalSystemSettings>
+       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
++      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
++      <DebugAllEnabled>false</DebugAllEnabled>
++      <method v="2" />
++    </configuration>
++    <configuration name="erss-hwk5-sq44-hb147 [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++      <ExternalSystemSettings>
++        <option name="executionName" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="externalSystemIdString" value="GRADLE" />
++        <option name="scriptParameters" />
++        <option name="taskDescriptions">
++          <list />
++        </option>
++        <option name="taskNames">
++          <list>
++            <option value="bootJar" />
++          </list>
++        </option>
++        <option name="vmOptions" />
++      </ExternalSystemSettings>
++      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+       <method v="2" />
+@@ -222,17 +247,26 @@
+     <configuration name="MyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+       <module name="hw5_proj.main" />
+       <option name="SPRING_BOOT_MAIN_CLASS" value="upsApp.MyApplication" />
++      <option name="ALTERNATIVE_JRE_PATH" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <recent_temporary>
+-      <list>
+-        <item itemvalue="Gradle.UserTest.testInsertUser" />
+-        <item itemvalue="Application.AmazonMock" />
++    <list>
++      <item itemvalue="Gradle.PackageTest.testClean" />
++      <item itemvalue="Gradle.TruckTest.testClean" />
++      <item itemvalue="Gradle.UserTest.testClean" />
++      <item itemvalue="Gradle.UserTest.testInsertUser" />
++      <item itemvalue="Gradle.erss-hwk5-sq44-hb147 [bootJar]" />
++      <item itemvalue="Spring Boot.MyApplication" />
++    </list>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Gradle.erss-hwk5-sq44-hb147 [bootJar]" />
++        <item itemvalue="Gradle.PackageTest.testClean" />
+         <item itemvalue="Gradle.UserTest.testClean" />
+         <item itemvalue="Gradle.TruckTest.testClean" />
+-        <item itemvalue="Gradle.PackageTest.testClean" />
++        <item itemvalue="Gradle.UserTest.testInsertUser" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -255,6 +289,8 @@
+       <workItem from="1682635157115" duration="3914000" />
+       <workItem from="1682705785615" duration="598000" />
+       <workItem from="1682706451004" duration="8135000" />
++      <workItem from="1682779513701" duration="2872000" />
++      <workItem from="1682791528770" duration="2907000" />
+     </task>
+     <task id="LOCAL-00001" summary="first commit">
+       <created>1681687892775</created>
+@@ -333,7 +369,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1682719859236</updated>
+     </task>
+-    <option name="localTasksCounter" value="12" />
++    <task id="LOCAL-00012" summary="finish docker on second vm">
++      <created>1682783082740</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1682783082740</updated>
++    </task>
++    <task id="LOCAL-00013" summary="modify frontend with new vm">
++      <created>1682792696092</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1682792696092</updated>
++    </task>
++    <option name="localTasksCounter" value="14" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -349,7 +399,9 @@
+     <MESSAGE value="modify user table" />
+     <MESSAGE value="finish cooperate" />
+     <MESSAGE value="finish docker" />
+-    <option name="LAST_COMMIT_MESSAGE" value="finish docker" />
++    <MESSAGE value="finish docker on second vm" />
++    <MESSAGE value="modify frontend with new vm" />
++    <option name="LAST_COMMIT_MESSAGE" value="modify frontend with new vm" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"FrameworkDetectionExcludesConfiguration\">\n    <file type=\"web\" url=\"file://$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\" />\n  <component name=\"UnattendedHostPersistenceState\">\n    <option name=\"openedFilesInfos\">\n      <list>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"5749\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"840\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"1142\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"169\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"595\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/docker_deploy/docker-compose.yml\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"996\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/test/java/model/PackageTest.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"1247\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/test/java/model/UserTest.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"324\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/docker_deploy/Dockerfile\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"738\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/common/MyBatisUtil.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"199\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/AmazonMock.java\" />\n        </OpenedFileInfo>\n      </list>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/.idea/misc.xml	(date 1682805017476)
+@@ -9,44 +9,44 @@
+     <option name="openedFilesInfos">
+       <list>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="5749" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
++          <option name="caretOffset" value="1921" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="840" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java" />
++          <option name="caretOffset" value="1363" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/mapper/PackageMapper.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="1142" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java" />
++          <option name="caretOffset" value="1147" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/model/Package.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="169" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml" />
++          <option name="caretOffset" value="841" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/ups_frontend/src/components/LoginComponent.vue" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="595" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/docker_deploy/docker-compose.yml" />
++          <option name="caretOffset" value="1294" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_amazon.proto" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="996" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/PackageTest.java" />
++          <option name="caretOffset" value="2366" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/Server.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="1247" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/UserTest.java" />
++          <option name="caretOffset" value="1301" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="324" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/docker_deploy/Dockerfile" />
++          <option name="caretOffset" value="4089" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/amazon_ups.proto" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="738" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/common/MyBatisUtil.java" />
++          <option name="caretOffset" value="1538" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/world_ups.proto" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="199" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/AmazonMock.java" />
++          <option name="caretOffset" value="2472" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" />
+         </OpenedFileInfo>
+       </list>
+     </option>
+Index: src/test/java/messaging/WorldClientTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package messaging;\n\nimport common.BuilderUtil;\nimport service.TruckService;\nimport junit.framework.TestCase;\nimport protocol.WorldUps;\n\nimport java.util.List;\n\npublic class WorldClientTest extends TestCase {\n    String host = \"127.0.0.1\";\n    int port = 12345;\n\n    public void testConnect() {\n        WorldClient worldClient = new WorldClient(host, port);\n        System.out.println(\"successful connect\");\n        worldClient.disconnect();\n    }\n\n    public void testSendMessage() {\n        TruckService truckService = new TruckService();\n        WorldClient worldClient = new WorldClient(host, port);\n        //WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(1, 1, 3);\n        List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();\n        //uInitTruckList.add(uInitTruck);\n        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(1, uInitTruckList);\n        worldClient.sendMessage(uConnect);\n        WorldUps.UConnected uConnected =  worldClient.receiveUConnected();\n        System.out.println(uConnected.toString());\n        worldClient.disconnect();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/messaging/WorldClientTest.java b/src/test/java/messaging/WorldClientTest.java
+--- a/src/test/java/messaging/WorldClientTest.java	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/src/test/java/messaging/WorldClientTest.java	(date 1682780328003)
+@@ -7,26 +7,26 @@
+ 
+ import java.util.List;
+ 
+-public class WorldClientTest extends TestCase {
+-    String host = "127.0.0.1";
+-    int port = 12345;
+-
+-    public void testConnect() {
+-        WorldClient worldClient = new WorldClient(host, port);
+-        System.out.println("successful connect");
+-        worldClient.disconnect();
+-    }
+-
+-    public void testSendMessage() {
+-        TruckService truckService = new TruckService();
+-        WorldClient worldClient = new WorldClient(host, port);
+-        //WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(1, 1, 3);
+-        List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
+-        //uInitTruckList.add(uInitTruck);
+-        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(1, uInitTruckList);
+-        worldClient.sendMessage(uConnect);
+-        WorldUps.UConnected uConnected =  worldClient.receiveUConnected();
+-        System.out.println(uConnected.toString());
+-        worldClient.disconnect();
+-    }
+-}
++//public class WorldClientTest extends TestCase {
++//    String host = "127.0.0.1";
++//    int port = 12345;
++//
++////    public void testConnect() {
++////        WorldClient worldClient = new WorldClient(host, port);
++////        System.out.println("successful connect");
++////        worldClient.disconnect();
++////    }
++//
++////    public void testSendMessage() {
++////        TruckService truckService = new TruckService();
++////        WorldClient worldClient = new WorldClient(host, port);
++////        //WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(1, 1, 3);
++////        List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();
++////        //uInitTruckList.add(uInitTruck);
++////        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(1, uInitTruckList);
++////        worldClient.sendMessage(uConnect);
++////        WorldUps.UConnected uConnected =  worldClient.receiveUConnected();
++////        System.out.println(uConnected.toString());
++////        worldClient.disconnect();
++////    }
++//}
+Index: build/scripts/hw5_proj
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#!/usr/bin/env sh\n\n#\n# Copyright 2015 the original author or authors.\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#      https://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\n\n##############################################################################\n##\n##  hw5_proj start up script for UN*X\n##\n##############################################################################\n\n# Attempt to set APP_HOME\n# Resolve links: $0 may be a link\nPRG=\"$0\"\n# Need this for relative symlinks.\nwhile [ -h \"$PRG\" ] ; do\n    ls=`ls -ld \"$PRG\"`\n    link=`expr \"$ls\" : '.*-> \\(.*\\)$'`\n    if expr \"$link\" : '/.*' > /dev/null; then\n        PRG=\"$link\"\n    else\n        PRG=`dirname \"$PRG\"`\"/$link\"\n    fi\ndone\nSAVED=\"`pwd`\"\ncd \"`dirname \\\"$PRG\\\"`/..\" >/dev/null\nAPP_HOME=\"`pwd -P`\"\ncd \"$SAVED\" >/dev/null\n\nAPP_NAME=\"hw5_proj\"\nAPP_BASE_NAME=`basename \"$0\"`\n\n# Add default JVM options here. You can also use JAVA_OPTS and HW5_PROJ_OPTS to pass JVM options to this script.\nDEFAULT_JVM_OPTS=\"\"\n\n# Use the maximum available, or set MAX_FD != -1 to use that value.\nMAX_FD=\"maximum\"\n\nwarn () {\n    echo \"$*\"\n}\n\ndie () {\n    echo\n    echo \"$*\"\n    echo\n    exit 1\n}\n\n# OS specific support (must be 'true' or 'false').\ncygwin=false\nmsys=false\ndarwin=false\nnonstop=false\ncase \"`uname`\" in\n  CYGWIN* )\n    cygwin=true\n    ;;\n  Darwin* )\n    darwin=true\n    ;;\n  MINGW* )\n    msys=true\n    ;;\n  NONSTOP* )\n    nonstop=true\n    ;;\nesac\n\nCLASSPATH=$APP_HOME/lib/hw5_proj-plain.jar:$APP_HOME/lib/guava-23.0.jar:$APP_HOME/lib/spring-boot-starter-web-2.5.6.jar:$APP_HOME/lib/protobuf-java-3.18.1.jar:$APP_HOME/lib/mybatis-3.5.7.jar:$APP_HOME/lib/postgresql-42.2.23.jar:$APP_HOME/lib/jsr305-1.3.9.jar:$APP_HOME/lib/error_prone_annotations-2.0.18.jar:$APP_HOME/lib/j2objc-annotations-1.1.jar:$APP_HOME/lib/animal-sniffer-annotations-1.14.jar:$APP_HOME/lib/spring-boot-starter-json-2.5.6.jar:$APP_HOME/lib/spring-boot-starter-2.5.6.jar:$APP_HOME/lib/spring-boot-starter-tomcat-2.5.6.jar:$APP_HOME/lib/spring-webmvc-5.3.12.jar:$APP_HOME/lib/spring-web-5.3.12.jar:$APP_HOME/lib/checker-qual-3.5.0.jar:$APP_HOME/lib/spring-boot-autoconfigure-2.5.6.jar:$APP_HOME/lib/spring-boot-2.5.6.jar:$APP_HOME/lib/spring-boot-starter-logging-2.5.6.jar:$APP_HOME/lib/jakarta.annotation-api-1.3.5.jar:$APP_HOME/lib/spring-context-5.3.12.jar:$APP_HOME/lib/spring-aop-5.3.12.jar:$APP_HOME/lib/spring-beans-5.3.12.jar:$APP_HOME/lib/spring-expression-5.3.12.jar:$APP_HOME/lib/spring-core-5.3.12.jar:$APP_HOME/lib/snakeyaml-1.28.jar:$APP_HOME/lib/jackson-datatype-jsr310-2.12.5.jar:$APP_HOME/lib/jackson-module-parameter-names-2.12.5.jar:$APP_HOME/lib/jackson-annotations-2.12.5.jar:$APP_HOME/lib/jackson-core-2.12.5.jar:$APP_HOME/lib/jackson-datatype-jdk8-2.12.5.jar:$APP_HOME/lib/jackson-databind-2.12.5.jar:$APP_HOME/lib/tomcat-embed-websocket-9.0.54.jar:$APP_HOME/lib/tomcat-embed-core-9.0.54.jar:$APP_HOME/lib/tomcat-embed-el-9.0.54.jar:$APP_HOME/lib/logback-classic-1.2.6.jar:$APP_HOME/lib/log4j-to-slf4j-2.14.1.jar:$APP_HOME/lib/jul-to-slf4j-1.7.32.jar:$APP_HOME/lib/spring-jcl-5.3.12.jar:$APP_HOME/lib/logback-core-1.2.6.jar:$APP_HOME/lib/slf4j-api-1.7.32.jar:$APP_HOME/lib/log4j-api-2.14.1.jar\n\n\n# Determine the Java command to use to start the JVM.\nif [ -n \"$JAVA_HOME\" ] ; then\n    if [ -x \"$JAVA_HOME/jre/sh/java\" ] ; then\n        # IBM's JDK on AIX uses strange locations for the executables\n        JAVACMD=\"$JAVA_HOME/jre/sh/java\"\n    else\n        JAVACMD=\"$JAVA_HOME/bin/java\"\n    fi\n    if [ ! -x \"$JAVACMD\" ] ; then\n        die \"ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME\n\nPlease set the JAVA_HOME variable in your environment to match the\nlocation of your Java installation.\"\n    fi\nelse\n    JAVACMD=\"java\"\n    which java >/dev/null 2>&1 || die \"ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.\n\nPlease set the JAVA_HOME variable in your environment to match the\nlocation of your Java installation.\"\nfi\n\n# Increase the maximum file descriptors if we can.\nif [ \"$cygwin\" = \"false\" -a \"$darwin\" = \"false\" -a \"$nonstop\" = \"false\" ] ; then\n    MAX_FD_LIMIT=`ulimit -H -n`\n    if [ $? -eq 0 ] ; then\n        if [ \"$MAX_FD\" = \"maximum\" -o \"$MAX_FD\" = \"max\" ] ; then\n            MAX_FD=\"$MAX_FD_LIMIT\"\n        fi\n        ulimit -n $MAX_FD\n        if [ $? -ne 0 ] ; then\n            warn \"Could not set maximum file descriptor limit: $MAX_FD\"\n        fi\n    else\n        warn \"Could not query maximum file descriptor limit: $MAX_FD_LIMIT\"\n    fi\nfi\n\n# For Darwin, add options to specify how the application appears in the dock\nif $darwin; then\n    GRADLE_OPTS=\"$GRADLE_OPTS \\\"-Xdock:name=$APP_NAME\\\" \\\"-Xdock:icon=$APP_HOME/media/gradle.icns\\\"\"\nfi\n\n# For Cygwin or MSYS, switch paths to Windows format before running java\nif [ \"$cygwin\" = \"true\" -o \"$msys\" = \"true\" ] ; then\n    APP_HOME=`cygpath --path --mixed \"$APP_HOME\"`\n    CLASSPATH=`cygpath --path --mixed \"$CLASSPATH\"`\n\n    JAVACMD=`cygpath --unix \"$JAVACMD\"`\n\n    # We build the pattern for arguments to be converted via cygpath\n    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`\n    SEP=\"\"\n    for dir in $ROOTDIRSRAW ; do\n        ROOTDIRS=\"$ROOTDIRS$SEP$dir\"\n        SEP=\"|\"\n    done\n    OURCYGPATTERN=\"(^($ROOTDIRS))\"\n    # Add a user-defined pattern to the cygpath arguments\n    if [ \"$GRADLE_CYGPATTERN\" != \"\" ] ; then\n        OURCYGPATTERN=\"$OURCYGPATTERN|($GRADLE_CYGPATTERN)\"\n    fi\n    # Now convert the arguments - kludge to limit ourselves to /bin/sh\n    i=0\n    for arg in \"$@\" ; do\n        CHECK=`echo \"$arg\"|egrep -c \"$OURCYGPATTERN\" -`\n        CHECK2=`echo \"$arg\"|egrep -c \"^-\"`                                 ### Determine if an option\n\n        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition\n            eval `echo args$i`=`cygpath --path --ignore --mixed \"$arg\"`\n        else\n            eval `echo args$i`=\"\\\"$arg\\\"\"\n        fi\n        i=`expr $i + 1`\n    done\n    case $i in\n        0) set -- ;;\n        1) set -- \"$args0\" ;;\n        2) set -- \"$args0\" \"$args1\" ;;\n        3) set -- \"$args0\" \"$args1\" \"$args2\" ;;\n        4) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" ;;\n        5) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" \"$args4\" ;;\n        6) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" \"$args4\" \"$args5\" ;;\n        7) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" \"$args4\" \"$args5\" \"$args6\" ;;\n        8) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" \"$args4\" \"$args5\" \"$args6\" \"$args7\" ;;\n        9) set -- \"$args0\" \"$args1\" \"$args2\" \"$args3\" \"$args4\" \"$args5\" \"$args6\" \"$args7\" \"$args8\" ;;\n    esac\nfi\n\n# Escape application args\nsave () {\n    for i do printf %s\\\\n \"$i\" | sed \"s/'/'\\\\\\\\''/g;1s/^/'/;\\$s/\\$/' \\\\\\\\/\" ; done\n    echo \" \"\n}\nAPP_ARGS=`save \"$@\"`\n\n# Collect all arguments for the java command, following the shell quoting and substitution rules\neval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $HW5_PROJ_OPTS -classpath \"\\\"$CLASSPATH\\\"\" App \"$APP_ARGS\"\n\nexec \"$JAVACMD\" \"$@\"\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build/scripts/hw5_proj b/build/scripts/hw5_proj
+--- a/build/scripts/hw5_proj	(revision 2aae75419dcd56a955cf2d01870498e09eb8e91a)
++++ b/build/scripts/hw5_proj	(date 1682782501678)
+@@ -180,6 +180,6 @@
+ APP_ARGS=`save "$@"`
+ 
+ # Collect all arguments for the java command, following the shell quoting and substitution rules
+-eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $HW5_PROJ_OPTS -classpath "\"$CLASSPATH\"" App "$APP_ARGS"
++eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $HW5_PROJ_OPTS -classpath "\"$CLASSPATH\""  "$APP_ARGS"
+ 
+ exec "$JAVACMD" "$@"

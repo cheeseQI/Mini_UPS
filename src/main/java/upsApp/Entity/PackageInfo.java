@@ -26,8 +26,10 @@ public class PackageInfo {
     private Integer currX;
     @JsonProperty("currY")
     private Integer currY;
+    @JsonProperty("status")
+    private String status;
 
-    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, String username, Integer startX, Integer startY, Integer currX, Integer currY) {
+    public PackageInfo(Long packageId, String description, Integer count, Integer destX, Integer destY, String username, Integer startX, Integer startY, Integer currX, Integer currY, String status) {
         this.packageId = packageId;
         this.description = description;
         this.count = count;
@@ -38,6 +40,7 @@ public class PackageInfo {
         this.startY = startY;
         this.currX = currX;
         this.currY = currY;
+        this.status = status;
     }
 
     public Long getPackageId() {
@@ -119,5 +122,13 @@ public class PackageInfo {
 
     public void setCurrY(Integer currY) {
         this.currY = currY;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

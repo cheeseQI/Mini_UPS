@@ -31,6 +31,10 @@
                     <th>Username:</th>
                     <td>{{ this.$route.query.username }}</td>
                 </tr>
+                <tr>
+                    <th>Status:</th>
+                    <td>{{ this.$route.query.status }}</td>
+                </tr>
             </table>
         </div>
         <button class="action-btn" @click="$router.push('/queryOrderById')">Back to Query</button>

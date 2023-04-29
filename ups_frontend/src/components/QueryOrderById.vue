@@ -45,8 +45,9 @@ export default {
                         username: packageInfo.username,
                         startX: packageInfo.startX,
                         startY: packageInfo.startY,
-                        currX: packageInfo.currX,
-                        currY: packageInfo.currY,
+                        currX: packageInfo.currX===-1?packageInfo.destX:packageInfo.currX,
+                        currY: packageInfo.currY===-1?packageInfo.destY:packageInfo.currY,
+                        status: packageInfo.status,
                     },
                 });
             } catch (error) {

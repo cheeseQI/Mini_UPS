@@ -52,6 +52,10 @@
                         <th>Username</th>
                         <td>{{ getPackageInfo(selectedPackageId).username }}</td>
                     </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ getPackageInfo(selectedPackageId).status }}</td>
+                    </tr>
                 </table>
                 <button
                     class="action-btn"

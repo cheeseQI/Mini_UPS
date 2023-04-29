@@ -3,7 +3,6 @@ package upsApp.controller;
 import model.Package;
 import model.Truck;
 import model.User;
-import org.apache.juli.logging.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.PackageService;
@@ -43,7 +42,8 @@ public class UserController {
                 myPackage.getStartX(),
                 myPackage.getStartY(),
                 truck.getCurrX(),
-                truck.getCurrY()
+                truck.getCurrY(),
+                truck.getStatus()
         );
         System.out.println(myPackage);
         PackageInfoList pkgInfoList = new PackageInfoList();
@@ -75,8 +75,8 @@ public class UserController {
                     pkg.getStartX(),
                     pkg.getStartY(),
                     truck.getCurrX(),
-                    truck.getCurrY()
-            );
+                    truck.getCurrY(),
+                    truck.getStatus());
             pkgInfoList.add(packageInfo);
         }
         return ResponseEntity.ok(pkgInfoList);

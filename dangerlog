@@ -1,0 +1,8 @@
+1. Our UPS Account is associated with Amazon account, users need to sign up Amazon account to login UPS application.
+2. If a user queries packageId that is not existed in our database, our backend will throw an exception.
+    We have not handled the exception, but it will not ruin our functionality.
+3. The front-end loggedin status is stored in browser's local storage. If the user closes website,
+    the session will not persist.
+4. The error handler in handling the communication between our Amazon and UPS backend is not completed enough,
+    if the user returns package. The package info will still store in our database.
+5. We have not done comprehensive server load testing. The server may not robust enough to maintain real industry request volume.

@@ -15,6 +15,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+// import * as path from "path";
 // import response from "core-js/internals/is-forced";
 export default {
     data() {
@@ -26,10 +27,10 @@ export default {
     methods: {
         async queryOrderByPackageId() {
             console.log("query by packageId");
-
+            console.log(`${this.$hostname}:8080/query/1/${this.packageId}`);
             try {
                 const response = await axios.get(
-                    `${this.$hostname}:8080/query/1/${this.packageId}`
+                    `http://${this.$hostname}:8080/query/1/${this.packageId}`
                 );
                 console.log(response.data.PackageInfoList[0]);
                 const packageInfo = response.data.PackageInfoList[0];

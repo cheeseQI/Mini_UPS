@@ -33,7 +33,7 @@ export default {
 
             try {
                 const response = await axios.get(
-                    `http://vcm-32430.vm.duke.edu:8080/query/2/${this.username}`
+                    `http://vcm-30653.vm.duke.edu:8080/query/2/${this.username}`
                 );
                 const packageList = response.data.PackageInfoList;
                 this.$router.push({
@@ -56,7 +56,7 @@ export default {
         async redirectOrder() {
             try {
                 console.log(this.$route.query.packageId);
-                const response = await axios.post("http://localhost:8080/redirect", {
+                const response = await axios.post("http://vcm-30653.vm.duke.edu:8080/redirect", {
                     packageId: this.$route.query.packageId,
                     newX: this.newX,
                     newY: this.newY,

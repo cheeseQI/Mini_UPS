@@ -56,9 +56,13 @@ public class ReceiveWorldHandler implements Runnable{
             for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {
                 hasCommandContent = true;
                 ackList.add(uFinished.getSeqnum());
+                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());
+                if (!truck.getStatus().equals(ConstantUtil.TRUCK_TRAVEL)) {
+                    // no need to tell amazon any load info, since this means end of a whole shipping
+                    continue;
+                }
                 AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());
                 Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);
-                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());
                 truck.setStatus(ConstantUtil.TRUCK_ARRIVE);
                 truck.setPackageNum(truck.getPackageNum() + 1);
                 truckMapper.updateTruck(truck);

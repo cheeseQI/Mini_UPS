@@ -226,6 +226,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.AmazonMock" />
+      <item itemvalue="Gradle.PackageTest.testClean" />
+      <item itemvalue="Gradle.TruckTest.testClean" />
+      <item itemvalue="Gradle.UserTest.testClean" />
+      <item itemvalue="Gradle.UserTest.testInsertUser" />
+      <item itemvalue="Spring Boot.MyApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.UserTest.testInsertUser" />

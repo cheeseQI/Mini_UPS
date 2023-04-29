@@ -55,8 +55,6 @@ dependencies {
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
-// Define the main class for the application
-mainClassName = 'App'
 //jar {
 //    manifest {
 //        attributes 'Main-Class': 'upsApp/MyApplication.java'
@@ -69,7 +67,6 @@ mainClassName = 'App'
 bootJar {
     // 配置应用程序的属性
     // ...
-
     // 配置可执行 Jar 包的属性
     mainClassName = 'upsApp.MyApplication'
 }

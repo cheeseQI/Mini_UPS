@@ -31,8 +31,8 @@ public class Server {
     }
 
     public void start() {
-        System.out.println("UPS Server is socket with WorldSim");
-        worldClient = new WorldClient("vcm-32430.vm.duke.edu", ConstantUtil.WORLD_PORT);
+        System.out.println("UPS Server is socket with WorldSim at " + ConstantUtil.HOST);
+        worldClient = new WorldClient(ConstantUtil.HOST, ConstantUtil.WORLD_PORT);
         ReceiveWorldHandler receiveWorldHandler = new ReceiveWorldHandler();
         Thread worldThread = new Thread(receiveWorldHandler);
         worldThread.start();
@@ -53,9 +53,9 @@ public class Server {
         resendThread.start();
 
         //user handler-> query & redirect package
-        UserHandler userHandler = new UserHandler();
-        Thread userThread = new Thread(userHandler);
-        userThread.start();
+//        UserHandler userHandler = new UserHandler();
+//        Thread userThread = new Thread(userHandler);
+//        userThread.start();
 
         //update truck handler -> update truck table
         TruckUpdateHandler truckUpdateHandler = new TruckUpdateHandler();

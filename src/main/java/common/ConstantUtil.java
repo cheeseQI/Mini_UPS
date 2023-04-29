@@ -10,4 +10,5 @@ public class ConstantUtil {
     public static final String TRUCK_DELIVER = "DELIVERING";
     public static final int WORLD_PORT = 12345;
     public static final int UPS_PORT = 7474;
+    public static final String HOST = "vcm-30653.vm.duke.edu"; // todo: modify if change server
 }

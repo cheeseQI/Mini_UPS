@@ -1,5 +1,6 @@
 package messaging;
 
+import common.ConstantUtil;
 import protocol.AmazonUps;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.net.Socket;
 
 public class AmazonMock {
     public static void main(String[] args) throws IOException {
-        UpsClient upsClient = new UpsClient("vcm-32430.vm.duke.edu", 7474);
+        UpsClient upsClient = new UpsClient(ConstantUtil.HOST, 7474); // todo: depend on which vm
         //UpsClient upsClient = new UpsClient("65.75.220.176", 55556);
         System.out.println("socket with ups");
         AmazonUps.UAConnect uaConnect = upsClient.receiveUAConnect();

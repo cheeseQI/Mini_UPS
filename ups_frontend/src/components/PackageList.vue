@@ -44,8 +44,10 @@
                     <tr>
                         <th>Current Position</th>
                         <td>
-                            ({{ getPackageInfo(selectedPackageId).currX }},
-                            {{ getPackageInfo(selectedPackageId).currY }})
+                            ({{ getPackageInfo(selectedPackageId).currX===-1?
+                            getPackageInfo(selectedPackageId).destX:getPackageInfo(selectedPackageId).currX}},
+                            {{ getPackageInfo(selectedPackageId).currY===-1?
+                            getPackageInfo(selectedPackageId).destY:getPackageInfo(selectedPackageId).currY}})
                         </td>
                     </tr>
                     <tr>

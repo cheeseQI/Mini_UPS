@@ -6,11 +6,13 @@ import mapper.TruckMapper;
 import common.BuilderUtil;
 import model.Truck;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import protocol.WorldUps;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class TruckService {
     //this is only used to show a non-exist relation for package table
     public void storeDummyTruck() {
@@ -32,6 +34,16 @@ public class TruckService {
         }
         return uInitTruckList;
     }
+
+    public List<WorldUps.UInitTruck> make30Trucks() {
+        List<WorldUps.UInitTruck> uInitTruckList = new ArrayList<>();
+        for (int i = 1; i <= 30; i ++) {
+            WorldUps.UInitTruck uInitTruck = BuilderUtil.buildUInitTruck(i, i, i);
+            uInitTruckList.add(uInitTruck);
+        }
+        return uInitTruckList;
+    }
+
 
     public void storeTrucks(List<WorldUps.UInitTruck> uInitTruckList) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
@@ -91,6 +103,7 @@ public class TruckService {
         }
         return null;
     }
+
 
     public void updateTruck(Truck truck) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {

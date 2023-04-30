@@ -1,0 +1,622 @@
+Index: src/main/java/messaging/ReceiveWorldHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package messaging;\n\nimport com.google.protobuf.Message;\nimport common.BuilderUtil;\nimport common.ConstantUtil;\nimport common.MyBatisUtil;\nimport common.SeqGenerator;\nimport mapper.PackageMapper;\nimport mapper.TruckMapper;\nimport model.Truck;\nimport org.apache.ibatis.session.SqlSession;\nimport protocol.AmazonUps;\nimport protocol.WorldUps;\nimport service.PackageService;\nimport service.TruckService;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class ReceiveWorldHandler implements Runnable{\n\n    @Override\n    public void run() {\n        SqlSession sqlSession = MyBatisUtil.getSqlSession();\n        TruckMapper truckMapper = sqlSession.getMapper(TruckMapper.class);\n        TruckService truckService = new TruckService();\n        PackageService packageService = new PackageService();\n        List<WorldUps.UInitTruck> uInitTruckList = truckService.make100Trucks();\n        WorldUps.UConnect uConnect = BuilderUtil.buildUConnect(uInitTruckList);\n        Server.worldClient.sendMessage(uConnect);\n        WorldUps.UConnected uConnected = Server.worldClient.receiveUConnected();\n        System.out.println(uConnected.toString());\n        if (!uConnected.getResult().equals(ConstantUtil.CONNECT_SUCCESS)) {\n            throw new IllegalArgumentException(uConnected.getResult());\n        }\n        ConstantUtil.WORLD_ID = uConnected.getWorldid();\n        truckService.storeTrucks(uInitTruckList);\n        truckService.storeDummyTruck();\n        while (true) {\n            boolean hasCommandContent = false;\n            List<Long> ackList = new ArrayList<>();\n            WorldUps.UResponses uResponses = Server.worldClient.receiveUResponse();\n            //System.out.println(\"receive uresponse from world: \" + uResponses);\n            // deal with ack of uResponse, which is used to delete resend uCommands\n            for (long ack: uResponses.getAcksList()) {\n                if (Server.uGoPickupMap.containsKey(ack)) {\n                    //WorldUps.UGoPickup uGoPickup = Server.uGoPickupMap.get(ack);\n                    Server.uGoPickupMap.remove(ack);\n                    System.out.println(\"remove uGoPickUp with ack/seq: \" + ack);\n                } else if (Server.uGoDeliverMap.containsKey(ack)) {\n                    //WorldUps.UGoDeliver uGoDeliver = Server.uGoDeliverMap.get(ack);\n                    Server.uGoDeliverMap.remove(ack);\n                    System.out.println(\"remove uGoDeliver with ack/seq: \" + ack);\n                }\n            }\n            for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {\n                hasCommandContent = true;\n                ackList.add(uFinished.getSeqnum());\n                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());\n                if (!truck.getStatus().equals(ConstantUtil.TRUCK_TRAVEL)) {\n                    // no need to tell amazon any load info, since this means end of a whole shipping\n                    continue;\n                }\n                AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());\n                Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);\n                truck.setStatus(ConstantUtil.TRUCK_ARRIVE);\n                truck.setPackageNum(truck.getPackageNum() + 1);\n                truckMapper.updateTruck(truck);\n                sqlSession.commit();\n            }\n            for (WorldUps.UDeliveryMade uDeliveryMade: uResponses.getDeliveredList()) {\n                hasCommandContent = true;\n                ackList.add(uDeliveryMade.getSeqnum());\n                AmazonUps.UATruckDeliverMade uaTruckDeliverMade = BuilderUtil.buildUATruckDeliverMade(uDeliveryMade.getTruckid(), uDeliveryMade.getPackageid(), SeqGenerator.incrementAndGet());\n                Server.uaTruckDeliverMadeMap.put(uaTruckDeliverMade.getSeqnum(), uaTruckDeliverMade);\n                Truck truck = truckMapper.findByTruckId(uDeliveryMade.getTruckid());\n                truck.setStatus(ConstantUtil.TRUCK_IDLE);\n                truck.setPackageNum(truck.getPackageNum() - 1);\n                truckService.updateTruck(truck);\n                packageService.completePackage(uDeliveryMade.getPackageid());\n            }\n            for (WorldUps.UTruck uTruck: uResponses.getTruckstatusList()) {\n                hasCommandContent = true;\n                ackList.add(uTruck.getSeqnum());\n                Truck truck = truckMapper.findByTruckId(uTruck.getTruckid());\n                truck.setStatus(uTruck.getStatus());\n                truck.setCurrX(uTruck.getX());\n                truck.setCurrY(uTruck.getY());\n                truckService.updateTruck(truck);\n            }\n            WorldUps.UCommands.Builder  uCommandsBuilder = WorldUps.UCommands.newBuilder();\n            // tell world the uresponse that has been received\n            uCommandsBuilder.addAllAcks(ackList);\n            if (!hasCommandContent) {\n                continue;\n            }\n            //System.out.println(\"send to world: \" + uCommandsBuilder);\n            Server.worldClient.sendMessage(uCommandsBuilder.build());\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/messaging/ReceiveWorldHandler.java b/src/main/java/messaging/ReceiveWorldHandler.java
+--- a/src/main/java/messaging/ReceiveWorldHandler.java	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/src/main/java/messaging/ReceiveWorldHandler.java	(date 1682811884360)
+@@ -7,6 +7,7 @@
+ import common.SeqGenerator;
+ import mapper.PackageMapper;
+ import mapper.TruckMapper;
++import model.Package;
+ import model.Truck;
+ import org.apache.ibatis.session.SqlSession;
+ import protocol.AmazonUps;
+@@ -53,21 +54,6 @@
+                     System.out.println("remove uGoDeliver with ack/seq: " + ack);
+                 }
+             }
+-            for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {
+-                hasCommandContent = true;
+-                ackList.add(uFinished.getSeqnum());
+-                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());
+-                if (!truck.getStatus().equals(ConstantUtil.TRUCK_TRAVEL)) {
+-                    // no need to tell amazon any load info, since this means end of a whole shipping
+-                    continue;
+-                }
+-                AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());
+-                Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);
+-                truck.setStatus(ConstantUtil.TRUCK_ARRIVE);
+-                truck.setPackageNum(truck.getPackageNum() + 1);
+-                truckMapper.updateTruck(truck);
+-                sqlSession.commit();
+-            }
+             for (WorldUps.UDeliveryMade uDeliveryMade: uResponses.getDeliveredList()) {
+                 hasCommandContent = true;
+                 ackList.add(uDeliveryMade.getSeqnum());
+@@ -79,6 +65,24 @@
+                 truckService.updateTruck(truck);
+                 packageService.completePackage(uDeliveryMade.getPackageid());
+             }
++            for (WorldUps.UFinished uFinished: uResponses.getCompletionsList()) {
++                hasCommandContent = true;
++                ackList.add(uFinished.getSeqnum());
++                Truck truck = truckMapper.findByTruckId(uFinished.getTruckid());
++                System.out.println("receive arrived info:" + uFinished);
++                System.out.println(truck.getStatus());
++                if (truck.getStatus().equals(ConstantUtil.TRUCK_IDLE)) {
++                    System.out.println("this means end of a whole shipping");
++                    continue;
++                }
++                List<Package> packages = packageService.findPackageByTruck(truck.getTruckId());
++                AmazonUps.UATruckArrived uaTruckArrived = BuilderUtil.buildUATruckArrived(packages, uFinished.getTruckid(), uFinished.getX(), uFinished.getY(), SeqGenerator.incrementAndGet());
++                Server.uaTruckArrivedMap.put(uaTruckArrived.getSeqnum(), uaTruckArrived);
++                truck.setStatus(ConstantUtil.TRUCK_ARRIVE);
++                truck.setPackageNum(truck.getPackageNum() + 1);
++                truckMapper.updateTruck(truck);
++                sqlSession.commit();
++            }
+             for (WorldUps.UTruck uTruck: uResponses.getTruckstatusList()) {
+                 hasCommandContent = true;
+                 ackList.add(uTruck.getSeqnum());
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"hw5_proj\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Interface\" />\n        <option value=\"JUnit3 Test Class\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2OWbf2HTbSDw33PElRWOALbUCHU\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"DatabaseDriversLRU\" value=\"postgresql\" />\n    <property name=\"RequestMappingsPanelOrder0\" value=\"0\" />\n    <property name=\"RequestMappingsPanelOrder1\" value=\"1\" />\n    <property name=\"RequestMappingsPanelWidth0\" value=\"75\" />\n    <property name=\"RequestMappingsPanelWidth1\" value=\"75\" />\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"last_directory_selection\" value=\"$PROJECT_DIR$/src/main/java/upsApp\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/docker_deploy\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/docker_deploy\" />\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/.gradle/buildOutputCleanup\" />\n    </key>\n    <key name=\"CreateTestDialog.Recents.Supers\">\n      <recent name=\"junit.framework.TestCase\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/docker_deploy\" />\n    </key>\n    <key name=\"MoveClassesOrPackagesDialog.RECENTS_KEY\">\n      <recent name=\"upsApp\" />\n    </key>\n    <key name=\"CreateTestDialog.RecentsKey\">\n      <recent name=\"messaging\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Application.AmazonMock\">\n    <configuration name=\"AmazonMock\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"messaging.AmazonMock\" />\n      <module name=\"hw5_proj.main\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"messaging.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"PackageTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.PackageTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TruckTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.TruckTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"UserTest.testClean\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.UserTest.testClean&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"UserTest.testInsertUser\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;model.UserTest.testInsertUser&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"MyApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\n      <module name=\"hw5_proj.main\" />\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"upsApp.MyApplication\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <list>\n      <item itemvalue=\"Application.AmazonMock\" />\n      <item itemvalue=\"Gradle.PackageTest.testClean\" />\n      <item itemvalue=\"Gradle.TruckTest.testClean\" />\n      <item itemvalue=\"Gradle.UserTest.testClean\" />\n      <item itemvalue=\"Gradle.UserTest.testInsertUser\" />\n      <item itemvalue=\"Spring Boot.MyApplication\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.UserTest.testInsertUser\" />\n        <item itemvalue=\"Application.AmazonMock\" />\n        <item itemvalue=\"Gradle.UserTest.testClean\" />\n        <item itemvalue=\"Gradle.TruckTest.testClean\" />\n        <item itemvalue=\"Gradle.PackageTest.testClean\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf\" name=\"Changes\" comment=\"\" />\n      <created>1681679399773</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1681679399773</updated>\n      <workItem from=\"1681679403030\" duration=\"1767000\" />\n      <workItem from=\"1681682265754\" duration=\"1985000\" />\n      <workItem from=\"1681760598638\" duration=\"5718000\" />\n      <workItem from=\"1682293794193\" duration=\"2000\" />\n      <workItem from=\"1682371823102\" duration=\"4163000\" />\n      <workItem from=\"1682432248769\" duration=\"6281000\" />\n      <workItem from=\"1682537459977\" duration=\"2975000\" />\n      <workItem from=\"1682622292213\" duration=\"4126000\" />\n      <workItem from=\"1682635157115\" duration=\"3914000\" />\n      <workItem from=\"1682705785615\" duration=\"598000\" />\n      <workItem from=\"1682706451004\" duration=\"8135000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"first commit\">\n      <created>1681687892775</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1681687892776</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"first commit\">\n      <created>1681689409077</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1681689409077</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"finish status change database logic\">\n      <created>1682381452728</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682381452728</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"finish truck update\">\n      <created>1682436276811</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682436276811</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"modify proto\">\n      <created>1682456761981</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682456761981</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"modify spring\">\n      <created>1682539125525</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682539125525</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"modify todo\">\n      <created>1682625372033</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682625372034</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"modify user table\">\n      <created>1682632132555</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682632132555</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"finish cooperate\">\n      <created>1682640651975</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682640651975</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"finish cooperate\">\n      <created>1682716600393</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682716600393</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"finish docker\">\n      <created>1682719859236</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1682719859236</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"12\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"first commit\" />\n    <MESSAGE value=\"finish status change database logic\" />\n    <MESSAGE value=\"finish truck update\" />\n    <MESSAGE value=\"modify proto\" />\n    <MESSAGE value=\"modify spring\" />\n    <MESSAGE value=\"modify todo\" />\n    <MESSAGE value=\"modify user table\" />\n    <MESSAGE value=\"finish cooperate\" />\n    <MESSAGE value=\"finish docker\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"finish docker\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/.idea/workspace.xml	(date 1682812157999)
+@@ -5,24 +5,25 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="7e4f7a33-895c-4872-9ed7-9b9cd6dee9bf" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/classAnalysis.bin" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/jarAnalysis.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.3/javaCompile/taskHistory.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build/libs/hw5_proj.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/hw5_proj.jar" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/docker_deploy/hw5_proj.jar" beforeDir="false" afterPath="$PROJECT_DIR$/docker_deploy/hw5_proj.jar" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/common/BuilderUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/BuilderUtil.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/messaging/TruckUpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/messaging/TruckUpdateHandler.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/protocol/AmazonUps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/protocol/AmazonUps.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/amazon_ups.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/amazon_ups.proto" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -113,7 +114,7 @@
+       <recent name="messaging" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.AmazonMock">
++  <component name="RunManager" selected="Spring Boot.MyApplication">
+     <configuration name="AmazonMock" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="messaging.AmazonMock" />
+       <module name="hw5_proj.main" />
+@@ -341,7 +342,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1682719859236</updated>
+     </task>
+-    <option name="localTasksCounter" value="12" />
++    <task id="LOCAL-00012" summary="modify frontend with new vm">
++      <created>1682806347085</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1682806347085</updated>
++    </task>
++    <task id="LOCAL-00013" summary="modify frontend with new vm">
++      <created>1682806367231</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1682806367231</updated>
++    </task>
++    <option name="localTasksCounter" value="14" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -357,7 +372,8 @@
+     <MESSAGE value="modify user table" />
+     <MESSAGE value="finish cooperate" />
+     <MESSAGE value="finish docker" />
+-    <option name="LAST_COMMIT_MESSAGE" value="finish docker" />
++    <MESSAGE value="modify frontend with new vm" />
++    <option name="LAST_COMMIT_MESSAGE" value="modify frontend with new vm" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: src/main/java/messaging/TruckUpdateHandler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package messaging;\n\nimport common.SeqGenerator;\nimport model.Truck;\nimport protocol.WorldUps;\nimport service.TruckService;\n\nimport java.util.List;\n\npublic class TruckUpdateHandler implements Runnable{\n    @Override\n    public void run() {\n        while (true) {\n            try {\n                Thread.sleep(10000);\n            } catch (InterruptedException e) {\n                e.printStackTrace();\n            }\n            queryTruckToWorld();\n        }\n    }\n\n    public void queryTruckToWorld() {\n        WorldUps.UCommands.Builder uCommandsBuilder = WorldUps.UCommands.newBuilder();\n        TruckService truckService = new TruckService();\n        List<Truck> truckList = truckService.findAllValidTrucks();\n        for (Truck truck: truckList) {\n            WorldUps.UQuery.Builder uQuery = WorldUps.UQuery.newBuilder();\n            uQuery.setTruckid(truck.getTruckId()).setSeqnum(SeqGenerator.incrementAndGet());\n            uCommandsBuilder.addQueries(uQuery);\n        }\n        System.out.println(\"send uquery to world\");\n        Server.worldClient.sendMessage(uCommandsBuilder.build());\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/messaging/TruckUpdateHandler.java b/src/main/java/messaging/TruckUpdateHandler.java
+--- a/src/main/java/messaging/TruckUpdateHandler.java	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/src/main/java/messaging/TruckUpdateHandler.java	(date 1682812063826)
+@@ -12,7 +12,7 @@
+     public void run() {
+         while (true) {
+             try {
+-                Thread.sleep(10000);
++                Thread.sleep(5000);
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }
+Index: src/main/java/common/BuilderUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package common;\n\nimport com.google.protobuf.Message;\nimport protocol.AmazonUps;\nimport protocol.WorldUps;\nimport protocol.UpsUser;\nimport java.util.List;\n\npublic class BuilderUtil {\n\n    public static WorldUps.UInitTruck buildUInitTruck(int x, int y, int id) {\n        WorldUps.UInitTruck.Builder uInitTruckBuilder = WorldUps.UInitTruck.newBuilder();\n        uInitTruckBuilder.setX(x).setY(y).setId(id);\n        uInitTruckBuilder.build();\n        return uInitTruckBuilder.build();\n    }\n\n\n    public static WorldUps.UConnect buildUConnect(long id, List<WorldUps.UInitTruck> uInitTruckList) {\n        WorldUps.UConnect.Builder builder = WorldUps.UConnect.newBuilder();\n        builder.setWorldid(id);\n        builder.setIsAmazon(false);\n        builder.addAllTrucks(uInitTruckList);\n        return builder.build();\n    }\n\n    public static AmazonUps.UAConnect buildUAConnect(long id) {\n        AmazonUps.UAConnect.Builder builder = AmazonUps.UAConnect.newBuilder();\n        builder.setWorldid(id);\n        return builder.build();\n    }\n\n\n    public static WorldUps.UConnect buildUConnect(List<WorldUps.UInitTruck> uInitTruckList) {\n        WorldUps.UConnect.Builder builder = WorldUps.UConnect.newBuilder();\n        builder.setIsAmazon(false);\n        builder.addAllTrucks(uInitTruckList);\n        return builder.build();\n    }\n\n    public static WorldUps.UGoPickup buildUGoPickup(int truckId, int whId, long seqNum) {\n        WorldUps.UGoPickup.Builder builder = WorldUps.UGoPickup.newBuilder();\n        builder.setTruckid(truckId);\n        builder.setWhid(whId);\n        builder.setSeqnum(seqNum);\n        return builder.build();\n    }\n\n    public static WorldUps.UDeliveryLocation buildUDeliveryLocation(long packageId, int x, int y) {\n        WorldUps.UDeliveryLocation.Builder builder = WorldUps.UDeliveryLocation.newBuilder();\n        builder.setPackageid(packageId);\n        builder.setX(x);\n        builder.setY(y);\n        return builder.build();\n    }\n\n    public static WorldUps.UGoDeliver buildUGoDeliver(int truckId, List<WorldUps.UDeliveryLocation> uDeliveryLocationList, long seqNum) {\n        WorldUps.UGoDeliver.Builder builder = WorldUps.UGoDeliver.newBuilder();\n        builder.setTruckid(truckId);\n        builder.addAllPackages(uDeliveryLocationList);\n        builder.setSeqnum(seqNum);\n        return builder.build();\n    }\n\n    public static WorldUps.UQuery buildUQuery(int truckId, long seqNum) {\n        WorldUps.UQuery.Builder builder = WorldUps.UQuery.newBuilder();\n        builder.setTruckid(truckId).setSeqnum(seqNum);\n        return builder.build();\n    }\n\n    public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {\n        AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();\n        builder.setTruckid(truckId).setX(x).setY(y).setSeqnum(seqNum);\n        return builder.build();\n    }\n\n    public static AmazonUps.UATruckDeliverMade buildUATruckDeliverMade(int truckId, long packageId, long seqNum) {\n        AmazonUps.UATruckDeliverMade.Builder builder = AmazonUps.UATruckDeliverMade.newBuilder();\n        builder.setTruckid(truckId).setPackageid(packageId).setSeqnum(seqNum);\n        return builder.build();\n    }\n\n    public static UpsUser.UPackage buildUPackage(long id, String description, int itemCount,int x,int y) {\n        UpsUser.UPackage.Builder builder = UpsUser.UPackage.newBuilder();\n        builder.setId(id).setDescription(description).setItemCount(itemCount).setX(x).setY(y);\n        return builder.build();\n    }\n\n    public static UpsUser.UQuery buildUQuery(long packageId, int userId) {\n        UpsUser.UQuery.Builder builder = UpsUser.UQuery.newBuilder();\n        builder.setPackageId(packageId).setUserId(userId);\n        return builder.build();\n    }\n\n    public static UpsUser.UQueryResult buildUQueryResult(List<UpsUser.UPackage> packageList, int ack) {\n        UpsUser.UQueryResult.Builder builder = UpsUser.UQueryResult.newBuilder();\n        builder.addAllPackage(packageList).setAck(ack);\n        return builder.build();\n    }\n    public static UpsUser.URedirect buildURedirect(long packageId,int x,int y) {\n        UpsUser.URedirect.Builder builder = UpsUser.URedirect.newBuilder();\n        builder.setPackageId(packageId).setX(x).setY(y);\n        return builder.build();\n    }\n\n    public static UpsUser.URedirectResult buildURedirectResult(String message) {\n        UpsUser.URedirectResult.Builder builder = UpsUser.URedirectResult.newBuilder();\n        builder.setMessage(message);\n        return builder.build();\n    }\n\n    public static UpsUser.UUserRequest buildUUserRequest(UpsUser.UQuery queryCommand,UpsUser.URedirect redirectCommand) {\n        UpsUser.UUserRequest.Builder builder = UpsUser.UUserRequest.newBuilder();\n        builder.setQueryCommand(queryCommand).setRedirectCommand(redirectCommand);\n        return builder.build();\n    }\n    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.UQueryResult queryResult,UpsUser.URedirectResult redirectResult) {\n        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();\n        builder.setQueryResult(queryResult).setRedirectResult(redirectResult);\n        return builder.build();\n    }\n    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.UQueryResult queryResult) {\n        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();\n        builder.setQueryResult(queryResult);\n        return builder.build();\n    }\n\n    public static UpsUser.UUserResponse buildUUserResponse(UpsUser.URedirectResult redirectResult) {\n        UpsUser.UUserResponse.Builder builder = UpsUser.UUserResponse.newBuilder();\n        builder.setRedirectResult(redirectResult);\n        return builder.build();\n    }\n    // note status here means the status of the truck used to carry the packages\n    public static AmazonUps.UAUpdatePackageStatus buildUAUpdatePackageStatus(long packageId, String status, int x, int y, long seqNum) {\n        AmazonUps.UAUpdatePackageStatus.Builder builder = AmazonUps.UAUpdatePackageStatus.newBuilder();\n        builder.setPackageid(packageId).setX(x).setY(y).setStatus(status).setSeqnum(seqNum);\n        return builder.build();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/common/BuilderUtil.java b/src/main/java/common/BuilderUtil.java
+--- a/src/main/java/common/BuilderUtil.java	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/src/main/java/common/BuilderUtil.java	(date 1682809200333)
+@@ -1,9 +1,12 @@
+ package common;
+ 
+ import com.google.protobuf.Message;
++import model.Package;
+ import protocol.AmazonUps;
+ import protocol.WorldUps;
+ import protocol.UpsUser;
++import service.PackageService;
++
+ import java.util.List;
+ 
+ public class BuilderUtil {
+@@ -68,9 +71,12 @@
+         return builder.build();
+     }
+ 
+-    public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {
++    public static AmazonUps.UATruckArrived buildUATruckArrived(List<Package> packageList, int truckId, int x, int y, long seqNum) {
+         AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();
+         builder.setTruckid(truckId).setX(x).setY(y).setSeqnum(seqNum);
++        for (Package pkg: packageList) {
++            builder.addPackageid(pkg.getPackageId());
++        }
+         return builder.build();
+     }
+ 
+Index: src/main/resources/amazon_ups.proto
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/*UPS connect with Amazon in the same World*/\nsyntax = \"proto2\";\nmessage UAConnect{\n  // An optional field for the world ID that UPS must connect to in Amazon's world.\n  optional int64 worldid = 1;\n}\n\nmessage AUConnected{\n  // The ID of the world that UPS must successfully connect to.\n  required int64 worldid = 1;\n  // The result of the connection attempt, whether successful or not.\n  required string result = 2;\n}\n\nmessage AUProduct{\n  // The unique identifier of the product.\n  required int64 id = 1;\n  // A description of the product.\n  required string description = 2;\n  // The quantity of the product.\n  required int32 count = 3;\n  // dest x, y\n  required int32 destX = 4;\n  required int32 destY = 5;\n  required int32 userid = 6;\n}\n\nmessage AURequestSendUserInfo{\n  required int32 userid = 1;\n  required string username = 2;\n  required string password = 3;\n  required int64 seqnum = 4;\n}\n\nmessage AUCallTruck{\n  // A repeated field of products that must be delivered by UPS.\n  repeated AUProduct things = 1;\n  // The ID of the warehouse where the products are located.\n  required int32 whid = 2;\n  // A unique sequence number for the request.\n  required int64 seqnum = 3;\n  // add x\n  required int32 wh_x = 4;\n  // add y\n  required int32 wh_y = 5;\n}\n\nmessage UATruckArrived{\n  // The unique identifier of the truck that has arrived.\n  required int32 truckid = 1;\n  // A unique sequence number for the delivery.\n  required int64 seqnum = 2;\n  required int32 x = 3;\n  required int32 y = 4;\n}\n\n/*start loading*/\nmessage AUTruckGoLoad{\n  required int32 truckid = 1;\n  required int64 seqnum = 2;\n}\n\n/*loaded finished, start to deliver*/\nmessage AUTruckGoDeliver{\n  // The unique identifier of the truck that must deliver the packages.\n  required int32 truckid = 1;\n  // A unique sequence number for the request.\n  required int64 seqnum = 2;\n}\n\n/*loaded finished, delive made*/\nmessage UATruckDeliverMade{\n  required int32 truckid = 1;\n  required int64 packageid = 2;\n  required int64 seqnum = 3;\n}\n\nmessage AURequestPackageStatus{\n  // The unique identifier of the shipment for which UPS must request the package status.\n  required int64 shipid = 1;\n  // A unique sequence number for the request.\n  required int64 seqnum = 2;\n}\n\n/*Query the UTruck, delivered or not, the location of current package*/\nmessage UAUpdatePackageStatus{\n  // The unique identifier of the package for which the status is being updated.\n  required int64 packageid = 1;\n  // The status of the package that must be provided.\n  required string status = 2;\n  // The x-coordinate of the package's location.\n  required int32 x = 3;\n  // The y-coordinate of the package's location.\n  required int32 y = 4;\n  // A unique sequence number for the request.\n  required int64 seqnum = 5;\n}\n\n\nmessage Err{\n  // A description of the error that has occurred, which may help to identify the issue.\n  required string err = 1;\n  // The sequence number of the original message that caused the error, which must be provided.\n  required int64 originseqnum = 2;\n  // A unique sequence number for the error.\n  required int64 seqnum = 3;\n}\n\nmessage AUCommands{\n  // A repeated field of requests to call trucks, which must be provided.\n  repeated AUCallTruck callTruck = 1;\n  // A repeated field of requests to send trucks for delivery, which must be provided.\n  repeated AUTruckGoDeliver truckGoDeliver = 2;\n  // A repeated field of requests to check the status of packages, which must be provided.\n  repeated AURequestPackageStatus requestPackageStatus = 3;\n  repeated AURequestSendUserInfo userInfo = 4;\n  repeated AUTruckGoLoad loading = 5;\n  // An optional field indicating that UPS may want to disconnect from Amazon's world.\n  optional bool disconnect = 6;\n  // A repeated field of errors that may occur during the requests.\n  repeated Err err = 7;\n  // A repeated field of unique sequence numbers for the request acknowledgements.\n  repeated int64 acks = 8;\n}\n\nmessage UACommands{\n  // A repeated field of notifications indicating that a truck has arrived at its delivery location, which must be provided.\n  repeated UATruckArrived truckArrived = 1;\n  // A repeated field of notifications indicating the status of packages has been updated, which must be provided.\n  repeated UAUpdatePackageStatus updatePackageStatus = 2;\n  repeated UATruckDeliverMade delivered = 3;\n  // An optional field indicating that all deliveries have been completed, which may be provided.\n  optional bool finished = 4;\n  // A repeated field of errors that may occur during the requests.\n  repeated Err error = 5;\n  // A repeated field of unique sequence numbers for the request acknowledgements.\n  repeated int64 acks = 6;\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/amazon_ups.proto b/src/main/resources/amazon_ups.proto
+--- a/src/main/resources/amazon_ups.proto	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/src/main/resources/amazon_ups.proto	(date 1682808799138)
+@@ -52,6 +52,7 @@
+   required int64 seqnum = 2;
+   required int32 x = 3;
+   required int32 y = 4;
++  repeated int64 packageid = 5;
+ }
+ 
+ /*start loading*/
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"FrameworkDetectionExcludesConfiguration\">\n    <file type=\"web\" url=\"file://$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\" />\n  <component name=\"UnattendedHostPersistenceState\">\n    <option name=\"openedFilesInfos\">\n      <list>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"5749\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"840\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"1142\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"169\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"595\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/docker_deploy/docker-compose.yml\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"996\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/test/java/model/PackageTest.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"1247\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/test/java/model/UserTest.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"324\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/docker_deploy/Dockerfile\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"738\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/common/MyBatisUtil.java\" />\n        </OpenedFileInfo>\n        <OpenedFileInfo>\n          <option name=\"caretOffset\" value=\"199\" />\n          <option name=\"fileUrl\" value=\"file://$PROJECT_DIR$/src/main/java/messaging/AmazonMock.java\" />\n        </OpenedFileInfo>\n      </list>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/.idea/misc.xml	(date 1682812081996)
+@@ -9,44 +9,44 @@
+     <option name="openedFilesInfos">
+       <list>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="5749" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
++          <option name="caretOffset" value="4964" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveWorldHandler.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="840" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/upsApp/MyApplication.java" />
++          <option name="caretOffset" value="2990" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/common/BuilderUtil.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="1142" />
++          <option name="caretOffset" value="1731" />
+           <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/SocketClient.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="169" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml" />
++          <option name="caretOffset" value="3494" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/ReceiveAmazonHandler.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="595" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/docker_deploy/docker-compose.yml" />
++          <option name="caretOffset" value="2794" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/service/TruckService.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="996" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/PackageTest.java" />
++          <option name="caretOffset" value="279" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/TruckUpdateHandler.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="1247" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/test/java/model/UserTest.java" />
++          <option name="caretOffset" value="273" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/UserClient.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="324" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/docker_deploy/Dockerfile" />
++          <option name="caretOffset" value="241" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/UserRequestHandler.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="738" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/common/MyBatisUtil.java" />
++          <option name="caretOffset" value="214" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/WorldClient.java" />
+         </OpenedFileInfo>
+         <OpenedFileInfo>
+-          <option name="caretOffset" value="199" />
+-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/AmazonMock.java" />
++          <option name="caretOffset" value="2640" />
++          <option name="fileUrl" value="file://$PROJECT_DIR$/src/main/java/messaging/Server.java" />
+         </OpenedFileInfo>
+       </list>
+     </option>
+Index: src/main/java/protocol/AmazonUps.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/protocol/AmazonUps.java b/src/main/java/protocol/AmazonUps.java
+--- a/src/main/java/protocol/AmazonUps.java	(revision a97827ac04d954fcd67dc7e7dc4158c8c8c92d07)
++++ b/src/main/java/protocol/AmazonUps.java	(date 1682808910997)
+@@ -4939,6 +4939,19 @@
+      * <code>required int32 y = 4;</code>
+      */
+     int getY();
++
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    java.util.List<java.lang.Long> getPackageidList();
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    int getPackageidCount();
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    long getPackageid(int index);
+   }
+   /**
+    * Protobuf type {@code UATruckArrived}
+@@ -4957,6 +4970,7 @@
+       seqnum_ = 0L;
+       x_ = 0;
+       y_ = 0;
++      packageid_ = java.util.Collections.emptyList();
+     }
+ 
+     @java.lang.Override
+@@ -5003,6 +5017,27 @@
+               y_ = input.readInt32();
+               break;
+             }
++            case 40: {
++              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
++                packageid_ = new java.util.ArrayList<java.lang.Long>();
++                mutable_bitField0_ |= 0x00000010;
++              }
++              packageid_.add(input.readInt64());
++              break;
++            }
++            case 42: {
++              int length = input.readRawVarint32();
++              int limit = input.pushLimit(length);
++              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010) && input.getBytesUntilLimit() > 0) {
++                packageid_ = new java.util.ArrayList<java.lang.Long>();
++                mutable_bitField0_ |= 0x00000010;
++              }
++              while (input.getBytesUntilLimit() > 0) {
++                packageid_.add(input.readInt64());
++              }
++              input.popLimit(limit);
++              break;
++            }
+             default: {
+               if (!parseUnknownField(
+                   input, unknownFields, extensionRegistry, tag)) {
+@@ -5018,6 +5053,9 @@
+         throw new com.google.protobuf.InvalidProtocolBufferException(
+             e).setUnfinishedMessage(this);
+       } finally {
++        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
++          packageid_ = java.util.Collections.unmodifiableList(packageid_);
++        }
+         this.unknownFields = unknownFields.build();
+         makeExtensionsImmutable();
+       }
+@@ -5112,6 +5150,28 @@
+       return y_;
+     }
+ 
++    public static final int PACKAGEID_FIELD_NUMBER = 5;
++    private java.util.List<java.lang.Long> packageid_;
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    public java.util.List<java.lang.Long>
++        getPackageidList() {
++      return packageid_;
++    }
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    public int getPackageidCount() {
++      return packageid_.size();
++    }
++    /**
++     * <code>repeated int64 packageid = 5;</code>
++     */
++    public long getPackageid(int index) {
++      return packageid_.get(index);
++    }
++
+     private byte memoizedIsInitialized = -1;
+     @java.lang.Override
+     public final boolean isInitialized() {
+@@ -5154,6 +5214,9 @@
+       if (((bitField0_ & 0x00000008) == 0x00000008)) {
+         output.writeInt32(4, y_);
+       }
++      for (int i = 0; i < packageid_.size(); i++) {
++        output.writeInt64(5, packageid_.get(i));
++      }
+       unknownFields.writeTo(output);
+     }
+ 
+@@ -5179,6 +5242,15 @@
+         size += com.google.protobuf.CodedOutputStream
+           .computeInt32Size(4, y_);
+       }
++      {
++        int dataSize = 0;
++        for (int i = 0; i < packageid_.size(); i++) {
++          dataSize += com.google.protobuf.CodedOutputStream
++            .computeInt64SizeNoTag(packageid_.get(i));
++        }
++        size += dataSize;
++        size += 1 * getPackageidList().size();
++      }
+       size += unknownFields.getSerializedSize();
+       memoizedSize = size;
+       return size;
+@@ -5215,6 +5287,8 @@
+         result = result && (getY()
+             == other.getY());
+       }
++      result = result && getPackageidList()
++          .equals(other.getPackageidList());
+       result = result && unknownFields.equals(other.unknownFields);
+       return result;
+     }
+@@ -5243,6 +5317,10 @@
+         hash = (37 * hash) + Y_FIELD_NUMBER;
+         hash = (53 * hash) + getY();
+       }
++      if (getPackageidCount() > 0) {
++        hash = (37 * hash) + PACKAGEID_FIELD_NUMBER;
++        hash = (53 * hash) + getPackageidList().hashCode();
++      }
+       hash = (29 * hash) + unknownFields.hashCode();
+       memoizedHashCode = hash;
+       return hash;
+@@ -5384,6 +5462,8 @@
+         bitField0_ = (bitField0_ & ~0x00000004);
+         y_ = 0;
+         bitField0_ = (bitField0_ & ~0x00000008);
++        packageid_ = java.util.Collections.emptyList();
++        bitField0_ = (bitField0_ & ~0x00000010);
+         return this;
+       }
+ 
+@@ -5428,6 +5508,11 @@
+           to_bitField0_ |= 0x00000008;
+         }
+         result.y_ = y_;
++        if (((bitField0_ & 0x00000010) == 0x00000010)) {
++          packageid_ = java.util.Collections.unmodifiableList(packageid_);
++          bitField0_ = (bitField0_ & ~0x00000010);
++        }
++        result.packageid_ = packageid_;
+         result.bitField0_ = to_bitField0_;
+         onBuilt();
+         return result;
+@@ -5489,6 +5574,16 @@
+         if (other.hasY()) {
+           setY(other.getY());
+         }
++        if (!other.packageid_.isEmpty()) {
++          if (packageid_.isEmpty()) {
++            packageid_ = other.packageid_;
++            bitField0_ = (bitField0_ & ~0x00000010);
++          } else {
++            ensurePackageidIsMutable();
++            packageid_.addAll(other.packageid_);
++          }
++          onChanged();
++        }
+         this.mergeUnknownFields(other.unknownFields);
+         onChanged();
+         return this;
+@@ -5690,6 +5785,72 @@
+         onChanged();
+         return this;
+       }
++
++      private java.util.List<java.lang.Long> packageid_ = java.util.Collections.emptyList();
++      private void ensurePackageidIsMutable() {
++        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
++          packageid_ = new java.util.ArrayList<java.lang.Long>(packageid_);
++          bitField0_ |= 0x00000010;
++         }
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public java.util.List<java.lang.Long>
++          getPackageidList() {
++        return java.util.Collections.unmodifiableList(packageid_);
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public int getPackageidCount() {
++        return packageid_.size();
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public long getPackageid(int index) {
++        return packageid_.get(index);
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public Builder setPackageid(
++          int index, long value) {
++        ensurePackageidIsMutable();
++        packageid_.set(index, value);
++        onChanged();
++        return this;
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public Builder addPackageid(long value) {
++        ensurePackageidIsMutable();
++        packageid_.add(value);
++        onChanged();
++        return this;
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public Builder addAllPackageid(
++          java.lang.Iterable<? extends java.lang.Long> values) {
++        ensurePackageidIsMutable();
++        com.google.protobuf.AbstractMessageLite.Builder.addAll(
++            values, packageid_);
++        onChanged();
++        return this;
++      }
++      /**
++       * <code>repeated int64 packageid = 5;</code>
++       */
++      public Builder clearPackageid() {
++        packageid_ = java.util.Collections.emptyList();
++        bitField0_ = (bitField0_ & ~0x00000010);
++        onChanged();
++        return this;
++      }
+       @java.lang.Override
+       public final Builder setUnknownFields(
+           final com.google.protobuf.UnknownFieldSet unknownFields) {
+@@ -16617,31 +16778,31 @@
+       " \002(\005\022\020\n\010username\030\002 \002(\t\022\020\n\010password\030\003 \002(\t" +
+       "\022\016\n\006seqnum\030\004 \002(\003\"c\n\013AUCallTruck\022\032\n\006thing" +
+       "s\030\001 \003(\0132\n.AUProduct\022\014\n\004whid\030\002 \002(\005\022\016\n\006seq" +
+-      "num\030\003 \002(\003\022\014\n\004wh_x\030\004 \002(\005\022\014\n\004wh_y\030\005 \002(\005\"G\n" +
++      "num\030\003 \002(\003\022\014\n\004wh_x\030\004 \002(\005\022\014\n\004wh_y\030\005 \002(\005\"Z\n" +
+       "\016UATruckArrived\022\017\n\007truckid\030\001 \002(\005\022\016\n\006seqn" +
+-      "um\030\002 \002(\003\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\"0\n\rAUTruc" +
+-      "kGoLoad\022\017\n\007truckid\030\001 \002(\005\022\016\n\006seqnum\030\002 \002(\003" +
+-      "\"3\n\020AUTruckGoDeliver\022\017\n\007truckid\030\001 \002(\005\022\016\n" +
+-      "\006seqnum\030\002 \002(\003\"H\n\022UATruckDeliverMade\022\017\n\007t" +
+-      "ruckid\030\001 \002(\005\022\021\n\tpackageid\030\002 \002(\003\022\016\n\006seqnu" +
+-      "m\030\003 \002(\003\"8\n\026AURequestPackageStatus\022\016\n\006shi" +
+-      "pid\030\001 \002(\003\022\016\n\006seqnum\030\002 \002(\003\"`\n\025UAUpdatePac" +
+-      "kageStatus\022\021\n\tpackageid\030\001 \002(\003\022\016\n\006status\030" +
+-      "\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\016\n\006seqnum\030\005 " +
+-      "\002(\003\"8\n\003Err\022\013\n\003err\030\001 \002(\t\022\024\n\014originseqnum\030" +
+-      "\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"\217\002\n\nAUCommands\022\037\n\t" +
+-      "callTruck\030\001 \003(\0132\014.AUCallTruck\022)\n\016truckGo" +
+-      "Deliver\030\002 \003(\0132\021.AUTruckGoDeliver\0225\n\024requ" +
+-      "estPackageStatus\030\003 \003(\0132\027.AURequestPackag" +
+-      "eStatus\022(\n\010userInfo\030\004 \003(\0132\026.AURequestSen" +
+-      "dUserInfo\022\037\n\007loading\030\005 \003(\0132\016.AUTruckGoLo" +
+-      "ad\022\022\n\ndisconnect\030\006 \001(\010\022\021\n\003err\030\007 \003(\0132\004.Er" +
+-      "r\022\014\n\004acks\030\010 \003(\003\"\305\001\n\nUACommands\022%\n\014truckA" +
+-      "rrived\030\001 \003(\0132\017.UATruckArrived\0223\n\023updateP" +
+-      "ackageStatus\030\002 \003(\0132\026.UAUpdatePackageStat" +
+-      "us\022&\n\tdelivered\030\003 \003(\0132\023.UATruckDeliverMa" +
+-      "de\022\020\n\010finished\030\004 \001(\010\022\023\n\005error\030\005 \003(\0132\004.Er" +
+-      "r\022\014\n\004acks\030\006 \003(\003"
++      "um\030\002 \002(\003\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\021\n\tpackag" +
++      "eid\030\005 \003(\003\"0\n\rAUTruckGoLoad\022\017\n\007truckid\030\001 " +
++      "\002(\005\022\016\n\006seqnum\030\002 \002(\003\"3\n\020AUTruckGoDeliver\022" +
++      "\017\n\007truckid\030\001 \002(\005\022\016\n\006seqnum\030\002 \002(\003\"H\n\022UATr" +
++      "uckDeliverMade\022\017\n\007truckid\030\001 \002(\005\022\021\n\tpacka" +
++      "geid\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"8\n\026AURequestP" +
++      "ackageStatus\022\016\n\006shipid\030\001 \002(\003\022\016\n\006seqnum\030\002" +
++      " \002(\003\"`\n\025UAUpdatePackageStatus\022\021\n\tpackage" +
++      "id\030\001 \002(\003\022\016\n\006status\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y" +
++      "\030\004 \002(\005\022\016\n\006seqnum\030\005 \002(\003\"8\n\003Err\022\013\n\003err\030\001 \002" +
++      "(\t\022\024\n\014originseqnum\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003" +
++      "\"\217\002\n\nAUCommands\022\037\n\tcallTruck\030\001 \003(\0132\014.AUC" +
++      "allTruck\022)\n\016truckGoDeliver\030\002 \003(\0132\021.AUTru" +
++      "ckGoDeliver\0225\n\024requestPackageStatus\030\003 \003(" +
++      "\0132\027.AURequestPackageStatus\022(\n\010userInfo\030\004" +
++      " \003(\0132\026.AURequestSendUserInfo\022\037\n\007loading\030" +
++      "\005 \003(\0132\016.AUTruckGoLoad\022\022\n\ndisconnect\030\006 \001(" +
++      "\010\022\021\n\003err\030\007 \003(\0132\004.Err\022\014\n\004acks\030\010 \003(\003\"\305\001\n\nU" +
++      "ACommands\022%\n\014truckArrived\030\001 \003(\0132\017.UATruc" +
++      "kArrived\0223\n\023updatePackageStatus\030\002 \003(\0132\026." +
++      "UAUpdatePackageStatus\022&\n\tdelivered\030\003 \003(\013" +
++      "2\023.UATruckDeliverMade\022\020\n\010finished\030\004 \001(\010\022" +
++      "\023\n\005error\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003"
+     };
+     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+@@ -16690,7 +16851,7 @@
+     internal_static_UATruckArrived_fieldAccessorTable = new
+       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+         internal_static_UATruckArrived_descriptor,
+-        new java.lang.String[] { "Truckid", "Seqnum", "X", "Y", });
++        new java.lang.String[] { "Truckid", "Seqnum", "X", "Y", "Packageid", });
+     internal_static_AUTruckGoLoad_descriptor =
+       getDescriptor().getMessageTypes().get(6);
+     internal_static_AUTruckGoLoad_fieldAccessorTable = new

@@ -1,9 +1,12 @@
 package common;
 
 import com.google.protobuf.Message;
+import model.Package;
 import protocol.AmazonUps;
 import protocol.WorldUps;
 import protocol.UpsUser;
+import service.PackageService;
+
 import java.util.List;
 
 public class BuilderUtil {
@@ -68,9 +71,12 @@ public class BuilderUtil {
         return builder.build();
     }
 
-    public static AmazonUps.UATruckArrived buildUATruckArrived(int truckId, int x, int y, long seqNum) {
+    public static AmazonUps.UATruckArrived buildUATruckArrived(List<Package> packageList, int truckId, int x, int y, long seqNum) {
         AmazonUps.UATruckArrived.Builder builder = AmazonUps.UATruckArrived.newBuilder();
         builder.setTruckid(truckId).setX(x).setY(y).setSeqnum(seqNum);
+        for (Package pkg: packageList) {
+            builder.addPackageid(pkg.getPackageId());
+        }
         return builder.build();
     }
 

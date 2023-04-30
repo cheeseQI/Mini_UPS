@@ -31,6 +31,7 @@ public class ResendHandler implements Runnable {
             uaCommandBuilder.addTruckArrived(uaTruckArrived);
         }
         for (AmazonUps.UATruckDeliverMade uaTruckDeliverMade: Server.uaTruckDeliverMadeMap.values()) {
+            System.out.println("send delivered package! of : " + uaTruckDeliverMade);
             uaCommandBuilder.addDelivered(uaTruckDeliverMade);
         }
         for (AmazonUps.UAUpdatePackageStatus uaUpdatePackageStatus: Server.uaUpdatePackageStatusMap.values()) {

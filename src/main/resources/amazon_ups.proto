@@ -52,6 +52,7 @@ message UATruckArrived{
   required int64 seqnum = 2;
   required int32 x = 3;
   required int32 y = 4;
+  repeated int64 packageid = 5;
 }
 
 /*start loading*/

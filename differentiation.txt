@@ -1,0 +1,7 @@
+Feature 1: Truck Update In Real Time
+
+The Truck Update In Real Time is an innovative feature that ensures the most up-to-date information is available for our customers when they need it. A specialized thread is designed to periodically query the world and store information to our database, keeping the information about our track of trucks as current as possible. When a customer wants to check the status of their delivery, there is no need to perform an additional query to the world simulator, but only use our in-time databse, thus eliminating the communication delays.
+
+Feature 2: Weighted Algorithm
+
+Our second key product differentiation feature is the Weighted Algorithm, which enhances the efficiency of our delivery process. This advanced algorithm calculates the optimal truck for each delivery by considering both the proximity of the truck to the pick-up location and the current load it is carrying. By prioritizing trucks that are both closer to the pick-up point and carrying fewer loads, we ensure that the most suitable vehicle is selected for each delivery, effectively shortening the delivery time.

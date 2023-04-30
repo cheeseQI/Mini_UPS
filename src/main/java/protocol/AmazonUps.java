@@ -4939,6 +4939,19 @@ public final class AmazonUps {
      * <code>required int32 y = 4;</code>
      */
     int getY();
+
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    java.util.List<java.lang.Long> getPackageidList();
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    int getPackageidCount();
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    long getPackageid(int index);
   }
   /**
    * Protobuf type {@code UATruckArrived}
@@ -4957,6 +4970,7 @@ public final class AmazonUps {
       seqnum_ = 0L;
       x_ = 0;
       y_ = 0;
+      packageid_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -5003,6 +5017,27 @@ public final class AmazonUps {
               y_ = input.readInt32();
               break;
             }
+            case 40: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                packageid_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              packageid_.add(input.readInt64());
+              break;
+            }
+            case 42: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010) && input.getBytesUntilLimit() > 0) {
+                packageid_ = new java.util.ArrayList<java.lang.Long>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                packageid_.add(input.readInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -5018,6 +5053,9 @@ public final class AmazonUps {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          packageid_ = java.util.Collections.unmodifiableList(packageid_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -5112,6 +5150,28 @@ public final class AmazonUps {
       return y_;
     }
 
+    public static final int PACKAGEID_FIELD_NUMBER = 5;
+    private java.util.List<java.lang.Long> packageid_;
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    public java.util.List<java.lang.Long>
+        getPackageidList() {
+      return packageid_;
+    }
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    public int getPackageidCount() {
+      return packageid_.size();
+    }
+    /**
+     * <code>repeated int64 packageid = 5;</code>
+     */
+    public long getPackageid(int index) {
+      return packageid_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5154,6 +5214,9 @@ public final class AmazonUps {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt32(4, y_);
       }
+      for (int i = 0; i < packageid_.size(); i++) {
+        output.writeInt64(5, packageid_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -5178,6 +5241,15 @@ public final class AmazonUps {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(4, y_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < packageid_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt64SizeNoTag(packageid_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getPackageidList().size();
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5215,6 +5287,8 @@ public final class AmazonUps {
         result = result && (getY()
             == other.getY());
       }
+      result = result && getPackageidList()
+          .equals(other.getPackageidList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -5242,6 +5316,10 @@ public final class AmazonUps {
       if (hasY()) {
         hash = (37 * hash) + Y_FIELD_NUMBER;
         hash = (53 * hash) + getY();
+      }
+      if (getPackageidCount() > 0) {
+        hash = (37 * hash) + PACKAGEID_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageidList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5384,6 +5462,8 @@ public final class AmazonUps {
         bitField0_ = (bitField0_ & ~0x00000004);
         y_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
+        packageid_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -5428,6 +5508,11 @@ public final class AmazonUps {
           to_bitField0_ |= 0x00000008;
         }
         result.y_ = y_;
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          packageid_ = java.util.Collections.unmodifiableList(packageid_);
+          bitField0_ = (bitField0_ & ~0x00000010);
+        }
+        result.packageid_ = packageid_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5488,6 +5573,16 @@ public final class AmazonUps {
         }
         if (other.hasY()) {
           setY(other.getY());
+        }
+        if (!other.packageid_.isEmpty()) {
+          if (packageid_.isEmpty()) {
+            packageid_ = other.packageid_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+          } else {
+            ensurePackageidIsMutable();
+            packageid_.addAll(other.packageid_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5687,6 +5782,72 @@ public final class AmazonUps {
       public Builder clearY() {
         bitField0_ = (bitField0_ & ~0x00000008);
         y_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<java.lang.Long> packageid_ = java.util.Collections.emptyList();
+      private void ensurePackageidIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          packageid_ = new java.util.ArrayList<java.lang.Long>(packageid_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public java.util.List<java.lang.Long>
+          getPackageidList() {
+        return java.util.Collections.unmodifiableList(packageid_);
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public int getPackageidCount() {
+        return packageid_.size();
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public long getPackageid(int index) {
+        return packageid_.get(index);
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public Builder setPackageid(
+          int index, long value) {
+        ensurePackageidIsMutable();
+        packageid_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public Builder addPackageid(long value) {
+        ensurePackageidIsMutable();
+        packageid_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public Builder addAllPackageid(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensurePackageidIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, packageid_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated int64 packageid = 5;</code>
+       */
+      public Builder clearPackageid() {
+        packageid_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -16617,31 +16778,31 @@ public final class AmazonUps {
       " \002(\005\022\020\n\010username\030\002 \002(\t\022\020\n\010password\030\003 \002(\t" +
       "\022\016\n\006seqnum\030\004 \002(\003\"c\n\013AUCallTruck\022\032\n\006thing" +
       "s\030\001 \003(\0132\n.AUProduct\022\014\n\004whid\030\002 \002(\005\022\016\n\006seq" +
-      "num\030\003 \002(\003\022\014\n\004wh_x\030\004 \002(\005\022\014\n\004wh_y\030\005 \002(\005\"G\n" +
+      "num\030\003 \002(\003\022\014\n\004wh_x\030\004 \002(\005\022\014\n\004wh_y\030\005 \002(\005\"Z\n" +
       "\016UATruckArrived\022\017\n\007truckid\030\001 \002(\005\022\016\n\006seqn" +
-      "um\030\002 \002(\003\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\"0\n\rAUTruc" +
-      "kGoLoad\022\017\n\007truckid\030\001 \002(\005\022\016\n\006seqnum\030\002 \002(\003" +
-      "\"3\n\020AUTruckGoDeliver\022\017\n\007truckid\030\001 \002(\005\022\016\n" +
-      "\006seqnum\030\002 \002(\003\"H\n\022UATruckDeliverMade\022\017\n\007t" +
-      "ruckid\030\001 \002(\005\022\021\n\tpackageid\030\002 \002(\003\022\016\n\006seqnu" +
-      "m\030\003 \002(\003\"8\n\026AURequestPackageStatus\022\016\n\006shi" +
-      "pid\030\001 \002(\003\022\016\n\006seqnum\030\002 \002(\003\"`\n\025UAUpdatePac" +
-      "kageStatus\022\021\n\tpackageid\030\001 \002(\003\022\016\n\006status\030" +
-      "\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\016\n\006seqnum\030\005 " +
-      "\002(\003\"8\n\003Err\022\013\n\003err\030\001 \002(\t\022\024\n\014originseqnum\030" +
-      "\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"\217\002\n\nAUCommands\022\037\n\t" +
-      "callTruck\030\001 \003(\0132\014.AUCallTruck\022)\n\016truckGo" +
-      "Deliver\030\002 \003(\0132\021.AUTruckGoDeliver\0225\n\024requ" +
-      "estPackageStatus\030\003 \003(\0132\027.AURequestPackag" +
-      "eStatus\022(\n\010userInfo\030\004 \003(\0132\026.AURequestSen" +
-      "dUserInfo\022\037\n\007loading\030\005 \003(\0132\016.AUTruckGoLo" +
-      "ad\022\022\n\ndisconnect\030\006 \001(\010\022\021\n\003err\030\007 \003(\0132\004.Er" +
-      "r\022\014\n\004acks\030\010 \003(\003\"\305\001\n\nUACommands\022%\n\014truckA" +
-      "rrived\030\001 \003(\0132\017.UATruckArrived\0223\n\023updateP" +
-      "ackageStatus\030\002 \003(\0132\026.UAUpdatePackageStat" +
-      "us\022&\n\tdelivered\030\003 \003(\0132\023.UATruckDeliverMa" +
-      "de\022\020\n\010finished\030\004 \001(\010\022\023\n\005error\030\005 \003(\0132\004.Er" +
-      "r\022\014\n\004acks\030\006 \003(\003"
+      "um\030\002 \002(\003\022\t\n\001x\030\003 \002(\005\022\t\n\001y\030\004 \002(\005\022\021\n\tpackag" +
+      "eid\030\005 \003(\003\"0\n\rAUTruckGoLoad\022\017\n\007truckid\030\001 " +
+      "\002(\005\022\016\n\006seqnum\030\002 \002(\003\"3\n\020AUTruckGoDeliver\022" +
+      "\017\n\007truckid\030\001 \002(\005\022\016\n\006seqnum\030\002 \002(\003\"H\n\022UATr" +
+      "uckDeliverMade\022\017\n\007truckid\030\001 \002(\005\022\021\n\tpacka" +
+      "geid\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003\"8\n\026AURequestP" +
+      "ackageStatus\022\016\n\006shipid\030\001 \002(\003\022\016\n\006seqnum\030\002" +
+      " \002(\003\"`\n\025UAUpdatePackageStatus\022\021\n\tpackage" +
+      "id\030\001 \002(\003\022\016\n\006status\030\002 \002(\t\022\t\n\001x\030\003 \002(\005\022\t\n\001y" +
+      "\030\004 \002(\005\022\016\n\006seqnum\030\005 \002(\003\"8\n\003Err\022\013\n\003err\030\001 \002" +
+      "(\t\022\024\n\014originseqnum\030\002 \002(\003\022\016\n\006seqnum\030\003 \002(\003" +
+      "\"\217\002\n\nAUCommands\022\037\n\tcallTruck\030\001 \003(\0132\014.AUC" +
+      "allTruck\022)\n\016truckGoDeliver\030\002 \003(\0132\021.AUTru" +
+      "ckGoDeliver\0225\n\024requestPackageStatus\030\003 \003(" +
+      "\0132\027.AURequestPackageStatus\022(\n\010userInfo\030\004" +
+      " \003(\0132\026.AURequestSendUserInfo\022\037\n\007loading\030" +
+      "\005 \003(\0132\016.AUTruckGoLoad\022\022\n\ndisconnect\030\006 \001(" +
+      "\010\022\021\n\003err\030\007 \003(\0132\004.Err\022\014\n\004acks\030\010 \003(\003\"\305\001\n\nU" +
+      "ACommands\022%\n\014truckArrived\030\001 \003(\0132\017.UATruc" +
+      "kArrived\0223\n\023updatePackageStatus\030\002 \003(\0132\026." +
+      "UAUpdatePackageStatus\022&\n\tdelivered\030\003 \003(\013" +
+      "2\023.UATruckDeliverMade\022\020\n\010finished\030\004 \001(\010\022" +
+      "\023\n\005error\030\005 \003(\0132\004.Err\022\014\n\004acks\030\006 \003(\003"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -16690,7 +16851,7 @@ public final class AmazonUps {
     internal_static_UATruckArrived_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_UATruckArrived_descriptor,
-        new java.lang.String[] { "Truckid", "Seqnum", "X", "Y", });
+        new java.lang.String[] { "Truckid", "Seqnum", "X", "Y", "Packageid", });
     internal_static_AUTruckGoLoad_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_AUTruckGoLoad_fieldAccessorTable = new
